@@ -224,6 +224,7 @@ header {
     scrollbar-width: none;
     -ms-overflow-style: none;
     width: 100%;
+    flex-wrap: nowrap; /* Ngăn các item xuống dòng */
 }
 
 .main-dish-slider::-webkit-scrollbar,
