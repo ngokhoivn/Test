@@ -185,14 +185,18 @@
                 dishDiv.setAttribute('data-item-type', 'main');
                 dishDiv.setAttribute('data-price', dish.price);
                 dishDiv.innerHTML = `
-                    <img src="${dish.img}" class="food-img" alt="${dish.title}">
-                    <div class="food-info">
-                        <h3 class="food-title">${dish.title}</h3>
-                        <div class="food-price">${dish.price.toLocaleString()}đ</div>
-                        <div class="quantity-controls">
-                            <div class="quantity-btn minus" data-item-id="${dish.id}" data-item-type="main">-</div>
-                            <div class="quantity" id="qty-${dish.id}">0</div>
-                            <div class="quantity-btn plus" data-item-id="${dish.id}" data-item-type="main">+</div>
+                    <div class="food-content">
+                        <div class="food-img-wrapper">
+                            <img src="${dish.img}" class="food-img" alt="${dish.title}">
+                        </div>
+                        <div class="food-info">
+                            <h3 class="food-title">${dish.title}</h3>
+                            <div class="food-price">${dish.price.toLocaleString()}đ</div>
+                            <div class="quantity-controls">
+                                <div class="quantity-btn minus" data-item-id="${dish.id}" data-item-type="main">-</div>
+                                <div class="quantity" id="qty-${dish.id}">0</div>
+                                <div class="quantity-btn plus" data-item-id="${dish.id}" data-item-type="main">+</div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -219,14 +223,18 @@
                 sideDiv.setAttribute('data-item-type', 'side');
                 sideDiv.setAttribute('data-price', dish.price);
                 sideDiv.innerHTML = `
-                    <img src="${dish.img}" class="food-img" alt="${dish.title}">
-                    <div class="food-info">
-                        <h3 class="food-title">${dish.title}</h3>
-                        <div class="food-price">${dish.price.toLocaleString()}đ</div>
-                        <div class="quantity-controls">
-                            <div class="quantity-btn minus" data-item-id="${dish.id}" data-item-type="side">-</div>
-                            <div class="quantity" id="qty-${dish.id}">0</div>
-                            <div class="quantity-btn plus" data-item-id="${dish.id}" data-item-type="side">+</div>
+                    <div class="food-content">
+                        <div class="food-img-wrapper">
+                            <img src="${dish.img}" class="food-img" alt="${dish.title}">
+                        </div>
+                        <div class="food-info">
+                            <h3 class="food-title">${dish.title}</h3>
+                            <div class="food-price">${dish.price.toLocaleString()}đ</div>
+                            <div class="quantity-controls">
+                                <div class="quantity-btn minus" data-item-id="${dish.id}" data-item-type="side">-</div>
+                                <div class="quantity" id="qty-${dish.id}">0</div>
+                                <div class="quantity-btn plus" data-item-id="${dish.id}" data-item-type="side">+</div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -253,14 +261,18 @@
                 drinkDiv.setAttribute('data-item-type', 'drink');
                 drinkDiv.setAttribute('data-price', drink.price);
                 drinkDiv.innerHTML = `
-                    <img src="${drink.img}" class="food-img" alt="${drink.title}">
-                    <div class="food-info">
-                        <h3 class="food-title">${drink.title}</h3>
-                        <div class="food-price">${drink.price.toLocaleString()}đ</div>
-                        <div class="quantity-controls">
-                            <div class="quantity-btn minus" data-item-id="${drink.id}" data-item-type="drink">-</div>
-                            <div class="quantity" id="qty-${drink.id}">0</div>
-                            <div class="quantity-btn plus" data-item-id="${drink.id}" data-item-type="drink">+</div>
+                    <div class="food-content">
+                        <div class="food-img-wrapper">
+                            <img src="${drink.img}" class="food-img" alt="${drink.title}">
+                        </div>
+                        <div class="food-info">
+                            <h3 class="food-title">${drink.title}</h3>
+                            <div class="food-price">${drink.price.toLocaleString()}đ</div>
+                            <div class="quantity-controls">
+                                <div class="quantity-btn minus" data-item-id="${drink.id}" data-item-type="drink">-</div>
+                                <div class="quantity" id="qty-${drink.id}">0</div>
+                                <div class="quantity-btn plus" data-item-id="${drink.id}" data-item-type="drink">+</div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -287,5 +299,7 @@
     <script src="script.js"></script>
     <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9374ae2f3d486751',t:'MTc0NTgyMzYwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9378e1ce5e59adde',t:'MTc0NTg2NzY2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'937980606a6432e9',t:'MTc0NTg3NDE1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9379958aad10bca2',t:'MTc0NTg3NTAyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>

@@ -372,22 +372,28 @@ header {
 }
 
 .food-item {
-    display: flex;
-    flex-direction: column;
     background-color: white;
     border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     overflow: hidden;
     flex-shrink: 0;
     position: relative;
-    min-height: 280px; /* <-- tùy chỉnh tổng chiều cao */
+    display: flex;
+    flex-direction: column;
+}
+
+.food-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .food-img-wrapper {
     width: 100%;
-    padding-top: 75%; /* tỷ lệ 4:3, có thể chỉnh 56.25% nếu thích 16:9 */
+    padding-top: 75%; /* tỷ lệ ảnh 4:3 */
     position: relative;
     overflow: hidden;
+    background-color: #f5f5f5; /* phòng trường hợp ảnh lỗi */
 }
 
 .food-img {
@@ -404,29 +410,29 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-grow: 1; /* chiếm phần còn lại nếu ảnh fix height */
+    flex-grow: 1;
     background-color: white;
 }
 
 .food-title {
     font-weight: 600;
+    font-size: 0.95rem;
     margin-bottom: 5px;
-    font-size: 0.9rem;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .food-price {
     color: #e81c23;
-    font-weight: 600;
+    font-weight: bold;
     margin-bottom: 10px;
 }
 
 .quantity-controls {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
 .quantity-btn {
@@ -440,7 +446,6 @@ header {
     justify-content: center;
     font-weight: bold;
     cursor: pointer;
-    font-size: 1rem;
 }
 
 .quantity-btn:active {
