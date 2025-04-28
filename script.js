@@ -1,19 +1,19 @@
 ﻿// script.js
 
-// Chặn toàn diện các sự kiện không mong muốn
+// Prevent unwanted events
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('selectstart', e => e.preventDefault());
 document.addEventListener('dragstart', e => e.preventDefault());
 
-// Chặn menu chia sẻ trên Android/Chrome
+// Prevent Android/Chrome share menu
 document.addEventListener('gesturestart', e => e.preventDefault());
 
-// Chặn hành vi mặc định khi chạm giữ
+// Prevent default behavior on long press
 document.addEventListener('touchstart', e => {
     if (e.touches.length > 1) e.preventDefault();
 }, { passive: false });
 
-// Chặn phóng to bằng cử chỉ
+// Prevent pinch zoom
 document.addEventListener('gesturechange', e => e.preventDefault());
 document.addEventListener('gestureend', e => e.preventDefault());
 
@@ -26,7 +26,7 @@ stores.forEach(store => {
     });
 });
 
-// Hàm khởi tạo tất cả các slider
+// Initialize all sliders
 function initializeSliders() {
     // Hot Combo Slider
     const comboSlider = document.getElementById('comboSlider');
@@ -70,7 +70,7 @@ function initializeSliders() {
         });
     }
 
-    // Gắn sự kiện cho dots
+    // Attach event for dots
     comboDotsContainer.addEventListener('click', (e) => {
         const dot = e.target.closest('.combo-dot');
         if (dot) {
@@ -105,6 +105,7 @@ function initializeSliders() {
 
     // Main Dishes Slider
     const mainDishSlider = document.getElementById('mainDishSlider');
+    const mainDotsContainer = document.getElementById('mainDots');
     const mainPrevBtn = document.getElementById('mainPrevBtn');
     const mainNextBtn = document.getElementById('mainNextBtn');
     let mainCurrentIndex = 0;
@@ -113,51 +114,70 @@ function initializeSliders() {
     const mainMaxIndex = Math.ceil(mainDishCount / mainVisibleCount) - 1;
 
     function updateMainDishSlider() {
-        const translatePercentage = (mainCurrentIndex * 100 * mainVisibleCount) / mainVisibleCount;
-        mainDishSlider.style.transform = `translateX(-${translatePercentage}%)`;
+        const slideWidth = mainDishSlider.offsetWidth;
+        mainDishSlider.scrollTo({
+            left: mainCurrentIndex * slideWidth,
+            behavior: 'smooth'
+        });
+
+        const mainDots = document.querySelectorAll('#mainDots .combo-dot');
+        mainDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === mainCurrentIndex);
+        });
 
         mainPrevBtn.disabled = mainCurrentIndex === 0;
         mainNextBtn.disabled = mainCurrentIndex >= mainMaxIndex;
     }
 
-    mainPrevBtn.addEventListener('click', () => {
-        if (mainCurrentIndex > 0) {
-            mainCurrentIndex--;
-            updateMainDishSlider();
-        }
-    });
-
-    mainNextBtn.addEventListener('click', () => {
-        if (mainCurrentIndex < mainMaxIndex) {
-            mainCurrentIndex++;
-            updateMainDishSlider();
-        }
-    });
-
-    // Touch swipe for main dish slider
-    let mainStartX, mainEndX;
-    const mainSwipeThreshold = 50;
-
-    mainDishSlider.addEventListener('touchstart', (e) => {
-        mainStartX = e.changedTouches[0].screenX;
-    });
-
-    mainDishSlider.addEventListener('touchend', (e) => {
-        mainEndX = e.changedTouches[0].screenX;
-        const diff = mainStartX - mainEndX;
-
-        if (Math.abs(diff) > mainSwipeThreshold) {
-            if (diff > 0 && mainCurrentIndex < mainMaxIndex) {
-                mainCurrentIndex++;
-            } else if (diff < 0 && mainCurrentIndex > 0) {
+    if (mainPrevBtn) {
+        mainPrevBtn.addEventListener('click', () => {
+            if (mainCurrentIndex > 0) {
                 mainCurrentIndex--;
+                updateMainDishSlider();
             }
-            updateMainDishSlider();
-        }
+        });
+    }
+
+    if (mainNextBtn) {
+        mainNextBtn.addEventListener('click', () => {
+            if (mainCurrentIndex < mainMaxIndex) {
+                mainCurrentIndex++;
+                updateMainDishSlider();
+            }
+        });
+    }
+
+    // Attach event for dots
+    if (mainDotsContainer) {
+        mainDotsContainer.addEventListener('click', (e) => {
+            const dot = e.target.closest('.combo-dot');
+            if (dot) {
+                const index = Array.from(mainDotsContainer.children).indexOf(dot);
+                mainCurrentIndex = index;
+                updateMainDishSlider();
+            }
+        });
+    }
+
+    // Handle native scroll events
+    let isMainScrolling;
+    mainDishSlider.addEventListener('scroll', () => {
+        clearTimeout(isMainScrolling);
+        isMainScrolling = setTimeout(() => {
+            const slideWidth = mainDishSlider.offsetWidth;
+            const scrollPosition = mainDishSlider.scrollLeft;
+            const newIndex = Math.round(scrollPosition / slideWidth);
+
+            if (newIndex !== mainCurrentIndex) {
+                mainCurrentIndex = newIndex;
+                updateMainDishSlider();
+            }
+        }, 100);
     });
 
     // Side Dishes Slider
     const sideSlider = document.getElementById('sideSlider');
+    const sideDotsContainer = document.getElementById('sideDots');
     const sidePrevBtn = document.getElementById('sidePrevBtn');
     const sideNextBtn = document.getElementById('sideNextBtn');
     let sideCurrentIndex = 0;
@@ -166,51 +186,70 @@ function initializeSliders() {
     const sideMaxIndex = Math.ceil(sideCount / sideVisibleCount) - 1;
 
     function updateSideSlider() {
-        const translatePercentage = (sideCurrentIndex * 100 * sideVisibleCount) / sideVisibleCount;
-        sideSlider.style.transform = `translateX(-${translatePercentage}%)`;
+        const slideWidth = sideSlider.offsetWidth;
+        sideSlider.scrollTo({
+            left: sideCurrentIndex * slideWidth,
+            behavior: 'smooth'
+        });
+
+        const sideDots = document.querySelectorAll('#sideDots .combo-dot');
+        sideDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === sideCurrentIndex);
+        });
 
         sidePrevBtn.disabled = sideCurrentIndex === 0;
         sideNextBtn.disabled = sideCurrentIndex >= sideMaxIndex;
     }
 
-    sidePrevBtn.addEventListener('click', () => {
-        if (sideCurrentIndex > 0) {
-            sideCurrentIndex--;
-            updateSideSlider();
-        }
-    });
-
-    sideNextBtn.addEventListener('click', () => {
-        if (sideCurrentIndex < sideMaxIndex) {
-            sideCurrentIndex++;
-            updateSideSlider();
-        }
-    });
-
-    // Touch swipe for side dish slider
-    let sideStartX, sideEndX;
-    const sideSwipeThreshold = 50;
-
-    sideSlider.addEventListener('touchstart', (e) => {
-        sideStartX = e.changedTouches[0].screenX;
-    });
-
-    sideSlider.addEventListener('touchend', (e) => {
-        sideEndX = e.changedTouches[0].screenX;
-        const diff = sideStartX - sideEndX;
-
-        if (Math.abs(diff) > sideSwipeThreshold) {
-            if (diff > 0 && sideCurrentIndex < sideMaxIndex) {
-                sideCurrentIndex++;
-            } else if (diff < 0 && sideCurrentIndex > 0) {
+    if (sidePrevBtn) {
+        sidePrevBtn.addEventListener('click', () => {
+            if (sideCurrentIndex > 0) {
                 sideCurrentIndex--;
+                updateSideSlider();
             }
-            updateSideSlider();
-        }
+        });
+    }
+
+    if (sideNextBtn) {
+        sideNextBtn.addEventListener('click', () => {
+            if (sideCurrentIndex < sideMaxIndex) {
+                sideCurrentIndex++;
+                updateSideSlider();
+            }
+        });
+    }
+
+    // Attach event for dots
+    if (sideDotsContainer) {
+        sideDotsContainer.addEventListener('click', (e) => {
+            const dot = e.target.closest('.combo-dot');
+            if (dot) {
+                const index = Array.from(sideDotsContainer.children).indexOf(dot);
+                sideCurrentIndex = index;
+                updateSideSlider();
+            }
+        });
+    }
+
+    // Handle native scroll events
+    let isSideScrolling;
+    sideSlider.addEventListener('scroll', () => {
+        clearTimeout(isSideScrolling);
+        isSideScrolling = setTimeout(() => {
+            const slideWidth = sideSlider.offsetWidth;
+            const scrollPosition = sideSlider.scrollLeft;
+            const newIndex = Math.round(scrollPosition / slideWidth);
+
+            if (newIndex !== sideCurrentIndex) {
+                sideCurrentIndex = newIndex;
+                updateSideSlider();
+            }
+        }, 100);
     });
 
     // Drinks Slider
     const drinkSlider = document.getElementById('drinkSlider');
+    const drinkDotsContainer = document.getElementById('drinkDots');
     const drinkPrevBtn = document.getElementById('drinkPrevBtn');
     const drinkNextBtn = document.getElementById('drinkNextBtn');
     let drinkCurrentIndex = 0;
@@ -219,50 +258,68 @@ function initializeSliders() {
     const drinkMaxIndex = Math.ceil(drinkCount / drinkVisibleCount) - 1;
 
     function updateDrinkSlider() {
-        const translatePercentage = (drinkCurrentIndex * 100 * drinkVisibleCount) / drinkVisibleCount;
-        drinkSlider.style.transform = `translateX(-${translatePercentage}%)`;
+        const slideWidth = drinkSlider.offsetWidth;
+        drinkSlider.scrollTo({
+            left: drinkCurrentIndex * slideWidth,
+            behavior: 'smooth'
+        });
+
+        const drinkDots = document.querySelectorAll('#drinkDots .combo-dot');
+        drinkDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === drinkCurrentIndex);
+        });
 
         drinkPrevBtn.disabled = drinkCurrentIndex === 0;
         drinkNextBtn.disabled = drinkCurrentIndex >= drinkMaxIndex;
     }
 
-    drinkPrevBtn.addEventListener('click', () => {
-        if (drinkCurrentIndex > 0) {
-            drinkCurrentIndex--;
-            updateDrinkSlider();
-        }
-    });
-
-    drinkNextBtn.addEventListener('click', () => {
-        if (drinkCurrentIndex < drinkMaxIndex) {
-            drinkCurrentIndex++;
-            updateDrinkSlider();
-        }
-    });
-
-    // Touch swipe for drink slider
-    let drinkStartX, drinkEndX;
-    const drinkSwipeThreshold = 50;
-
-    drinkSlider.addEventListener('touchstart', (e) => {
-        drinkStartX = e.changedTouches[0].screenX;
-    });
-
-    drinkSlider.addEventListener('touchend', (e) => {
-        drinkEndX = e.changedTouches[0].screenX;
-        const diff = drinkStartX - drinkEndX;
-
-        if (Math.abs(diff) > drinkSwipeThreshold) {
-            if (diff > 0 && drinkCurrentIndex < drinkMaxIndex) {
-                drinkCurrentIndex++;
-            } else if (diff < 0 && drinkCurrentIndex > 0) {
+    if (drinkPrevBtn) {
+        drinkPrevBtn.addEventListener('click', () => {
+            if (drinkCurrentIndex > 0) {
                 drinkCurrentIndex--;
+                updateDrinkSlider();
             }
-            updateDrinkSlider();
-        }
+        });
+    }
+
+    if (drinkNextBtn) {
+        drinkNextBtn.addEventListener('click', () => {
+            if (drinkCurrentIndex < drinkMaxIndex) {
+                drinkCurrentIndex++;
+                updateDrinkSlider();
+            }
+        });
+    }
+
+    // Attach event for dots
+    if (drinkDotsContainer) {
+        drinkDotsContainer.addEventListener('click', (e) => {
+            const dot = e.target.closest('.combo-dot');
+            if (dot) {
+                const index = Array.from(drinkDotsContainer.children).indexOf(dot);
+                drinkCurrentIndex = index;
+                updateDrinkSlider();
+            }
+        });
+    }
+
+    // Handle native scroll events
+    let isDrinkScrolling;
+    drinkSlider.addEventListener('scroll', () => {
+        clearTimeout(isDrinkScrolling);
+        isDrinkScrolling = setTimeout(() => {
+            const slideWidth = drinkSlider.offsetWidth;
+            const scrollPosition = drinkSlider.scrollLeft;
+            const newIndex = Math.round(scrollPosition / slideWidth);
+
+            if (newIndex !== drinkCurrentIndex) {
+                drinkCurrentIndex = newIndex;
+                updateDrinkSlider();
+            }
+        }, 100);
     });
 
-    // Gọi các hàm cập nhật slider
+    // Call slider update functions
     updateComboSlider();
     updateMainDishSlider();
     updateSideSlider();
@@ -278,9 +335,9 @@ const cartItems = document.getElementById('cartItems');
 const closeCartBtn = document.getElementById('closeCartBtn');
 const confirmOrderBtn = document.getElementById('confirmOrderBtn');
 
-// Sử dụng ủy quyền sự kiện cho các nút quantity và quick-add
+// Use event delegation for quantity and quick-add buttons
 function initializeCartEvents() {
-    // Ủy quyền sự kiện cho nút plus/minus và quick-add
+    // Event delegation for plus/minus and quick-add buttons
     document.body.addEventListener('click', (e) => {
         const plusBtn = e.target.closest('.quantity-btn.plus');
         const minusBtn = e.target.closest('.quantity-btn.minus');
@@ -289,7 +346,7 @@ function initializeCartEvents() {
         if (plusBtn) {
             e.stopPropagation();
             const itemId = plusBtn.getAttribute('data-item-id');
-            const itemType = plusBtn.getAttribute('data-item-type') || 'combo'; // Xử lý cho combo
+            const itemType = plusBtn.getAttribute('data-item-type') || 'combo'; // Handle combo
             const quantityElement = document.getElementById(`qty-${itemId}`);
 
             let itemElement = document.querySelector(`.food-item[data-item-id="${itemId}"]`);
@@ -316,7 +373,7 @@ function initializeCartEvents() {
             cart[itemId].quantity++;
             if (quantityElement) quantityElement.textContent = cart[itemId].quantity;
             updateCartCount();
-            updateCartModal(); // Cập nhật lại modal để hiển thị số lượng mới
+            updateCartModal();
             saveCart();
         }
 
@@ -334,7 +391,7 @@ function initializeCartEvents() {
                 }
 
                 updateCartCount();
-                updateCartModal(); // Cập nhật lại modal để hiển thị số lượng mới
+                updateCartModal();
                 saveCart();
             }
         }
@@ -457,7 +514,7 @@ function addComboToCart(comboId, comboName, comboPrice) {
         quantityElement.textContent = cart[comboId].quantity;
     }
     updateCartCount();
-    updateCartModal(); // Cập nhật modal sau khi thêm combo
+    updateCartModal();
     saveCart();
 }
 
@@ -479,23 +536,23 @@ function loadCart() {
             }
         });
         updateCartCount();
-        updateCartModal(); // Cập nhật modal khi tải giỏ hàng
+        updateCartModal();
     }
 }
 
-// Khởi tạo sau khi DOM và các phần tử động được tạo
+// Initialize after DOM and dynamic elements are created
 document.addEventListener('DOMContentLoaded', () => {
     loadCart();
     initializeSliders();
     initializeCartEvents();
 
-    // Đóng thank you modal
+    // Close thank you modal
     document.getElementById('closeThankYouBtn').addEventListener('click', () => {
         document.getElementById('thankYouModal').style.display = 'none';
     });
 });
 
-// Các tính năng khác (progress bar, back-to-top, sticky header, animations, v.v.) giữ nguyên
+// Additional features (progress bar, back-to-top, sticky header, animations)
 const progressBar = document.createElement('div');
 progressBar.style.position = 'fixed';
 progressBar.style.top = '0';

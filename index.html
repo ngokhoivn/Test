@@ -54,10 +54,11 @@
     <h2 class="section-title">Món Chính</h2>
     <div class="food-section">
         <div class="food-container">
-            <div class="food-slider" id="mainDishSlider"></div>
+            <div class="main-dish-slider" id="mainDishSlider"></div>
         </div>
         <div class="section-controls">
             <button id="mainPrevBtn" class="control-btn" disabled>&larr; Trước</button>
+            <div class="combo-dots" id="mainDots"></div>
             <button id="mainNextBtn" class="control-btn">Tiếp &rarr;</button>
         </div>
     </div>
@@ -66,10 +67,11 @@
     <h2 class="section-title">Món Ăn Kèm</h2>
     <div class="food-section">
         <div class="food-container">
-            <div class="food-slider" id="sideSlider"></div>
+            <div class="side-slider" id="sideSlider"></div>
         </div>
         <div class="section-controls">
             <button id="sidePrevBtn" class="control-btn" disabled>&larr; Trước</button>
+            <div class="combo-dots" id="sideDots"></div>
             <button id="sideNextBtn" class="control-btn">Tiếp &rarr;</button>
         </div>
     </div>
@@ -78,10 +80,11 @@
     <h2 class="section-title">Nước Uống</h2>
     <div class="food-section">
         <div class="food-container">
-            <div class="food-slider" id="drinkSlider"></div>
+            <div class="drink-slider" id="drinkSlider"></div>
         </div>
         <div class="section-controls">
             <button id="drinkPrevBtn" class="control-btn" disabled>&larr; Trước</button>
+            <div class="combo-dots" id="drinkDots"></div>
             <button id="drinkNextBtn" class="control-btn">Tiếp &rarr;</button>
         </div>
     </div>
@@ -141,7 +144,6 @@
     </div>
 
     <script>
-
         // Hàm tạo các phần tử HTML từ dữ liệu
         function generateItems() {
             // Tạo combo items
@@ -154,16 +156,16 @@
                 const comboDiv = document.createElement('div');
                 comboDiv.classList.add('combo-item');
                 comboDiv.innerHTML = `
-                            <div class="combo-img-wrapper">
-                                <img src="${combo.img}" class="combo-img" alt="${combo.title}" loading="lazy">
-                            </div>
-                            <div class="combo-info">
-                                <h3 class="combo-title">${combo.title}</h3>
-                                <p class="combo-desc">${combo.desc}</p>
-                                <div class="combo-price">${combo.price.toLocaleString()}đ</div>
-                                <button class="quick-add-btn" data-combo-id="${combo.id}" data-combo-name="${combo.title}" data-combo-price="${combo.price}">Thêm vào giỏ</button>
-                            </div>
-                        `;
+                    <div class="combo-img-wrapper">
+                        <img src="${combo.img}" class="combo-img" alt="${combo.title}" loading="lazy">
+                    </div>
+                    <div class="combo-info">
+                        <h3 class="combo-title">${combo.title}</h3>
+                        <p class="combo-desc">${combo.desc}</p>
+                        <div class="combo-price">${combo.price.toLocaleString()}đ</div>
+                        <button class="quick-add-btn" data-combo-id="${combo.id}" data-combo-name="${combo.title}" data-combo-price="${combo.price}">Thêm vào giỏ</button>
+                    </div>
+                `;
                 comboSlider.appendChild(comboDiv);
 
                 // Tạo dot cho combo
@@ -183,19 +185,29 @@
                 dishDiv.setAttribute('data-item-type', 'main');
                 dishDiv.setAttribute('data-price', dish.price);
                 dishDiv.innerHTML = `
-                            <img src="${dish.img}" class="food-img" alt="${dish.title}">
-                            <div class="food-info">
-                                <h3 class="food-title">${dish.title}</h3>
-                                <div class="food-price">${dish.price.toLocaleString()}đ</div>
-                                <div class="quantity-controls">
-                                    <div class="quantity-btn minus" data-item-id="${dish.id}" data-item-type="main">-</div>
-                                    <div class="quantity" id="qty-${dish.id}">0</div>
-                                    <div class="quantity-btn plus" data-item-id="${dish.id}" data-item-type="main">+</div>
-                                </div>
-                            </div>
-                        `;
+                    <img src="${dish.img}" class="food-img" alt="${dish.title}">
+                    <div class="food-info">
+                        <h3 class="food-title">${dish.title}</h3>
+                        <div class="food-price">${dish.price.toLocaleString()}đ</div>
+                        <div class="quantity-controls">
+                            <div class="quantity-btn minus" data-item-id="${dish.id}" data-item-type="main">-</div>
+                            <div class="quantity" id="qty-${dish.id}">0</div>
+                            <div class="quantity-btn plus" data-item-id="${dish.id}" data-item-type="main">+</div>
+                        </div>
+                    </div>
+                `;
                 mainDishSlider.appendChild(dishDiv);
             });
+
+            // Tạo dots cho main dishes
+            const mainDots = document.getElementById('mainDots');
+            mainDots.innerHTML = '';
+            for (let i = 0; i < Math.ceil(mainDishes.length / 2); i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('combo-dot');
+                if (i === 0) dot.classList.add('active');
+                mainDots.appendChild(dot);
+            }
 
             // Tạo side dishes
             const sideSlider = document.getElementById('sideSlider');
@@ -207,19 +219,29 @@
                 sideDiv.setAttribute('data-item-type', 'side');
                 sideDiv.setAttribute('data-price', dish.price);
                 sideDiv.innerHTML = `
-                            <img src="${dish.img}" class="food-img" alt="${dish.title}">
-                            <div class="food-info">
-                                <h3 class="food-title">${dish.title}</h3>
-                                <div class="food-price">${dish.price.toLocaleString()}đ</div>
-                                <div class="quantity-controls">
-                                    <div class="quantity-btn minus" data-item-id="${dish.id}" data-item-type="side">-</div>
-                                    <div class="quantity" id="qty-${dish.id}">0</div>
-                                    <div class="quantity-btn plus" data-item-id="${dish.id}" data-item-type="side">+</div>
-                                </div>
-                            </div>
-                        `;
+                    <img src="${dish.img}" class="food-img" alt="${dish.title}">
+                    <div class="food-info">
+                        <h3 class="food-title">${dish.title}</h3>
+                        <div class="food-price">${dish.price.toLocaleString()}đ</div>
+                        <div class="quantity-controls">
+                            <div class="quantity-btn minus" data-item-id="${dish.id}" data-item-type="side">-</div>
+                            <div class="quantity" id="qty-${dish.id}">0</div>
+                            <div class="quantity-btn plus" data-item-id="${dish.id}" data-item-type="side">+</div>
+                        </div>
+                    </div>
+                `;
                 sideSlider.appendChild(sideDiv);
             });
+
+            // Tạo dots cho side dishes
+            const sideDots = document.getElementById('sideDots');
+            sideDots.innerHTML = '';
+            for (let i = 0; i < Math.ceil(sideDishes.length / 2); i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('combo-dot');
+                if (i === 0) dot.classList.add('active');
+                sideDots.appendChild(dot);
+            }
 
             // Tạo drinks
             const drinkSlider = document.getElementById('drinkSlider');
@@ -231,19 +253,29 @@
                 drinkDiv.setAttribute('data-item-type', 'drink');
                 drinkDiv.setAttribute('data-price', drink.price);
                 drinkDiv.innerHTML = `
-                            <img src="${drink.img}" class="food-img" alt="${drink.title}">
-                            <div class="food-info">
-                                <h3 class="food-title">${drink.title}</h3>
-                                <div class="food-price">${drink.price.toLocaleString()}đ</div>
-                                <div class="quantity-controls">
-                                    <div class="quantity-btn minus" data-item-id="${drink.id}" data-item-type="drink">-</div>
-                                    <div class="quantity" id="qty-${drink.id}">0</div>
-                                    <div class="quantity-btn plus" data-item-id="${drink.id}" data-item-type="drink">+</div>
-                                </div>
-                            </div>
-                        `;
+                    <img src="${drink.img}" class="food-img" alt="${drink.title}">
+                    <div class="food-info">
+                        <h3 class="food-title">${drink.title}</h3>
+                        <div class="food-price">${drink.price.toLocaleString()}đ</div>
+                        <div class="quantity-controls">
+                            <div class="quantity-btn minus" data-item-id="${drink.id}" data-item-type="drink">-</div>
+                            <div class="quantity" id="qty-${drink.id}">0</div>
+                            <div class="quantity-btn plus" data-item-id="${drink.id}" data-item-type="drink">+</div>
+                        </div>
+                    </div>
+                `;
                 drinkSlider.appendChild(drinkDiv);
             });
+
+            // Tạo dots cho drinks
+            const drinkDots = document.getElementById('drinkDots');
+            drinkDots.innerHTML = '';
+            for (let i = 0; i < Math.ceil(drinks.length / 2); i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('combo-dot');
+                if (i === 0) dot.classList.add('active');
+                drinkDots.appendChild(dot);
+            }
         }
 
         // Chạy hàm tạo items khi DOM đã sẵn sàng
@@ -254,5 +286,6 @@
     <script src="dataimage.js"></script>
     <script src="script.js"></script>
     <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9374ae2f3d486751',t:'MTc0NTgyMzYwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9378e1ce5e59adde',t:'MTc0NTg2NzY2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
