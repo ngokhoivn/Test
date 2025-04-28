@@ -247,6 +247,7 @@ header {
 }
 
 .food-item {
+	min-height: 320px; /* Tăng chiều cao để đủ chỗ cho ảnh và info*/
     display: flex;
     flex-direction: column;
     background-color: white;
