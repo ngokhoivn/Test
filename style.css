@@ -277,6 +277,10 @@ header {
 .food-info {
     padding: 12px;
     background-color: white;
+    flex-grow: 1; /* Phần info sẽ mở rộng để lấp đầy khoảng trống */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Căn đều các phần tử con (tên, giá, nút số lượng) */
 }
 
 
