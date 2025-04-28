@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -20,269 +21,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #f9f9f9;
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 0;
-            color: #333;
-        }
-
-        .container {
-            padding: 0 15px;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Section title */
-        .section-title {
-            margin: 20px 0 15px;
-            padding: 12px 15px;
-            font-size: 1.2rem;
-            background-color: #388e3c; /* Xanh lá cây đậm */
-            color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        /* Combo Hot Section */
-        .combo-container {
-            margin-bottom: 25px;
-            background-color: transparent;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .combo-slider-wrapper {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 15px;
-        }
-
-        .combo-slider {
-            display: flex;
-            scroll-behavior: smooth;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
-        }
-
-            .combo-slider::-webkit-scrollbar {
-                display: none; /* Chrome, Safari, Opera */
-            }
-
-        .combo-item {
-            min-width: 100%;
-            flex-shrink: 0;
-            scroll-snap-align: start;
-            position: relative;
-            background-color: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            margin-bottom: 5px;
-            height: 100%;
-        }
-
-        .combo-img-wrapper {
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 aspect ratio */
-            position: relative;
-            overflow: hidden;
-        }
-
-        .combo-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .combo-info {
-            padding: 15px;
-            padding-bottom: 70px;
-        }
-
-        .combo-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 0 0 8px;
-        }
-
-        .combo-desc {
-            color: #666;
-            font-size: 0.9rem;
-            margin: 8px 0;
-            line-height: 1.4;
-        }
-
-        .combo-price {
-            font-weight: 600;
-            color: #e81c23;
-            font-size: 1.1rem;
-            margin: 10px 0;
-        }
-
-        .combo-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 12px 0;
-            gap: 5px;
-        }
-
-        .combo-dots {
-            display: flex;
-            gap: 8px;
-        }
-
-        .combo-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #ddd;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-            .combo-dot.active {
-                background-color: #e81c23;
-                width: 20px;
-                border-radius: 4px;
-            }
-
-        .control-buttons {
-            display: none; /* Hide on mobile, show on larger screens */
-        }
-
-        @media screen and (min-width: 768px) {
-            .control-buttons {
-                display: flex;
-            }
-
-            .combo-slider {
-                overflow-x: hidden;
-            }
-        }
-
-        .control-btn {
-            background-color: rgba(232, 28, 35, 0.1);
-            color: #e81c23;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 0 5px;
-            transition: background-color 0.2s ease;
-        }
-
-            .control-btn:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-
-            .control-btn:hover:not(:disabled) {
-                background-color: rgba(232, 28, 35, 0.2);
-            }
-
-        .quick-add-btn {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #e81c23;
-            color: white;
-            font-size: 0.95rem;
-            padding: 10px 24px;
-            border-radius: 25px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(232, 28, 35, 0.3);
-            transition: all 0.2s ease;
-            width: 80%;
-            max-width: 200px;
-            text-align: center;
-        }
-
-            .quick-add-btn:active {
-                transform: translateX(-50%) scale(0.96);
-                background-color: #d01a20;
-            }
-
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(56, 142, 60, 0.95);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 25px;
-            z-index: 300;
-            display: none;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            font-weight: 500;
-            text-align: center;
-            min-width: 250px;
-            max-width: 90%;
-        }
-
-        /* Skeleton loading */
-        @keyframes loading {
-            0% {
-                background-position: -200px 0;
-            }
-
-            100% {
-                background-position: 200px 0;
-            }
-        }
-
-        .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 400px 100%;
-            animation: loading 1.5s infinite;
-        }
-
-        .combo-item.loading .combo-img-wrapper {
-            background-color: #f0f0f0;
-        }
-
-        .combo-item.loading .combo-title {
-            height: 24px;
-            width: 70%;
-            margin-bottom: 15px;
-            border-radius: 4px;
-        }
-
-        .combo-item.loading .combo-desc {
-            height: 16px;
-            width: 100%;
-            margin-bottom: 8px;
-            border-radius: 4px;
-        }
-
-            .combo-item.loading .combo-desc:last-of-type {
-                width: 80%;
-            }
-
         input, textarea, [contenteditable] {
             -webkit-user-select: text !important;
             user-select: text !important;
@@ -292,7 +30,15 @@
             -webkit-user-drag: none;
         }
 
-
+        /* Body styling */
+        body {
+            background: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 10px;
+            color: #333;
+            padding-bottom: 0px;
+        }
 
         /* Header */
         header {
@@ -305,7 +51,15 @@
             font-weight: bold; /* Chữ đậm */
         }
 
-
+        .section-title {
+            margin-top: 10px;
+            padding: 15px;
+            font-size: 1.2rem;
+            background-color: #388e3c; /* Xanh lá cây đậm */
+            color: white; /* Chữ trắng */
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
 
         /* Timeline banner container */
         .timeline-container {
@@ -430,8 +184,14 @@
             box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
         }
 
+        @media screen and (max-width: 600px) {
+            .combo-img-wrapper {
+                height: 150px; /* Giảm chiều cao trên mobile */
+            }
+        }
+
         .combo-item:hover .combo-img {
-            transform: translate(-50%, -50%) scale(1.05); /* Phóng to nhẹ khi hover */
+            transform: scale(1.05); /* Phóng to nhẹ khi hover */
         }
 
         .combo-item .control-btn {
@@ -670,16 +430,220 @@
             color: #666;
         }
 
-
-
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            z-index: 300;
+            display: none;
+        }
 
         .store-bg {
             overflow: hidden;
             border-radius: 15px;
         }
+
+        /* Combo Hot Section */
+        .combo-container {
+            margin-bottom: 25px;
+            background-color: transparent;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .combo-slider-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .combo-slider {
+            display: flex;
+            scroll-behavior: smooth;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+            .combo-slider::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Opera */
+            }
+
+        .combo-item {
+            min-width: 100%;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            position: relative;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            margin-bottom: 5px;
+            height: 100%;
+        }
+
+        .combo-img-wrapper {
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .combo-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease, opacity 0.5s ease;
+        }
+
+        .combo-info {
+            padding: 15px;
+            padding-bottom: 70px;
+        }
+
+        .combo-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 8px;
+        }
+
+        .combo-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 8px 0;
+            line-height: 1.4;
+        }
+
+        .combo-price {
+            font-weight: 600;
+            color: #e81c23;
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        .combo-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px 0;
+            gap: 5px;
+        }
+
+        .combo-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .combo-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ddd;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+            .combo-dot.active {
+                background-color: #e81c23;
+                width: 20px;
+                border-radius: 4px;
+            }
+
+        .control-buttons {
+            display: none; /* Hide on mobile, show on larger screens */
+        }
+
+        @media screen and (min-width: 768px) {
+            .control-buttons {
+                display: flex;
+            }
+
+            .combo-slider {
+                overflow-x: hidden;
+            }
+        }
+
+        .control-btn {
+            background-color: rgba(232, 28, 35, 0.1);
+            color: #e81c23;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0 5px;
+            transition: background-color 0.2s ease;
+        }
+
+            .control-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            .control-btn:hover:not(:disabled) {
+                background-color: rgba(232, 28, 35, 0.2);
+            }
+
+        .quick-add-btn {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #e81c23;
+            color: white;
+            font-size: 0.95rem;
+            padding: 10px 24px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(232, 28, 35, 0.3);
+            transition: all 0.2s ease;
+            width: 80%;
+            max-width: 200px;
+            text-align: center;
+        }
+
+            .quick-add-btn:active {
+                transform: translateX(-50%) scale(0.96);
+                background-color: #d01a20;
+            }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(56, 142, 60, 0.95);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            z-index: 300;
+            display: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            font-weight: 500;
+            text-align: center;
+            min-width: 250px;
+            max-width: 90%;
+        }
     </style>
 </head>
-<body>
+<body ontouchstart="" oncontextmenu="return false" ondragstart="return false">
 
     <!-- Header -->
     <header>
@@ -702,9 +666,6 @@
         </div>
     </div>
 
-
-
-    <!-- Combo Hot Section -->
     <div class="container">
         <!-- Combo Hot Section -->
         <h2 class="section-title">Combo Hot</h2>
@@ -1075,15 +1036,6 @@
             });
         }
 
-        function updateDots() {
-            comboDots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === comboCurrentIndex);
-            });
-
-            if (comboPrevBtn) comboPrevBtn.disabled = comboCurrentIndex === 0;
-            if (comboNextBtn) comboNextBtn.disabled = comboCurrentIndex === comboCount - 1;
-        }
-
         // Allow click on dots to navigate
         comboDots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
@@ -1093,6 +1045,32 @@
         });
 
         // Handle native scroll events on the slider
+        let isScrolling;
+        comboSlider.addEventListener('scroll', () => {
+            clearTimeout(isScrolling);
+
+            isScrolling = setTimeout(() => {
+                const slideWidth = comboSlider.offsetWidth;
+                const scrollPosition = comboSlider.scrollLeft;
+                const newIndex = Math.round(scrollPosition / slideWidth);
+
+                if (newIndex !== comboCurrentIndex) {
+                    comboCurrentIndex = newIndex;
+                    updateDots();
+                }
+            }, 100);
+        });
+
+        function updateDots() {
+            comboDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === comboCurrentIndex);
+            });
+
+            if (comboPrevBtn) comboPrevBtn.disabled = comboCurrentIndex === 0;
+            if (comboNextBtn) comboNextBtn.disabled = comboCurrentIndex === comboCount - 1;
+        }
+
+        // Touch swipe detection
         let startX, startScroll;
 
         comboSlider.addEventListener('touchstart', (e) => {
@@ -1100,41 +1078,6 @@
             startScroll = comboSlider.scrollLeft;
         }, { passive: true });
 
-        // Cart functionality
-        const cart = localStorage.getItem('pizzaTimeCart')
-            ? JSON.parse(localStorage.getItem('pizzaTimeCart'))
-            : {};
-
-        comboNextBtn.addEventListener('click', () => {
-            if (comboCurrentIndex < comboCount - 1) {
-                comboCurrentIndex++;
-                updateComboSlider();
-            }
-        });
-
-        // Touch swipe for combo slider
-        let comboStartX, comboEndX;
-        const comboSwipeThreshold = 50;
-
-        comboSlider.addEventListener('touchstart', (e) => {
-            comboStartX = e.changedTouches[0].screenX;
-        });
-
-        comboSlider.addEventListener('touchend', (e) => {
-            comboEndX = e.changedTouches[0].screenX;
-            const diff = comboStartX - comboEndX;
-
-            if (Math.abs(diff) > comboSwipeThreshold) {
-                if (diff > 0 && comboCurrentIndex < comboCount - 1) {
-                    // Swipe left
-                    comboCurrentIndex++;
-                } else if (diff < 0 && comboCurrentIndex > 0) {
-                    // Swipe right
-                    comboCurrentIndex--;
-                }
-                updateComboSlider();
-            }
-        });
 
         // Main Dishes Slider
         const mainDishSlider = document.getElementById('mainDishSlider');
@@ -1420,19 +1363,19 @@
                     const cartItemElement = document.createElement('div');
                     cartItemElement.className = 'cart-item';
                     cartItemElement.innerHTML = `
-                                                                                            <div class="cart-item-info">
-                                                                                                <div class="cart-item-name">${item.name}</div>
-                                                                                                <div class="cart-item-quantity">
-                                                                                                    SL:
-                                                                                                    <div class="quantity-controls">
-                                                                                                        <div class="quantity-btn minus" data-item-id="${itemId}">-</div>
-                                                                                                        <div class="quantity" id="cart-qty-${itemId}">${item.quantity}</div>
-                                                                                                        <div class="quantity-btn plus" data-item-id="${itemId}">+</div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="cart-item-price">${formatPrice(itemTotal)}</div>
-                                                                                        `;
+                                                                                                            <div class="cart-item-info">
+                                                                                                                <div class="cart-item-name">${item.name}</div>
+                                                                                                                <div class="cart-item-quantity">
+                                                                                                                    SL:
+                                                                                                                    <div class="quantity-controls">
+                                                                                                                        <div class="quantity-btn minus" data-item-id="${itemId}">-</div>
+                                                                                                                        <div class="quantity" id="cart-qty-${itemId}">${item.quantity}</div>
+                                                                                                                        <div class="quantity-btn plus" data-item-id="${itemId}">+</div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="cart-item-price">${formatPrice(itemTotal)}</div>
+                                                                                                        `;
 
                     cartItems.appendChild(cartItemElement);
 
@@ -1481,9 +1424,9 @@
             const totalElement = document.createElement('div');
             totalElement.className = 'cart-total';
             totalElement.innerHTML = `
-                                                                                    <div>Tổng cộng:</div>
-                                                                                    <div>${formatPrice(totalPrice)}</div>
-                                                                                `;
+                                                                                                    <div>Tổng cộng:</div>
+                                                                                                    <div>${formatPrice(totalPrice)}</div>
+                                                                                                `;
 
             cartItems.appendChild(totalElement);
         }
@@ -1541,16 +1484,16 @@
 
         // Toast notification
         function showToast(message) {
-            const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.style.display = 'block';
+
             setTimeout(() => {
                 toast.style.display = 'none';
             }, 3000);
         }
 
         // Initialize all sliders
-        updateComboSlider();
+
         updateMainDishSlider();
         updateSideSlider();
         updateDrinkSlider();
@@ -1558,7 +1501,7 @@
         // Window resize handler - recalculate slider positions if needed
         window.addEventListener('resize', () => {
             // Recalculate visible counts if needed
-            updateComboSlider();
+
             updateMainDishSlider();
             updateSideSlider();
             updateDrinkSlider();
@@ -1571,16 +1514,18 @@
             }
         });
 
-        // Load images with fade-in effect
-        document.querySelectorAll('.combo-img').forEach(img => {
-            img.style.opacity = '0';
-            img.onload = function () {
-                this.style.transition = 'opacity 0.5s ease';
-                this.style.opacity = '1';
-            };
-            // If already loaded from cache
-            if (img.complete) {
-                img.style.opacity = '1';
+        // Keyboard accessibility for buttons
+        document.querySelectorAll('.control-btn, .quantity-btn, .modal-btn').forEach(btn => {
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    btn.click();
+                }
+            });
+
+            // Add tabindex if not present
+            if (!btn.hasAttribute('tabindex')) {
+                btn.setAttribute('tabindex', '0');
             }
         });
 
@@ -1647,42 +1592,9 @@
             }
         });
 
-        // Save cart to localStorage
+        // Save cart to localStorage for persistence
         function saveCart() {
             localStorage.setItem('pizzaTimeCart', JSON.stringify(cart));
-        }
-
-        document.querySelectorAll('.quick-add-btn').forEach((btn) => {
-            btn.addEventListener('click', () => {
-                const comboId = btn.getAttribute('data-combo-id');
-                const comboName = btn.getAttribute('data-combo-name');
-                const comboPrice = btn.getAttribute('data-combo-price');
-
-                // Add visual feedback
-                btn.textContent = "Đã thêm ✓";
-                btn.style.backgroundColor = "#388e3c";
-
-                setTimeout(() => {
-                    btn.textContent = "Thêm vào giỏ";
-                    btn.style.backgroundColor = "#e81c23";
-                }, 1000);
-
-                addComboToCart(comboId, comboName, comboPrice);
-            });
-        });
-
-        function handleResize() {
-            updateComboSlider();
-        }
-
-        window.addEventListener('resize', handleResize);
-
-        // Initialize
-        updateComboSlider();
-
-        // Fix for iOS Safari scroll behavior
-        if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
-            comboSlider.style.webkitOverflowScrolling = 'touch';
         }
 
         // Load cart from localStorage
@@ -1731,57 +1643,29 @@
         // Load cart on page load
         document.addEventListener('DOMContentLoaded', loadCart);
 
-        // Add combo quick-add buttons
-        document.querySelectorAll('.combo-item').forEach((combo, index) => {
-            const quickAddBtn = document.createElement('button');
-            quickAddBtn.className = 'control-btn';
-            quickAddBtn.style.position = 'absolute';
-            quickAddBtn.style.bottom = '15px';
-            quickAddBtn.style.left = '50%';
-            quickAddBtn.style.transform = 'translateX(-50%)'; // căn giữa ngang
-            quickAddBtn.style.backgroundColor = '#e81c23';
-            quickAddBtn.style.color = 'white';
-            quickAddBtn.style.padding = '8px 20px';
-            quickAddBtn.style.borderRadius = '20px';
-            quickAddBtn.style.fontSize = '0.9rem';
-            quickAddBtn.textContent = 'Thêm vào giỏ';
+        document.querySelectorAll('.quick-add-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const comboId = btn.getAttribute('data-combo-id');
+                const comboName = btn.getAttribute('data-combo-name');
+                const comboPrice = btn.getAttribute('data-combo-price');
 
-            quickAddBtn.addEventListener('click', () => {
-                // Simulate adding a preset combo
-                switch (index) {
-                    case 0: // Combo Gia Đình
-                        addComboToCart('combo1', 'Combo Gia Đình', 299000);
-                        break;
-                    case 1: // Combo Đôi
-                        addComboToCart('combo2', 'Combo Đôi', 199000);
-                        showToast('Đã thêm Combo Đôi vào giỏ hàng!');
-                        break;
-                    case 2: // Combo Party
-                        addComboToCart('combo3', 'Combo Party', 499000);
-                        break;
-                }
-                saveCart();
+                addComboToCart(comboId, comboName, comboPrice);
             });
-
-            combo.style.position = 'relative';
-            combo.appendChild(quickAddBtn);
         });
 
         function addComboToCart(comboId, comboName, comboPrice) {
             if (!cart[comboId]) {
                 cart[comboId] = {
                     name: comboName,
-                    price: parseInt(comboPrice),
+                    price: comboPrice,
                     quantity: 0,
                     type: "combo"
                 };
             }
             cart[comboId].quantity++;
-
-            // Format price for display
-            const formattedPrice = new Intl.NumberFormat('vi-VN').format(comboPrice);
-            showToast(`Đã thêm ${comboName} (${formattedPrice}đ) vào giỏ hàng!`);
+            updateCartCount();
             saveCart();
+            showToast(`Đã thêm ${comboName} vào giỏ hàng!`);
         }
 
         // Helper function to add preset items to cart
@@ -1938,28 +1822,24 @@
         // Add CSS animation for newly loaded page
         const style = document.createElement('style');
         style.textContent = `
-                                                                                        body {
-                                                                                            opacity: 0;
-                                                                                            animation: fadeIn 0.5s forwards;
-                                                                                        }
+                                                                                                        body {
+                                                                                                            opacity: 0;
+                                                                                                            animation: fadeIn 0.5s forwards;
+                                                                                                        }
 
-                                                                                        @keyframes fadeIn {
-                                                                                            0% { opacity: 0; }
-                                                                                            100% { opacity: 1; }
-                                                                                        }
+                                                                                                        @keyframes fadeIn {
+                                                                                                            0% { opacity: 0; }
+                                                                                                            100% { opacity: 1; }
+                                                                                                        }
 
-                                                                                        .loaded {
-                                                                                            opacity: 1;
-                                                                                        }
+                                                                                                        .loaded {
+                                                                                                            opacity: 1;
+                                                                                                        }
 `;
         document.head.appendChild(style);
 
         // Log page initialization time for performance monitoring
         console.log('Page initialized in: ' + (performance.now() / 1000).toFixed(2) + 's');
-
-
-
-
 
     </script>
 
