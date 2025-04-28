@@ -372,20 +372,20 @@ header {
 }
 
 .food-item {
-	min-height: 300px;
     display: flex;
     flex-direction: column;
     background-color: white;
     border-radius: 15px;
-    
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
     flex-shrink: 0;
     position: relative;
+    min-height: 280px; /* <-- tùy chỉnh tổng chiều cao */
 }
 
 .food-img-wrapper {
     width: 100%;
-    padding-top: 75%;
+    padding-top: 75%; /* tỷ lệ 4:3, có thể chỉnh 56.25% nếu thích 16:9 */
     position: relative;
     overflow: hidden;
 }
@@ -401,12 +401,11 @@ header {
 
 .food-info {
     padding: 12px;
-    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 100px;
-	padding-bottom: 60px; /* chừa khoảng cho nút quantity */
+    flex-grow: 1; /* chiếm phần còn lại nếu ảnh fix height */
+    background-color: white;
 }
 
 .food-title {
