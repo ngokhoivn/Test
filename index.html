@@ -187,6 +187,7 @@
         @media screen and (max-width: 600px) {
             .combo-img-wrapper {
                 height: 150px; /* Giảm chiều cao trên mobile */
+                pointer-events: none; /* Vô hiệu hóa mọi tương tác với ảnh */
             }
         }
 
@@ -430,20 +431,6 @@
             color: #666;
         }
 
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 5px;
-            z-index: 300;
-            display: none;
-        }
-
         .store-bg {
             overflow: hidden;
             border-radius: 15px;
@@ -489,6 +476,8 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             margin-bottom: 5px;
             height: 100%;
+            -webkit-tap-highlight-color: transparent; /* Loại bỏ highlight khi chạm */
+            user-select: none; /* Ngăn chọn text khi chạm */
         }
 
         .combo-img-wrapper {
@@ -506,6 +495,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease, opacity 0.5s ease;
+            pointer-events: none; /* Đảm bảo ảnh không bắt sự kiện touch */
         }
 
         .combo-info {
@@ -680,6 +670,11 @@
                             <h3 class="combo-title">Combo Gia Đình</h3>
                             <p class="combo-desc">1 Pizza cỡ lớn + 2 nước ngọt + 1 phần khoai tây chiên</p>
                             <div class="combo-price">299.000đ</div>
+                            <div class="quantity-controls">
+                                <div class="quantity-btn minus" data-combo-id="combo1" data-item-type="combo">-</div>
+                                <div class="quantity" id="qty-combo1">0</div>
+                                <div class="quantity-btn plus" data-combo-id="combo1" data-item-type="combo">+</div>
+                            </div>
                             <button class="quick-add-btn" data-combo-id="combo1" data-combo-name="Combo Gia Đình" data-combo-price="299000">Thêm vào giỏ</button>
                         </div>
                     </div>
@@ -952,8 +947,6 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div class="toast" id="toast"></div>
 
     <!-- Thank You Modal -->
     <div class="modal" id="thankYouModal">
@@ -991,7 +984,6 @@
             store.addEventListener('click', () => {
                 stores.forEach(s => s.classList.remove('active'));
                 store.classList.add('active');
-                showToast(`Đã chọn ${store.querySelector('.store-name').textContent}`);
             });
         });
 
@@ -1477,20 +1469,7 @@
                 document.getElementById('thankYouModal').style.display = 'flex';
             }, 300); // Delay 300ms cho mượt
 
-            // Also show a toast (optional)
-            showToast('Đặt hàng thành công!');
         });
-
-
-        // Toast notification
-        function showToast(message) {
-            toast.textContent = message;
-            toast.style.display = 'block';
-
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 3000);
-        }
 
         // Initialize all sliders
 
@@ -1663,9 +1642,13 @@
                 };
             }
             cart[comboId].quantity++;
+            // Cập nhật số lượng hiển thị trên giao diện chính
+            const quantityElement = document.getElementById(`qty-${comboId}`);
+            if (quantityElement) {
+                quantityElement.textContent = cart[comboId].quantity;
+            }
             updateCartCount();
             saveCart();
-            showToast(`Đã thêm ${comboName} vào giỏ hàng!`);
         }
 
         // Helper function to add preset items to cart
@@ -1750,15 +1733,6 @@
             } else {
                 header.style.position = 'static';
             }
-        });
-
-        // Enable offline functionality notification
-        window.addEventListener('online', () => {
-            showToast('Đã kết nối lại internet!');
-        });
-
-        window.addEventListener('offline', () => {
-            showToast('Mất kết nối internet! Vẫn có thể xem menu.');
         });
 
         // Service worker registration for PWA support (commented out for now)
