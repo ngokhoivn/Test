@@ -372,6 +372,7 @@ header {
 }
 
 .food-item {
+	min-height: 300px;
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -405,6 +406,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
     min-height: 100px;
+	padding-bottom: 60px; /* chừa khoảng cho nút quantity */
 }
 
 .food-title {
