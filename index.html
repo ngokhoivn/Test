@@ -1,861 +1,355 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza Godfather - Đặt hàng tại chỗ</title>
+    <title>日本語チャット</title>
     <style>
-        :root {
-            --primary: #d32f2f;
-            --secondary: #f57c00;
-            --text: #333;
-            --light: #f5f5f5;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
+        /* CSS giữ nguyên như mã gốc */
         body {
-            background-color: #f9f9f9;
-            color: var(--text);
-        }
-
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 2px 4px var(--shadow);
-            position: relative;
-        }
-
-        .cart-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: var(--secondary);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 10px;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            flex-direction: column;
+            min-height: 100vh;
         }
-
-            .cart-icon svg {
-                width: 24px;
-                height: 24px;
-                fill: white;
-            }
-
-        .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: white;
-            color: var(--primary);
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
-        }
-
-        .menu-section {
-            margin-bottom: 2rem;
-        }
-
-        h2 {
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 0.5rem;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .pizza-card {
-            background-color: white;
+        .chat-area {
+            flex: 1;
+            background-color: #2a2a2a;
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px var(--shadow);
-        }
-
-        .pizza-image {
-            height: 180px;
-            background-color: #f0f0f0;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-            .pizza-image img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-        .pizza-info {
-            padding: 1rem;
-        }
-
-        .pizza-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .pizza-description {
-            color: #666;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .size-controls {
-            margin-bottom: 0.5rem;
-        }
-
-        .size-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .size-label {
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .size-price {
-            color: var(--primary);
-            margin-left: 0.5rem;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-        }
-
-        .quantity-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: none;
-            background-color: #f0f0f0;
-            color: var(--text);
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-            .quantity-btn:hover {
-                background-color: #e0e0e0;
-            }
-
-        .quantity-value {
-            margin: 0 10px;
-            min-width: 20px;
-            text-align: center;
-        }
-
-        .cart-section {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px var(--shadow);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            position: fixed;
-            top: 0;
-            right: -380px;
-            width: 360px;
-            height: 100vh;
-            z-index: 1000;
-            transition: right 0.3s ease;
+            padding: 10px;
+            margin-bottom: 10px;
             overflow-y: auto;
+            max-height: calc(100vh - 120px);
         }
-
-            .cart-section.active {
-                right: 0;
-            }
-
-        .cart-header {
+        .message {
+            margin-bottom: 10px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
         }
-
-        .close-cart {
-            background: none;
+        .user-message {
+            justify-content: flex-end;
+        }
+        .bot-message {
+            justify-content: flex-start;
+        }
+        .message-bubble {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 15px;
+            word-wrap: break-word;
+        }
+        .user-bubble {
+            background-color: #4caf50;
+            color: #ffffff;
+        }
+        .bot-bubble {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+        }
+        .input-area {
+            display: flex;
+            gap: 8px;
+        }
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 20px;
+            background-color: #333;
+            color: #e0e0e0;
+        }
+        button {
+            background-color: #d83c00;
+            color: #ffffff;
             border: none;
-            font-size: 1.5rem;
+            border-radius: 20px;
+            padding: 10px 16px;
             cursor: pointer;
-            color: var(--text);
         }
-
-        .cart-items {
-            margin: 1rem 0;
-        }
-
-        .cart-item {
-            padding: 1rem 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .cart-item-name {
-            font-weight: bold;
-            margin-bottom: 0.3rem;
-        }
-
-        .cart-item-details {
-            display: flex;
-            justify-content: space-between;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin: 1rem 0;
-            padding-top: 1rem;
-            border-top: 2px solid #eee;
-        }
-
-        .table-selection {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px var(--shadow);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .table-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .table-btn {
-            padding: 0.75rem 0;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            background: none;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-            .table-btn:hover {
-                border-color: var(--secondary);
-                color: var(--secondary);
-            }
-
-            .table-btn.selected {
-                background-color: var(--secondary);
-                color: white;
-                border-color: var(--secondary);
-            }
-
-        .order-btn {
-            width: 100%;
-            padding: 1rem;
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: background-color 0.3s ease;
-            margin-top: 1rem;
-        }
-
-            .order-btn:hover {
-                background-color: #e65100;
-            }
-
-            .order-btn:disabled {
-                background-color: #ccc;
-                cursor: not-allowed;
-            }
-
-        .note-input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-top: 1rem;
-            resize: vertical;
-        }
-
-        .overlay {
+        .typing-indicator {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 900;
+            margin-bottom: 10px;
+            justify-content: flex-start;
         }
-
-            .overlay.active {
-                display: block;
-            }
-
-        .order-confirmation {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 1100;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            display: none;
-        }
-
-            .order-confirmation.active {
-                display: block;
-            }
-
-        .confirmation-icon {
-            font-size: 4rem;
-            color: #4caf50;
-            margin-bottom: 1rem;
-        }
-
-        .empty-cart-message {
-            text-align: center;
-            padding: 2rem 0;
-            color: #757575;
-        }
-
-        @media (max-width: 768px) {
-            .menu-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-
-            .cart-section {
-                width: 300px;
-                right: -320px;
-            }
-
-            .cart-icon {
-                width: 40px;
-                height: 40px;
-            }
-        }
-
-        .loader {
+        .typing-dot {
             display: inline-block;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 8px;
+            background-color: #aaa;
+            margin-right: 2px;
+            animation: typingAnimation 1.5s infinite ease-in-out;
         }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.3s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.6s; }
+        @keyframes typingAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+            100% { transform: translateY(0); }
         }
-
-        .loading-text {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .settings {
+            margin-top: 8px;
+            text-align: center;
+        }
+        #api-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #2a2a2a;
+            margin: 15% auto;
+            padding: 16px;
+            border: 1px solid #444;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 8px;
+            color: #e0e0e0;
         }
     </style>
 </head>
 <body>
-    <div class="overlay" id="overlay"></div>
-
-    <header>
-        <h1>Pizza Godfather</h1>
-        <p>Đặt món tại bàn</p>
-        <div class="cart-icon" id="cart-icon">
-            <svg viewBox="0 0 24 24">
-                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
-            </svg>
-            <span class="cart-badge" id="cart-badge">0</span>
-        </div>
-    </header>
-
-    <div class="container">
-        <div class="table-selection">
-            <h2>Chọn bàn</h2>
-            <div class="table-grid" id="table-container">
-                <!-- Các bàn sẽ được tạo bằng JavaScript -->
-            </div>
-        </div>
-
-        <div class="menu-section">
-            <h2>Menu Pizza</h2>
-            <div class="menu-grid" id="menu-container">
-                <!-- Pizza items will be loaded by JavaScript -->
+    <div class="chat-area" id="chat-area">
+        <div class="message bot-message">
+            <div class="message-bubble bot-bubble">
+                こんにちは！日本語の練習や会話を楽しみましょう！何か話したいことはありますか？
             </div>
         </div>
     </div>
-
-    <div class="cart-section" id="cart-section">
-        <div class="cart-header">
-            <h2>Giỏ hàng</h2>
-            <button class="close-cart" id="close-cart">&times;</button>
+    
+    <div class="typing-indicator" id="typing-indicator">
+        <div class="message-bubble bot-bubble">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
         </div>
-
-        <div id="cart-container">
-            <div class="empty-cart-message">Giỏ hàng trống. Vui lòng chọn pizza!</div>
-        </div>
-
-        <div class="cart-total">
-            <span>Tổng cộng:</span>
-            <span id="cart-total">0 ₫</span>
-        </div>
-
-        <textarea class="note-input" id="order-note" placeholder="Ghi chú đặc biệt..."></textarea>
-
-        <button class="order-btn" id="order-btn" disabled>Đặt món ngay</button>
     </div>
-
-    <div class="order-confirmation" id="order-confirmation">
-        <div class="confirmation-icon">✓</div>
-        <h2>Đặt món thành công!</h2>
-        <p>Đơn hàng của bạn đã được gửi đến nhà bếp.</p>
-        <p>Vui lòng đợi trong ít phút.</p>
-        <button class="order-btn" id="confirm-btn">Đã hiểu</button>
+    
+    <div class="input-area">
+        <input type="text" id="user-input" placeholder="メッセージを入力..." autofocus>
+        <button id="send-button">送信</button>
     </div>
-
+    
+    <div class="settings">
+        <button id="clear-chat">会話をリセット</button>
+        <button id="api-settings" style="margin-left: 8px;">API設定</button>
+    </div>
+    
+    <div id="api-modal">
+        <div class="modal-content">
+            <h3>Gemini API 設定</h3>
+            <div style="margin-bottom: 12px;">
+                <label for="api-key">API Key:</label>
+                <input type="text" id="api-key" style="width: 100%; padding: 8px; margin-top: 4px; border-radius: 4px; border: 1px solid #444; background-color: #333; color: #e0e0e0;" placeholder="AIzaSyD-LQ7BMIl85o0Tq3LogG2rBmtYjkOpogU">
+            </div>
+            <div style="text-align: right;">
+                <button id="save-api-settings" style="background-color: #4caf50;">保存</button>
+                <button id="close-modal" style="background-color: #d83c00; margin-left: 8px;">キャンセル</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
-        // Dữ liệu pizza
-        const pizzaMenu = [
-            {
-                id: 1,
-                name: 'Margherita',
-                description: 'Sốt cà chua, phô mai mozzarella, lá oregano',
-                priceL: 120000,
-                priceS: 80000,
-                image: '/api/placeholder/300/200'
-            },
-            {
-                id: 2,
-                name: 'Pepperoni',
-                description: 'Sốt cà chua, phô mai mozzarella, xúc xích pepperoni',
-                priceL: 150000,
-                priceS: 100000,
-                image: '/api/placeholder/300/200'
-            },
-            {
-                id: 3,
-                name: 'Hawaiian',
-                description: 'Sốt cà chua, phô mai mozzarella, thịt nguội, dứa',
-                priceL: 140000,
-                priceS: 90000,
-                image: '/api/placeholder/300/200'
-            },
-            {
-                id: 4,
-                name: 'Vegetarian',
-                description: 'Sốt cà chua, phô mai mozzarella, nấm, ớt chuông, hành tây, ô liu',
-                priceL: 130000,
-                priceS: 85000,
-                image: '/api/placeholder/300/200'
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatArea = document.getElementById('chat-area');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            const typingIndicator = document.getElementById('typing-indicator');
+            const clearChatButton = document.getElementById('clear-chat');
+            const apiSettingsButton = document.getElementById('api-settings');
+            const apiModal = document.getElementById('api-modal');
+            const closeModalButton = document.getElementById('close-modal');
+            const saveApiButton = document.getElementById('save-api-settings');
+            const apiKeyInput = document.getElementById('api-key');
+            
+            // Load API key from localStorage if exists
+            if (localStorage.getItem('gemini_api_key')) {
+                apiKeyInput.value = localStorage.getItem('gemini_api_key');
             }
-        ];
-
-        // Số lượng bàn
-        const tables = 16;
-
-        // Khởi tạo giỏ hàng trống
-        let cart = [];
-        let selectedTable = null;
-
-        // Format giá tiền
-        function formatPrice(price) {
-            return new Intl.NumberFormat('vi-VN').format(price) + ' ₫';
-        }
-
-        // Render danh sách bàn
-        function renderTables() {
-            const tableContainer = document.getElementById('table-container');
-            tableContainer.innerHTML = '';
-
-            for (let i = 1; i <= tables; i++) {
-                const tableBtn = document.createElement('button');
-                tableBtn.className = 'table-btn';
-                tableBtn.textContent = 'Bàn ' + i;
-                tableBtn.setAttribute('data-table', i);
-
-                if (selectedTable === i) {
-                    tableBtn.classList.add('selected');
+            
+            // Load conversation history from localStorage
+            let conversationHistory = JSON.parse(localStorage.getItem('conversation_history')) || [
+                {
+                    role: "model",
+                    parts: [{ text: "こんにちは！日本語の練習や会話を楽しみましょう！何か話したいことはありますか？" }]
                 }
-
-                tableBtn.addEventListener('click', function () {
-                    const tableNumber = parseInt(this.getAttribute('data-table'));
-                    selectTable(tableNumber);
+            ];
+            
+            // Render existing conversation
+            function renderConversation() {
+                chatArea.innerHTML = '';
+                conversationHistory.forEach(msg => {
+                    if (msg.role === "user" || msg.role === "model") {
+                        const sender = msg.role === "user" ? "user" : "bot";
+                        addMessageToChat(msg.parts[0].text, sender, false);
+                    }
                 });
-
-                tableContainer.appendChild(tableBtn);
             }
-        }
-
-        // Chọn bàn
-        function selectTable(tableNumber) {
-            selectedTable = tableNumber;
-
-            // Cập nhật UI
-            document.querySelectorAll('.table-btn').forEach(btn => {
-                if (parseInt(btn.getAttribute('data-table')) === tableNumber) {
-                    btn.classList.add('selected');
-                } else {
-                    btn.classList.remove('selected');
-                }
-            });
-
-            // Enable nút đặt hàng nếu có món trong giỏ
-            updateOrderButton();
-        }
-
-        // Render danh sách pizza
-        function renderMenu() {
-            const menuContainer = document.getElementById('menu-container');
-            menuContainer.innerHTML = '';
-
-            pizzaMenu.forEach(pizza => {
-                const pizzaCard = document.createElement('div');
-                pizzaCard.className = 'pizza-card';
-
-                pizzaCard.innerHTML = `
-                        <div class="pizza-image">
-                            <img src="${pizza.image}" alt="${pizza.name}">
-                        </div>
-                        <div class="pizza-info">
-                            <div class="pizza-name">${pizza.name}</div>
-                            <div class="pizza-description">${pizza.description}</div>
-                            <div class="size-controls">
-                                <div class="size-row">
-                                    <div class="size-label">Size L <span class="size-price">${formatPrice(pizza.priceL)}</span></div>
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="L" data-action="decrease">-</button>
-                                        <span class="quantity-value" id="qty-${pizza.id}-L">0</span>
-                                        <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="L" data-action="increase">+</button>
-                                    </div>
-                                </div>
-                                <div class="size-row">
-                                    <div class="size-label">Size S <span class="size-price">${formatPrice(pizza.priceS)}</span></div>
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="S" data-action="decrease">-</button>
-                                        <span class="quantity-value" id="qty-${pizza.id}-S">0</span>
-                                        <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="S" data-action="increase">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-
-                menuContainer.appendChild(pizzaCard);
-            });
-
-            // Thêm event listener cho các nút tăng giảm số lượng
-            document.querySelectorAll('.quantity-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    const pizzaId = parseInt(this.getAttribute('data-pizza-id'));
-                    const size = this.getAttribute('data-size');
-                    const action = this.getAttribute('data-action');
-
-                    updateQuantity(pizzaId, size, action);
+            
+            renderConversation();
+            
+            async function handleSendMessage() {
+                const message = userInput.value.trim();
+                if (message === '') return;
+                
+                addMessageToChat(message, 'user');
+                conversationHistory.push({
+                    role: "user",
+                    parts: [{ text: message }]
                 });
-            });
-        }
-
-        // Cập nhật số lượng pizza
-        function updateQuantity(pizzaId, size, action) {
-            const pizza = pizzaMenu.find(p => p.id === pizzaId);
-            const quantityElement = document.getElementById(`qty-${pizzaId}-${size}`);
-            let currentQty = parseInt(quantityElement.textContent);
-
-            if (action === 'increase') {
-                currentQty += 1;
-                addToCart(pizza, size);
-            } else if (action === 'decrease' && currentQty > 0) {
-                currentQty -= 1;
-                removeFromCart(pizzaId, size);
-            }
-
-            quantityElement.textContent = currentQty;
-        }
-
-        // Thêm pizza vào giỏ hàng
-        function addToCart(pizza, size) {
-            // Kiểm tra xem món này đã có trong giỏ hàng chưa
-            const existingItem = cart.find(item => item.pizzaId === pizza.id && item.size === size);
-
-            if (existingItem) {
-                // Nếu đã có, tăng số lượng
-                existingItem.quantity += 1;
-            } else {
-                // Nếu chưa có, thêm mới vào giỏ
-                const cartItem = {
-                    id: Date.now(),
-                    pizzaId: pizza.id,
-                    name: pizza.name,
-                    size: size,
-                    price: size === 'L' ? pizza.priceL : pizza.priceS,
-                    quantity: 1
-                };
-                cart.push(cartItem);
-            }
-
-            updateCartBadge();
-            renderCart();
-            updateOrderButton();
-        }
-
-        // Xóa pizza khỏi giỏ hàng
-        function removeFromCart(pizzaId, size) {
-            const itemIndex = cart.findIndex(item => item.pizzaId === pizzaId && item.size === size);
-
-            if (itemIndex !== -1) {
-                if (cart[itemIndex].quantity > 1) {
-                    // Nếu số lượng > 1, giảm số lượng
-                    cart[itemIndex].quantity -= 1;
-                } else {
-                    // Nếu số lượng = 1, xóa khỏi giỏ hàng
-                    cart.splice(itemIndex, 1);
+                saveConversation();
+                
+                userInput.value = '';
+                typingIndicator.style.display = 'flex';
+                
+                try {
+                    const response = await sendToGeminiAPI(message);
+                    addMessageToChat(response, 'bot');
+                    conversationHistory.push({
+                        role: "model",
+                        parts: [{ text: response }]
+                    });
+                    saveConversation();
+                } catch (error) {
+                    console.error("API Error:", error);
+                    const fallbackResponse = getFallbackResponse(message);
+                    addMessageToChat(fallbackResponse, 'bot');
+                    conversationHistory.push({
+                        role: "model",
+                        parts: [{ text: fallbackResponse }]
+                    });
+                    saveConversation();
                 }
-
-                updateCartBadge();
-                renderCart();
-                updateOrderButton();
+                
+                typingIndicator.style.display = 'none';
             }
-        }
-
-        // Cập nhật số lượng món trên icon giỏ hàng
-        function updateCartBadge() {
-            const badgeElement = document.getElementById('cart-badge');
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            badgeElement.textContent = totalItems;
-        }
-
-        // Render giỏ hàng
-        function renderCart() {
-            const cartContainer = document.getElementById('cart-container');
-            const totalElement = document.getElementById('cart-total');
-
-            if (cart.length === 0) {
-                cartContainer.innerHTML = '<div class="empty-cart-message">Giỏ hàng trống. Vui lòng chọn pizza!</div>';
-                totalElement.textContent = formatPrice(0);
-                return;
+            
+            function addMessageToChat(content, sender, scroll = true) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+                
+                const bubbleDiv = document.createElement('div');
+                bubbleDiv.className = `message-bubble ${sender}-bubble`;
+                bubbleDiv.textContent = content;
+                
+                messageDiv.appendChild(bubbleDiv);
+                chatArea.appendChild(messageDiv);
+                
+                if (scroll) {
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                }
             }
-
-            let cartHTML = '<div class="cart-items">';
-            let total = 0;
-
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-
-                cartHTML += `
-                        <div class="cart-item">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-details">
-                                <div>Size ${item.size} x ${item.quantity}</div>
-                                <div>${formatPrice(itemTotal)}</div>
-                            </div>
-                        </div>
-                    `;
-            });
-
-            cartHTML += '</div>';
-            cartContainer.innerHTML = cartHTML;
-            totalElement.textContent = formatPrice(total);
-        }
-
-        // Cập nhật trạng thái nút đặt hàng
-        function updateOrderButton() {
-            const orderBtn = document.getElementById('order-btn');
-
-            if (cart.length > 0 && selectedTable !== null) {
-                orderBtn.disabled = false;
-            } else {
-                orderBtn.disabled = true;
+            
+            function saveConversation() {
+                localStorage.setItem('conversation_history', JSON.stringify(conversationHistory));
             }
-        }
-
-        // Xử lý đặt hàng
-        async function placeOrder() {
-            // Hiển thị trạng thái đang xử lý
-            const orderBtn = document.getElementById('order-btn');
-            orderBtn.disabled = true;
-            orderBtn.innerHTML = '<div class="loading-text"><span class="loader"></span> Đang xử lý...</div>';
-
-            try {
-                // Tạo chi tiết đơn hàng
-                const orderDetails = cart.map(item =>
-                    `${item.name} (Size ${item.size} x ${item.quantity}): ${formatPrice(item.price * item.quantity)}`
-                ).join('\n');
-
-                // Tính tổng đơn hàng
-                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-                const orderNote = document.getElementById('order-note').value.trim();
-
-                // Dữ liệu đơn hàng để gửi đi
-                const orderData = {
-                    tableNumber: selectedTable,
-                    orderNote: orderNote,
-                    orderItems: cart.map(item => ({
-                        name: item.name,
-                        size: item.size,
-                        quantity: item.quantity,
-                        price: item.price,
-                        total: item.price * item.quantity
-                    })),
-                    total,
-                    orderTime: new Date().toLocaleString('vi-VN')
+            
+            async function sendToGeminiAPI(message) {
+                const API_KEY = localStorage.getItem('gemini_api_key') || 'AIzaSyD-LQ7BMIl85o0Tq3LogG2rBmtYjkOpogU';
+                if (API_KEY === 'AIzaSyD-LQ7BMIl85o0Tq3LogG2rBmtYjkOpogU') {
+                    throw new Error("API Key not set");
+                }
+                
+                // Sử dụng endpoint mới
+                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+                
+                const requestBody = {
+                    contents: conversationHistory,
+                    generationConfig: {
+                        temperature: 0.9,
+                        topK: 1,
+                        topP: 1,
+                        maxOutputTokens: 2048,
+                        stopSequences: []
+                    },
+                    safetySettings: [
+                        {category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE"},
+                        {category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE"},
+                        {category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE"},
+                        {category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE"}
+                    ]
                 };
-
-                // Gửi đến Google Sheets (mô phỏng)
-                console.log('Gửi đến Google Sheets:', orderData);
-
-                // Gửi đến Telegram (mô phỏng)
-                const telegramMessage =
-                    `<b>🍕 ĐƠN HÀNG MỚI 🍕</b>
-<b>Bàn số:</b> ${selectedTable}
-${orderNote ? '<b>Ghi chú:</b> ' + orderNote : ''}
-<b>📋 CHI TIẾT ĐƠN HÀNG:</b>
-<pre>${formattedOrder}</pre>
-<b>💰 TỔNG CỘNG:</b> <u>${formatPrice(total)}</u>
-<b>⏰ Thời gian:</b> ${orderData.orderTime}`;
-
-                await sendTelegramMessage(telegramMessage);
-
-                // Mô phỏng thời gian xử lý API
-                await new Promise(resolve => setTimeout(resolve, 1500));
-
-                // Hiển thị xác nhận đặt hàng thành công
-                document.getElementById('overlay').classList.add('active');
-                document.getElementById('order-confirmation').classList.add('active');
-
-                // Reset giỏ hàng và số lượng
-                resetCart();
-
-            } catch (error) {
-                console.error('Lỗi khi đặt hàng:', error);
-                alert('Có lỗi xảy ra. Vui lòng thử lại sau!');
-            } finally {
-                orderBtn.disabled = false;
-                orderBtn.textContent = 'Đặt món ngay';
-            }
-        }
-
-        async function sendTelegramMessage(text) {
-            const token = "7945639869:AAFHxGQiBZVEGp2LCHUdCy82ffsJaLfRkNA";
-            const chatId = "-1002560521024";
-            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&parse_mode=HTML&text=${encodeURIComponent(text)}`;
-
-            try {
-                const response = await fetch(url);
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+                
                 const data = await response.json();
-                if (data.ok) {
-                    console.log("Tin nhắn đã gửi đến Telegram!");
+                
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    return data.candidates[0].content.parts[0].text;
                 } else {
-                    console.error("Lỗi Telegram:", data.description);
+                    throw new Error("Invalid API response");
                 }
-            } catch (error) {
-                console.error("Lỗi kết nối Telegram:", error);
-                throw error; // Ném lỗi để catch trong placeOrder xử lý
             }
-        }
-
-        // Reset giỏ hàng sau khi đặt hàng
-        function resetCart() {
-            cart = [];
-            updateCartBadge();
-            renderCart();
-
-            // Reset số lượng hiển thị trên menu
-            document.querySelectorAll('.quantity-value').forEach(el => {
-                el.textContent = '0';
+            
+            function getFallbackResponse(message) {
+                const responses = [
+                    "すみません、API接続に問題があるようです。もう一度試してみてください。",
+                    "APIキーが設定されていないか、無効です。設定を確認してください。",
+                    "現在サーバーと通信できません。後ほど再度お試しください。",
+                    "申し訳ありませんが、技術的な問題が発生しています。",
+                    "エラーが発生しました。API設定を確認してください。"
+                ];
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+            
+            sendButton.addEventListener('click', handleSendMessage);
+            
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSendMessage();
+                }
             });
-
-            // Reset ghi chú
-            document.getElementById('order-note').value = '';
-
-            // Disable nút đặt hàng
-            updateOrderButton();
-        }
-
-        // Toggle giỏ hàng
-        function toggleCart() {
-            const cartSection = document.getElementById('cart-section');
-            const overlay = document.getElementById('overlay');
-
-            cartSection.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
-
-        // Khởi tạo trang
-        document.addEventListener('DOMContentLoaded', function () {
-            renderTables();
-            renderMenu();
-            renderCart();
-            updateCartBadge();
-
-            // Event listeners
-            document.getElementById('cart-icon').addEventListener('click', toggleCart);
-            document.getElementById('close-cart').addEventListener('click', toggleCart);
-            document.getElementById('overlay').addEventListener('click', function () {
-                document.getElementById('cart-section').classList.remove('active');
-                document.getElementById('overlay').classList.remove('active');
-                document.getElementById('order-confirmation').classList.remove('active');
+            
+            clearChatButton.addEventListener('click', function() {
+                conversationHistory = [
+                    {
+                        role: "model",
+                        parts: [{ text: "こんにちは！日本語の練習や会話を楽しみましょう！何か話したいことはありますか？" }]
+                    }
+                ];
+                saveConversation();
+                renderConversation();
             });
-
-            document.getElementById('order-btn').addEventListener('click', placeOrder);
-
-            document.getElementById('confirm-btn').addEventListener('click', function () {
-                document.getElementById('overlay').classList.remove('active');
-                document.getElementById('order-confirmation').classList.remove('active');
-                document.getElementById('cart-section').classList.remove('active');
+            
+            apiSettingsButton.addEventListener('click', function() {
+                apiModal.style.display = 'block';
+            });
+            
+            closeModalButton.addEventListener('click', function() {
+                apiModal.style.display = 'none';
+            });
+            
+            saveApiButton.addEventListener('click', function() {
+                const newApiKey = apiKeyInput.value.trim();
+                if (newApiKey) {
+                    localStorage.setItem('gemini_api_key', newApiKey);
+                    alert('APIキーが保存されました！');
+                    apiModal.style.display = 'none';
+                } else {
+                    alert('有効なAPIキーを入力してください。');
+                }
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === apiModal) {
+                    apiModal.style.display = 'none';
+                }
             });
         });
     </script>
