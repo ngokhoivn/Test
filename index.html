@@ -12,19 +12,19 @@
             --light: #f5f5f5;
             --shadow: rgba(0, 0, 0, 0.1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: #f9f9f9;
             color: var(--text);
         }
-        
+
         header {
             background-color: var(--primary);
             color: white;
@@ -33,7 +33,7 @@
             box-shadow: 0 2px 4px var(--shadow);
             position: relative;
         }
-        
+
         .cart-icon {
             position: absolute;
             right: 20px;
@@ -49,13 +49,13 @@
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        
-        .cart-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-        
+
+            .cart-icon svg {
+                width: 24px;
+                height: 24px;
+                fill: white;
+            }
+
         .cart-badge {
             position: absolute;
             top: -5px;
@@ -71,36 +71,36 @@
             font-size: 12px;
             font-weight: bold;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 1rem;
         }
-        
+
         .menu-section {
             margin-bottom: 2rem;
         }
-        
+
         h2 {
             margin-bottom: 1rem;
             border-bottom: 2px solid var(--secondary);
             padding-bottom: 0.5rem;
         }
-        
+
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
         }
-        
+
         .pizza-card {
             background-color: white;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 6px var(--shadow);
         }
-        
+
         .pizza-image {
             height: 180px;
             background-color: #f0f0f0;
@@ -110,33 +110,33 @@
             justify-content: center;
             align-items: center;
         }
-        
-        .pizza-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
+
+            .pizza-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
         .pizza-info {
             padding: 1rem;
         }
-        
+
         .pizza-name {
             font-size: 1.2rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
-        
+
         .pizza-description {
             color: #666;
             margin-bottom: 1rem;
             font-size: 0.9rem;
         }
-        
+
         .size-controls {
             margin-bottom: 0.5rem;
         }
-        
+
         .size-row {
             display: flex;
             justify-content: space-between;
@@ -144,23 +144,23 @@
             padding: 0.5rem 0;
             border-bottom: 1px solid #eee;
         }
-        
+
         .size-label {
             font-weight: bold;
             display: flex;
             align-items: center;
         }
-        
+
         .size-price {
             color: var(--primary);
             margin-left: 0.5rem;
         }
-        
+
         .quantity-control {
             display: flex;
             align-items: center;
         }
-        
+
         .quantity-btn {
             width: 30px;
             height: 30px;
@@ -175,17 +175,17 @@
             justify-content: center;
             align-items: center;
         }
-        
-        .quantity-btn:hover {
-            background-color: #e0e0e0;
-        }
-        
+
+            .quantity-btn:hover {
+                background-color: #e0e0e0;
+            }
+
         .quantity-value {
             margin: 0 10px;
             min-width: 20px;
             text-align: center;
         }
-        
+
         .cart-section {
             background-color: white;
             border-radius: 8px;
@@ -201,18 +201,18 @@
             transition: right 0.3s ease;
             overflow-y: auto;
         }
-        
-        .cart-section.active {
-            right: 0;
-        }
-        
+
+            .cart-section.active {
+                right: 0;
+            }
+
         .cart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
         }
-        
+
         .close-cart {
             background: none;
             border: none;
@@ -220,28 +220,28 @@
             cursor: pointer;
             color: var(--text);
         }
-        
+
         .cart-items {
             margin: 1rem 0;
         }
-        
+
         .cart-item {
             padding: 1rem 0;
             border-bottom: 1px solid #eee;
         }
-        
+
         .cart-item-name {
             font-weight: bold;
             margin-bottom: 0.3rem;
         }
-        
+
         .cart-item-details {
             display: flex;
             justify-content: space-between;
             color: #666;
             font-size: 0.9rem;
         }
-        
+
         .cart-total {
             display: flex;
             justify-content: space-between;
@@ -251,7 +251,7 @@
             padding-top: 1rem;
             border-top: 2px solid #eee;
         }
-        
+
         .table-selection {
             background-color: white;
             border-radius: 8px;
@@ -259,14 +259,14 @@
             padding: 1.5rem;
             margin-bottom: 1rem;
         }
-        
+
         .table-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
             gap: 0.75rem;
             margin-top: 1rem;
         }
-        
+
         .table-btn {
             padding: 0.75rem 0;
             border: 2px solid #ddd;
@@ -276,18 +276,18 @@
             font-weight: bold;
             transition: all 0.3s ease;
         }
-        
-        .table-btn:hover {
-            border-color: var(--secondary);
-            color: var(--secondary);
-        }
-        
-        .table-btn.selected {
-            background-color: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
-        }
-        
+
+            .table-btn:hover {
+                border-color: var(--secondary);
+                color: var(--secondary);
+            }
+
+            .table-btn.selected {
+                background-color: var(--secondary);
+                color: white;
+                border-color: var(--secondary);
+            }
+
         .order-btn {
             width: 100%;
             padding: 1rem;
@@ -301,16 +301,16 @@
             transition: background-color 0.3s ease;
             margin-top: 1rem;
         }
-        
-        .order-btn:hover {
-            background-color: #e65100;
-        }
-        
-        .order-btn:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        
+
+            .order-btn:hover {
+                background-color: #e65100;
+            }
+
+            .order-btn:disabled {
+                background-color: #ccc;
+                cursor: not-allowed;
+            }
+
         .note-input {
             width: 100%;
             padding: 0.75rem;
@@ -319,7 +319,7 @@
             margin-top: 1rem;
             resize: vertical;
         }
-        
+
         .overlay {
             display: none;
             position: fixed;
@@ -330,11 +330,11 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 900;
         }
-        
-        .overlay.active {
-            display: block;
-        }
-        
+
+            .overlay.active {
+                display: block;
+            }
+
         .order-confirmation {
             position: fixed;
             top: 50%;
@@ -350,39 +350,39 @@
             text-align: center;
             display: none;
         }
-        
-        .order-confirmation.active {
-            display: block;
-        }
-        
+
+            .order-confirmation.active {
+                display: block;
+            }
+
         .confirmation-icon {
             font-size: 4rem;
             color: #4caf50;
             margin-bottom: 1rem;
         }
-        
+
         .empty-cart-message {
             text-align: center;
             padding: 2rem 0;
             color: #757575;
         }
-        
+
         @media (max-width: 768px) {
             .menu-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
-            
+
             .cart-section {
                 width: 300px;
                 right: -320px;
             }
-            
+
             .cart-icon {
                 width: 40px;
                 height: 40px;
             }
         }
-        
+
         .loader {
             display: inline-block;
             width: 24px;
@@ -393,11 +393,13 @@
             animation: spin 1s ease-in-out infinite;
             margin-right: 8px;
         }
-        
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
-        
+
         .loading-text {
             display: flex;
             align-items: center;
@@ -407,18 +409,18 @@
 </head>
 <body>
     <div class="overlay" id="overlay"></div>
-    
+
     <header>
         <h1>Pizza Godfather</h1>
         <p>Đặt món tại bàn</p>
         <div class="cart-icon" id="cart-icon">
             <svg viewBox="0 0 24 24">
-                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
             </svg>
             <span class="cart-badge" id="cart-badge">0</span>
         </div>
     </header>
-    
+
     <div class="container">
         <div class="table-selection">
             <h2>Chọn bàn</h2>
@@ -426,7 +428,7 @@
                 <!-- Các bàn sẽ được tạo bằng JavaScript -->
             </div>
         </div>
-        
+
         <div class="menu-section">
             <h2>Menu Pizza</h2>
             <div class="menu-grid" id="menu-container">
@@ -434,27 +436,27 @@
             </div>
         </div>
     </div>
-    
+
     <div class="cart-section" id="cart-section">
         <div class="cart-header">
             <h2>Giỏ hàng</h2>
             <button class="close-cart" id="close-cart">&times;</button>
         </div>
-        
+
         <div id="cart-container">
             <div class="empty-cart-message">Giỏ hàng trống. Vui lòng chọn pizza!</div>
         </div>
-        
+
         <div class="cart-total">
             <span>Tổng cộng:</span>
             <span id="cart-total">0 ₫</span>
         </div>
-        
+
         <textarea class="note-input" id="order-note" placeholder="Ghi chú đặc biệt..."></textarea>
-        
+
         <button class="order-btn" id="order-btn" disabled>Đặt món ngay</button>
     </div>
-    
+
     <div class="order-confirmation" id="order-confirmation">
         <div class="confirmation-icon">✓</div>
         <h2>Đặt món thành công!</h2>
@@ -462,7 +464,7 @@
         <p>Vui lòng đợi trong ít phút.</p>
         <button class="order-btn" id="confirm-btn">Đã hiểu</button>
     </div>
-    
+
     <script>
         // Dữ liệu pizza
         const pizzaMenu = [
@@ -499,47 +501,47 @@
                 image: '/api/placeholder/300/200'
             }
         ];
-        
+
         // Số lượng bàn
         const tables = 16;
-        
+
         // Khởi tạo giỏ hàng trống
         let cart = [];
         let selectedTable = null;
-        
+
         // Format giá tiền
         function formatPrice(price) {
             return new Intl.NumberFormat('vi-VN').format(price) + ' ₫';
         }
-        
+
         // Render danh sách bàn
         function renderTables() {
             const tableContainer = document.getElementById('table-container');
             tableContainer.innerHTML = '';
-            
+
             for (let i = 1; i <= tables; i++) {
                 const tableBtn = document.createElement('button');
                 tableBtn.className = 'table-btn';
                 tableBtn.textContent = 'Bàn ' + i;
                 tableBtn.setAttribute('data-table', i);
-                
+
                 if (selectedTable === i) {
                     tableBtn.classList.add('selected');
                 }
-                
-                tableBtn.addEventListener('click', function() {
+
+                tableBtn.addEventListener('click', function () {
                     const tableNumber = parseInt(this.getAttribute('data-table'));
                     selectTable(tableNumber);
                 });
-                
+
                 tableContainer.appendChild(tableBtn);
             }
         }
-        
+
         // Chọn bàn
         function selectTable(tableNumber) {
             selectedTable = tableNumber;
-            
+
             // Cập nhật UI
             document.querySelectorAll('.table-btn').forEach(btn => {
                 if (parseInt(btn.getAttribute('data-table')) === tableNumber) {
@@ -548,69 +550,69 @@
                     btn.classList.remove('selected');
                 }
             });
-            
+
             // Enable nút đặt hàng nếu có món trong giỏ
             updateOrderButton();
         }
-        
+
         // Render danh sách pizza
         function renderMenu() {
             const menuContainer = document.getElementById('menu-container');
             menuContainer.innerHTML = '';
-            
+
             pizzaMenu.forEach(pizza => {
                 const pizzaCard = document.createElement('div');
                 pizzaCard.className = 'pizza-card';
-                
+
                 pizzaCard.innerHTML = `
-                    <div class="pizza-image">
-                        <img src="${pizza.image}" alt="${pizza.name}">
-                    </div>
-                    <div class="pizza-info">
-                        <div class="pizza-name">${pizza.name}</div>
-                        <div class="pizza-description">${pizza.description}</div>
-                        <div class="size-controls">
-                            <div class="size-row">
-                                <div class="size-label">Size L <span class="size-price">${formatPrice(pizza.priceL)}</span></div>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="L" data-action="decrease">-</button>
-                                    <span class="quantity-value" id="qty-${pizza.id}-L">0</span>
-                                    <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="L" data-action="increase">+</button>
+                        <div class="pizza-image">
+                            <img src="${pizza.image}" alt="${pizza.name}">
+                        </div>
+                        <div class="pizza-info">
+                            <div class="pizza-name">${pizza.name}</div>
+                            <div class="pizza-description">${pizza.description}</div>
+                            <div class="size-controls">
+                                <div class="size-row">
+                                    <div class="size-label">Size L <span class="size-price">${formatPrice(pizza.priceL)}</span></div>
+                                    <div class="quantity-control">
+                                        <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="L" data-action="decrease">-</button>
+                                        <span class="quantity-value" id="qty-${pizza.id}-L">0</span>
+                                        <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="L" data-action="increase">+</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="size-row">
-                                <div class="size-label">Size S <span class="size-price">${formatPrice(pizza.priceS)}</span></div>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="S" data-action="decrease">-</button>
-                                    <span class="quantity-value" id="qty-${pizza.id}-S">0</span>
-                                    <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="S" data-action="increase">+</button>
+                                <div class="size-row">
+                                    <div class="size-label">Size S <span class="size-price">${formatPrice(pizza.priceS)}</span></div>
+                                    <div class="quantity-control">
+                                        <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="S" data-action="decrease">-</button>
+                                        <span class="quantity-value" id="qty-${pizza.id}-S">0</span>
+                                        <button class="quantity-btn" data-pizza-id="${pizza.id}" data-size="S" data-action="increase">+</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                `;
-                
+                    `;
+
                 menuContainer.appendChild(pizzaCard);
             });
-            
+
             // Thêm event listener cho các nút tăng giảm số lượng
             document.querySelectorAll('.quantity-btn').forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const pizzaId = parseInt(this.getAttribute('data-pizza-id'));
                     const size = this.getAttribute('data-size');
                     const action = this.getAttribute('data-action');
-                    
+
                     updateQuantity(pizzaId, size, action);
                 });
             });
         }
-        
+
         // Cập nhật số lượng pizza
         function updateQuantity(pizzaId, size, action) {
             const pizza = pizzaMenu.find(p => p.id === pizzaId);
             const quantityElement = document.getElementById(`qty-${pizzaId}-${size}`);
             let currentQty = parseInt(quantityElement.textContent);
-            
+
             if (action === 'increase') {
                 currentQty += 1;
                 addToCart(pizza, size);
@@ -618,15 +620,15 @@
                 currentQty -= 1;
                 removeFromCart(pizzaId, size);
             }
-            
+
             quantityElement.textContent = currentQty;
         }
-        
+
         // Thêm pizza vào giỏ hàng
         function addToCart(pizza, size) {
             // Kiểm tra xem món này đã có trong giỏ hàng chưa
             const existingItem = cart.find(item => item.pizzaId === pizza.id && item.size === size);
-            
+
             if (existingItem) {
                 // Nếu đã có, tăng số lượng
                 existingItem.quantity += 1;
@@ -642,16 +644,16 @@
                 };
                 cart.push(cartItem);
             }
-            
+
             updateCartBadge();
             renderCart();
             updateOrderButton();
         }
-        
+
         // Xóa pizza khỏi giỏ hàng
         function removeFromCart(pizzaId, size) {
             const itemIndex = cart.findIndex(item => item.pizzaId === pizzaId && item.size === size);
-            
+
             if (itemIndex !== -1) {
                 if (cart[itemIndex].quantity > 1) {
                     // Nếu số lượng > 1, giảm số lượng
@@ -660,83 +662,83 @@
                     // Nếu số lượng = 1, xóa khỏi giỏ hàng
                     cart.splice(itemIndex, 1);
                 }
-                
+
                 updateCartBadge();
                 renderCart();
                 updateOrderButton();
             }
         }
-        
+
         // Cập nhật số lượng món trên icon giỏ hàng
         function updateCartBadge() {
             const badgeElement = document.getElementById('cart-badge');
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             badgeElement.textContent = totalItems;
         }
-        
+
         // Render giỏ hàng
         function renderCart() {
             const cartContainer = document.getElementById('cart-container');
             const totalElement = document.getElementById('cart-total');
-            
+
             if (cart.length === 0) {
                 cartContainer.innerHTML = '<div class="empty-cart-message">Giỏ hàng trống. Vui lòng chọn pizza!</div>';
                 totalElement.textContent = formatPrice(0);
                 return;
             }
-            
+
             let cartHTML = '<div class="cart-items">';
             let total = 0;
-            
+
             cart.forEach(item => {
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
-                
+
                 cartHTML += `
-                    <div class="cart-item">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-details">
-                            <div>Size ${item.size} x ${item.quantity}</div>
-                            <div>${formatPrice(itemTotal)}</div>
+                        <div class="cart-item">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-details">
+                                <div>Size ${item.size} x ${item.quantity}</div>
+                                <div>${formatPrice(itemTotal)}</div>
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
             });
-            
+
             cartHTML += '</div>';
             cartContainer.innerHTML = cartHTML;
             totalElement.textContent = formatPrice(total);
         }
-        
+
         // Cập nhật trạng thái nút đặt hàng
         function updateOrderButton() {
             const orderBtn = document.getElementById('order-btn');
-            
+
             if (cart.length > 0 && selectedTable !== null) {
                 orderBtn.disabled = false;
             } else {
                 orderBtn.disabled = true;
             }
         }
-        
+
         // Xử lý đặt hàng
         async function placeOrder() {
             // Hiển thị trạng thái đang xử lý
             const orderBtn = document.getElementById('order-btn');
             orderBtn.disabled = true;
             orderBtn.innerHTML = '<div class="loading-text"><span class="loader"></span> Đang xử lý...</div>';
-            
+
             try {
                 // Tạo chi tiết đơn hàng
-                const orderDetails = cart.map(item => 
+                const orderDetails = cart.map(item =>
                     `${item.name} (Size ${item.size} x ${item.quantity}): ${formatPrice(item.price * item.quantity)}`
                 ).join('\n');
-                
+
                 // Tính tổng đơn hàng
                 const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                
+
                 const orderNote = document.getElementById('order-note').value.trim();
-                
+
                 // Dữ liệu đơn hàng để gửi đi
                 const orderData = {
                     tableNumber: selectedTable,
@@ -751,35 +753,35 @@
                     total,
                     orderTime: new Date().toLocaleString('vi-VN')
                 };
-                
+
                 // Gửi đến Google Sheets (mô phỏng)
                 console.log('Gửi đến Google Sheets:', orderData);
-                
+
                 // Gửi đến Telegram (mô phỏng)
                 const telegramMessage = `
-                    🍕 ĐƠN HÀNG MỚI 🍕
-                    Bàn số: ${selectedTable}
-                    ${orderNote ? 'Ghi chú: ' + orderNote : ''}
-                    
-                    📋 CHI TIẾT ĐƠN HÀNG:
-                    ${orderDetails}
-                    
-                    💰 TỔNG CỘNG: ${formatPrice(total)}
-                    ⏰ Thời gian: ${orderData.orderTime}
-                `;
-                
-                console.log('Gửi đến Telegram:', telegramMessage);
-                
+                        🍕 ĐƠN HÀNG MỚI 🍕
+                        Bàn số: ${selectedTable}
+                        ${orderNote ? 'Ghi chú: ' + orderNote : ''}
+
+                        📋 CHI TIẾT ĐƠN HÀNG:
+                        ${orderDetails}
+
+                        💰 TỔNG CỘNG: ${formatPrice(total)}
+                        ⏰ Thời gian: ${orderData.orderTime}
+                    `;
+
+                await sendTelegramMessage(telegramMessage);
+
                 // Mô phỏng thời gian xử lý API
                 await new Promise(resolve => setTimeout(resolve, 1500));
-                
+
                 // Hiển thị xác nhận đặt hàng thành công
                 document.getElementById('overlay').classList.add('active');
                 document.getElementById('order-confirmation').classList.add('active');
-                
+
                 // Reset giỏ hàng và số lượng
                 resetCart();
-                
+
             } catch (error) {
                 console.error('Lỗi khi đặt hàng:', error);
                 alert('Có lỗi xảy ra. Vui lòng thử lại sau!');
@@ -788,53 +790,72 @@
                 orderBtn.textContent = 'Đặt món ngay';
             }
         }
-        
+
+        async function sendTelegramMessage(text) {
+            const token = "7945639869:AAFHxGQiBZVEGp2LCHUdCy82ffsJaLfRkNA";
+            const chatId = "-1002560521024";
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                if (data.ok) {
+                    console.log("Tin nhắn đã gửi đến Telegram!");
+                } else {
+                    console.error("Lỗi Telegram:", data.description);
+                }
+            } catch (error) {
+                console.error("Lỗi kết nối Telegram:", error);
+                throw error; // Ném lỗi để catch trong placeOrder xử lý
+            }
+        }
+
         // Reset giỏ hàng sau khi đặt hàng
         function resetCart() {
             cart = [];
             updateCartBadge();
             renderCart();
-            
+
             // Reset số lượng hiển thị trên menu
             document.querySelectorAll('.quantity-value').forEach(el => {
                 el.textContent = '0';
             });
-            
+
             // Reset ghi chú
             document.getElementById('order-note').value = '';
-            
+
             // Disable nút đặt hàng
             updateOrderButton();
         }
-        
+
         // Toggle giỏ hàng
         function toggleCart() {
             const cartSection = document.getElementById('cart-section');
             const overlay = document.getElementById('overlay');
-            
+
             cartSection.classList.toggle('active');
             overlay.classList.toggle('active');
         }
-        
+
         // Khởi tạo trang
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             renderTables();
             renderMenu();
             renderCart();
             updateCartBadge();
-            
+
             // Event listeners
             document.getElementById('cart-icon').addEventListener('click', toggleCart);
             document.getElementById('close-cart').addEventListener('click', toggleCart);
-            document.getElementById('overlay').addEventListener('click', function() {
+            document.getElementById('overlay').addEventListener('click', function () {
                 document.getElementById('cart-section').classList.remove('active');
                 document.getElementById('overlay').classList.remove('active');
                 document.getElementById('order-confirmation').classList.remove('active');
             });
-            
+
             document.getElementById('order-btn').addEventListener('click', placeOrder);
-            
-            document.getElementById('confirm-btn').addEventListener('click', function() {
+
+            document.getElementById('confirm-btn').addEventListener('click', function () {
                 document.getElementById('overlay').classList.remove('active');
                 document.getElementById('order-confirmation').classList.remove('active');
                 document.getElementById('cart-section').classList.remove('active');
