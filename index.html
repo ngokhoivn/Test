@@ -339,6 +339,78 @@
                 }
             }
             
+			async function sendToGeminiAPI(message) {
+				const API_KEY = getCurrentApiKey();
+				const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+
+				// Hướng dẫn hệ thống bằng tiếng Anh với ví dụ tiếng Nhật
+				const systemInstruction = {
+					role: "model",
+					parts: [{
+						text: `You are a friendly and natural-sounding Japanese-speaking chatbot. 
+			Always reply in Japanese using native expressions. Keep answers short (1–2 sentences), unless a longer explanation is clearly needed. 
+			Use casual and friendly tone, and occasionally add expressions like (笑), えー！or うわー！to make it more lively.
+
+			Example:
+			User: おはよう！
+			Bot: おはよう〜！今日はいい天気だね (笑)`
+					}]
+				};
+
+				// Thêm tin nhắn mới vào lịch sử hội thoại
+				conversationHistory.push({
+					role: "user",
+					parts: [{ text: message }]
+				});
+
+				const requestBody = {
+					contents: [systemInstruction, ...conversationHistory],
+					generationConfig: {
+						temperature: 0.7,
+						topK: 1,
+						topP: 1,
+						maxOutputTokens: 150,
+						stopSequences: []
+					},
+					safetySettings: [
+						{ category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+						{ category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+						{ category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+						{ category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
+					]
+				};
+
+				try {
+					const response = await fetch(API_URL, {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(requestBody)
+					});
+
+					if (!response.ok) {
+						throw new Error(`API request failed with status ${response.status}`);
+					}
+
+					const data = await response.json();
+
+					const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+					if (text) {
+						// Thêm câu trả lời vào conversationHistory nếu cần lưu
+						conversationHistory.push({
+							role: "model",
+							parts: [{ text }]
+						});
+						return text;
+					} else {
+						throw new Error("Invalid API response structure");
+					}
+				} catch (error) {
+					console.error("Error sending to Gemini API:", error);
+					return "エラーが発生しました。もう一度試してみてください。";
+				}
+			}
+			
+			
             function getFallbackResponse(message) {
                 const responses = [
                     "すみません、API接続に問題があるようです。もう一度試してみてください。",
