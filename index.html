@@ -764,7 +764,7 @@
                         ${orderNote ? 'Ghi chú: ' + orderNote : ''}
 
                         📋 CHI TIẾT ĐƠN HÀNG:
-                        ${orderDetails}
+                        ${orderDetails.replace(/\n/g, '\n')}  
 
                         💰 TỔNG CỘNG: ${formatPrice(total)}
                         ⏰ Thời gian: ${orderData.orderTime}
