@@ -24,12 +24,13 @@
             padding: 10px;
             margin-bottom: 10px;
             overflow-y: auto;
-            max-height: calc(100vh - 120px);
+            max-height: calc(100vh - 70px);
             -webkit-overflow-scrolling: touch;
         }
         .message {
             margin-bottom: 10px;
             display: flex;
+            position: relative;
         }
         .user-message {
             justify-content: flex-end;
@@ -42,6 +43,8 @@
             padding: 8px 12px;
             border-radius: 15px;
             word-wrap: break-word;
+            -webkit-user-select: text;
+            user-select: text;
         }
         .user-bubble {
             background-color: #4caf50;
@@ -51,10 +54,11 @@
             background-color: #3a3a3a;
             color: #e0e0e0;
         }
-        .input-area {
+        .input-container {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             padding-bottom: env(safe-area-inset-bottom);
+            align-items: center;
         }
         #user-input {
             flex: 1;
@@ -66,15 +70,25 @@
             font-size: 16px;
             min-height: 20px;
         }
-        button {
-            background-color: #d83c00;
+        .action-button {
+            background-color: #555;
             color: #ffffff;
             border: none;
-            border-radius: 20px;
-            padding: 10px 16px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             cursor: pointer;
-            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             -webkit-tap-highlight-color: transparent;
+        }
+        #send-button {
+            background-color: #d83c00;
+            border-radius: 20px;
+            padding: 0 15px;
+            height: 40px;
+            min-width: 60px;
         }
         .typing-indicator {
             display: none;
@@ -98,32 +112,21 @@
             50% { transform: translateY(-4px); }
             100% { transform: translateY(0); }
         }
-        .settings {
-            margin-top: 8px;
-            text-align: center;
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-        #api-modal {
+        .select-all-btn {
             display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.5);
-            touch-action: none;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 2px 6px;
+            font-size: 10px;
+            cursor: pointer;
         }
-        .modal-content {
-            background-color: #2a2a2a;
-            margin: 15% auto;
-            padding: 16px;
-            border: 1px solid #444;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 8px;
-            color: #e0e0e0;
+        .message:hover .select-all-btn {
+            display: block;
         }
         @media (max-width: 480px) {
             body {
@@ -132,7 +135,18 @@
                 overflow: hidden;
             }
             .chat-area {
-                max-height: calc(100vh - 140px);
+                max-height: calc(100vh - 80px);
+            }
+            .input-container {
+                gap: 4px;
+            }
+            .action-button {
+                width: 36px;
+                height: 36px;
+            }
+            #send-button {
+                height: 36px;
+                min-width: 55px;
             }
         }
     </style>
@@ -154,28 +168,21 @@
         </div>
     </div>
     
-    <div class="input-area">
+    <div class="input-container">
+        <button id="clear-chat" class="action-button" title="会話をリセット">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+            </svg>
+        </button>
         <input type="text" id="user-input" placeholder="メッセージを入力..." autofocus>
+        <button id="clear-input" class="action-button" title="入力内容を消去">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg>
+        </button>
         <button id="send-button">送信</button>
-    </div>
-    
-    <div class="settings">
-        <button id="clear-chat">会話をリセット</button>
-        <button id="api-settings" style="margin-left: 8px;">API設定</button>
-    </div>
-    
-    <div id="api-modal">
-        <div class="modal-content">
-            <h3>Gemini API 設定</h3>
-            <div style="margin-bottom: 12px;">
-                <label for="api-key">API Key:</label>
-                <input type="text" id="api-key" style="width: 100%; padding: 8px; margin-top: 4px; border-radius: 4px; border: 1px solid #444; background-color: #333; color: #e0e0e0;" placeholder="AIzaSyD...">
-            </div>
-            <div style="text-align: right;">
-                <button id="save-api-settings" style="background-color: #4caf50;">保存</button>
-                <button id="close-modal" style="background-color: #d83c00; margin-left: 8px;">キャンセル</button>
-            </div>
-        </div>
     </div>
     
     <script>
@@ -185,11 +192,7 @@
             const sendButton = document.getElementById('send-button');
             const typingIndicator = document.getElementById('typing-indicator');
             const clearChatButton = document.getElementById('clear-chat');
-            const apiSettingsButton = document.getElementById('api-settings');
-            const apiModal = document.getElementById('api-modal');
-            const closeModalButton = document.getElementById('close-modal');
-            const saveApiButton = document.getElementById('save-api-settings');
-            const apiKeyInput = document.getElementById('api-key');
+            const clearInputButton = document.getElementById('clear-input');
             
             // Danh sách API keys dự phòng
             const DEFAULT_API_KEYS = [
@@ -199,16 +202,10 @@
             ];
             let currentApiKeyIndex = 0;
             
-            // Load API key từ localStorage hoặc dùng mặc định
             function getCurrentApiKey() {
-                const savedKey = localStorage.getItem('gemini_api_key');
-                if (savedKey && savedKey.trim() !== '') {
-                    return savedKey;
-                }
                 return DEFAULT_API_KEYS[currentApiKeyIndex];
             }
             
-            // Xoay API key khi có lỗi
             function rotateApiKey() {
                 currentApiKeyIndex = (currentApiKeyIndex + 1) % DEFAULT_API_KEYS.length;
                 console.log(`Switched to API key index: ${currentApiKeyIndex}`);
@@ -261,7 +258,7 @@
                     saveConversation();
                 } catch (error) {
                     console.error("API Error:", error);
-                    rotateApiKey(); // Xoay API key khi có lỗi
+                    rotateApiKey();
                     const fallbackResponse = getFallbackResponse(message);
                     addMessageToChat(fallbackResponse, 'bot');
                     conversationHistory.push({
@@ -283,6 +280,19 @@
                 bubbleDiv.className = `message-bubble ${sender}-bubble`;
                 bubbleDiv.textContent = content;
                 
+                const selectAllBtn = document.createElement('button');
+                selectAllBtn.className = 'select-all-btn';
+                selectAllBtn.textContent = '全選択';
+                selectAllBtn.onclick = function(e) {
+                    e.stopPropagation();
+                    const range = document.createRange();
+                    range.selectNodeContents(bubbleDiv);
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                };
+                
+                bubbleDiv.appendChild(selectAllBtn);
                 messageDiv.appendChild(bubbleDiv);
                 chatArea.appendChild(messageDiv);
                 
@@ -296,79 +306,71 @@
             function saveConversation() {
                 localStorage.setItem('conversation_history', JSON.stringify(conversationHistory));
             }
- 
-			async function sendToGeminiAPI(message) {
-				const API_KEY = getCurrentApiKey();
-				const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+            
+            async function sendToGeminiAPI(message) {
+                const API_KEY = getCurrentApiKey();
+                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
 
-				// Hướng dẫn hệ thống bằng tiếng Anh với ví dụ tiếng Nhật
-				const systemInstruction = {
-					role: "model",
-					parts: [{
-						text: `You are a friendly and natural-sounding Japanese-speaking chatbot. 
-			Always reply in Japanese using native expressions. Keep answers short (1–2 sentences), unless a longer explanation is clearly needed. 
-			Use casual and friendly tone, and occasionally add expressions like (笑), えー！or うわー！to make it more lively.
+                const systemInstruction = {
+                    role: "model",
+                    parts: [{
+                        text: `You are a friendly and natural-sounding Japanese-speaking chatbot. 
+                        Always reply in Japanese using native expressions. Keep answers short (1–2 sentences), unless a longer explanation is clearly needed. 
+                        Use casual and friendly tone, and occasionally add expressions like (笑), えー！or うわー！to make it more lively.`
+                    }]
+                };
 
-			Example:
-			User: おはよう！
-			Bot: おはよう〜！今日はいい天気だね (笑)`
-					}]
-				};
+                conversationHistory.push({
+                    role: "user",
+                    parts: [{ text: message }]
+                });
 
-				// Thêm tin nhắn mới vào lịch sử hội thoại
-				conversationHistory.push({
-					role: "user",
-					parts: [{ text: message }]
-				});
+                const requestBody = {
+                    contents: [systemInstruction, ...conversationHistory],
+                    generationConfig: {
+                        temperature: 0.7,
+                        topK: 1,
+                        topP: 1,
+                        maxOutputTokens: 150,
+                        stopSequences: []
+                    },
+                    safetySettings: [
+                        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
+                    ]
+                };
 
-				const requestBody = {
-					contents: [systemInstruction, ...conversationHistory],
-					generationConfig: {
-						temperature: 0.7,
-						topK: 1,
-						topP: 1,
-						maxOutputTokens: 150,
-						stopSequences: []
-					},
-					safetySettings: [
-						{ category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-						{ category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-						{ category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-						{ category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
-					]
-				};
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(requestBody)
+                    });
 
-				try {
-					const response = await fetch(API_URL, {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify(requestBody)
-					});
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
 
-					if (!response.ok) {
-						throw new Error(`API request failed with status ${response.status}`);
-					}
+                    const data = await response.json();
 
-					const data = await response.json();
-
-					const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-					if (text) {
-						// Thêm câu trả lời vào conversationHistory nếu cần lưu
-						conversationHistory.push({
-							role: "model",
-							parts: [{ text }]
-						});
-						return text;
-					} else {
-						throw new Error("Invalid API response structure");
-					}
-				} catch (error) {
-					console.error("Error sending to Gemini API:", error);
-					return "エラーが発生しました。もう一度試してみてください。";
-				}
-			}
-			
-			
+                    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) {
+                        conversationHistory.push({
+                            role: "model",
+                            parts: [{ text }]
+                        });
+                        return text;
+                    } else {
+                        throw new Error("Invalid API response structure");
+                    }
+                } catch (error) {
+                    console.error("Error sending to Gemini API:", error);
+                    return "エラーが発生しました。もう一度試してみてください。";
+                }
+            }
+            
             function getFallbackResponse(message) {
                 const responses = [
                     "すみません、API接続に問題があるようです。もう一度試してみてください。",
@@ -399,32 +401,9 @@
                 renderConversation();
             });
             
-            apiSettingsButton.addEventListener('click', function() {
-                apiKeyInput.value = localStorage.getItem('gemini_api_key') || '';
-                apiModal.style.display = 'block';
-            });
-            
-            closeModalButton.addEventListener('click', function() {
-                apiModal.style.display = 'none';
-            });
-            
-            saveApiButton.addEventListener('click', function() {
-                const newApiKey = apiKeyInput.value.trim();
-                if (newApiKey) {
-                    localStorage.setItem('gemini_api_key', newApiKey);
-                    alert('APIキーが保存されました！');
-                    apiModal.style.display = 'none';
-                } else {
-                    localStorage.removeItem('gemini_api_key');
-                    alert('デフォルトのAPIキーを使用します。');
-                    apiModal.style.display = 'none';
-                }
-            });
-            
-            window.addEventListener('click', function(event) {
-                if (event.target === apiModal) {
-                    apiModal.style.display = 'none';
-                }
+            clearInputButton.addEventListener('click', function() {
+                userInput.value = '';
+                userInput.focus();
             });
             
             // Ngăn chặn zoom trên mobile
