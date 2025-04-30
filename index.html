@@ -758,19 +758,14 @@
                 console.log('Gửi đến Google Sheets:', orderData);
 
                 // Gửi đến Telegram (mô phỏng)
-                const telegramMessage = `
-                    < b >🍕 ĐƠN HÀNG MỚI 🍕</b>
-                                        <b>Bàn số:</b> ${ selectedTable }
-                    ${ orderNote ? '<b>Ghi chú:</b> ' + orderNote : '' }
-                    <b>📋 CHI TIẾT ĐƠN HÀNG:</b>
-                    <pre>${orderDetails.split('\n').map(item => {
-                        const [name, price] = item.split(':');
-                        const maxNameLength = Math.max(...orderDetails.split('\n').map(i => i.split(':')[0].length));
-                        return `${name.padEnd(maxNameLength + 2, ' ')}${price.trim()}`;
-                    }).join('\n')}</pre>
-                    <b>💰 TỔNG CỘNG:</b> <u>${formatPrice(total)}</u>
-                    <b>⏰ Thời gian:</b> ${ orderData.orderTime }
-                `;
+                const telegramMessage =
+                    `<b>🍕 ĐƠN HÀNG MỚI 🍕</b>
+<b>Bàn số:</b> ${selectedTable}
+${orderNote ? '<b>Ghi chú:</b> ' + orderNote : ''}
+<b>📋 CHI TIẾT ĐƠN HÀNG:</b>
+<pre>${formattedOrder}</pre>
+<b>💰 TỔNG CỘNG:</b> <u>${formatPrice(total)}</u>
+<b>⏰ Thời gian:</b> ${orderData.orderTime}`;
 
                 await sendTelegramMessage(telegramMessage);
 
