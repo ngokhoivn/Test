@@ -296,49 +296,7 @@
             function saveConversation() {
                 localStorage.setItem('conversation_history', JSON.stringify(conversationHistory));
             }
-            
-            async function sendToGeminiAPI(message) {
-                const API_KEY = getCurrentApiKey();
-                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
-                
-                const requestBody = {
-                    contents: conversationHistory,
-                    generationConfig: {
-                        temperature: 0.9,
-                        topK: 1,
-                        topP: 1,
-                        maxOutputTokens: 2048,
-                        stopSequences: []
-                    },
-                    safetySettings: [
-                        {category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE"},
-                        {category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE"},
-                        {category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE"},
-                        {category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE"}
-                    ]
-                };
-                
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(requestBody)
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`API request failed with status ${response.status}`);
-                }
-                
-                const data = await response.json();
-                
-                if (data.candidates && data.candidates[0].content.parts[0].text) {
-                    return data.candidates[0].content.parts[0].text;
-                } else {
-                    throw new Error("Invalid API response");
-                }
-            }
-            
+ 
 			async function sendToGeminiAPI(message) {
 				const API_KEY = getCurrentApiKey();
 				const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
