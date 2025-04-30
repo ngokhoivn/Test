@@ -2,10 +2,9 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>日本語チャット</title>
     <style>
-        /* CSS giữ nguyên như mã gốc */
         body {
             font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
             background-color: #1a1a1a;
@@ -15,6 +14,8 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
         }
         .chat-area {
             flex: 1;
@@ -24,6 +25,7 @@
             margin-bottom: 10px;
             overflow-y: auto;
             max-height: calc(100vh - 120px);
+            -webkit-overflow-scrolling: touch;
         }
         .message {
             margin-bottom: 10px;
@@ -52,6 +54,7 @@
         .input-area {
             display: flex;
             gap: 8px;
+            padding-bottom: env(safe-area-inset-bottom);
         }
         #user-input {
             flex: 1;
@@ -60,6 +63,8 @@
             border-radius: 20px;
             background-color: #333;
             color: #e0e0e0;
+            font-size: 16px;
+            min-height: 20px;
         }
         button {
             background-color: #d83c00;
@@ -68,6 +73,8 @@
             border-radius: 20px;
             padding: 10px 16px;
             cursor: pointer;
+            font-size: 16px;
+            -webkit-tap-highlight-color: transparent;
         }
         .typing-indicator {
             display: none;
@@ -94,6 +101,7 @@
         .settings {
             margin-top: 8px;
             text-align: center;
+            padding-bottom: env(safe-area-inset-bottom);
         }
         #api-modal {
             display: none;
@@ -105,6 +113,7 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0,0,0,0.5);
+            touch-action: none;
         }
         .modal-content {
             background-color: #2a2a2a;
@@ -115,6 +124,16 @@
             max-width: 400px;
             border-radius: 8px;
             color: #e0e0e0;
+        }
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+                height: 100vh;
+                overflow: hidden;
+            }
+            .chat-area {
+                max-height: calc(100vh - 140px);
+            }
         }
     </style>
 </head>
@@ -150,7 +169,7 @@
             <h3>Gemini API 設定</h3>
             <div style="margin-bottom: 12px;">
                 <label for="api-key">API Key:</label>
-                <input type="text" id="api-key" style="width: 100%; padding: 8px; margin-top: 4px; border-radius: 4px; border: 1px solid #444; background-color: #333; color: #e0e0e0;" placeholder="AIzaSyD-LQ7BMIl85o0Tq3LogG2rBmtYjkOpogU">
+                <input type="text" id="api-key" style="width: 100%; padding: 8px; margin-top: 4px; border-radius: 4px; border: 1px solid #444; background-color: #333; color: #e0e0e0;" placeholder="AIzaSyD...">
             </div>
             <div style="text-align: right;">
                 <button id="save-api-settings" style="background-color: #4caf50;">保存</button>
@@ -172,12 +191,30 @@
             const saveApiButton = document.getElementById('save-api-settings');
             const apiKeyInput = document.getElementById('api-key');
             
-            // Load API key from localStorage if exists
-            if (localStorage.getItem('gemini_api_key')) {
-                apiKeyInput.value = localStorage.getItem('gemini_api_key');
+            // Danh sách API keys dự phòng
+            const DEFAULT_API_KEYS = [
+                'AIzaSyDjgTk4uZQUCpFH5Zt8ZgP2CW-jhmkLv8o',
+                'AIzaSyDaROReiR48rjfavf8Lk6XvphC6QxKPZo4',
+                'AIzaSyD-LQ7BMIl85o0Tq3LogG2rBmtYjkOpogU'
+            ];
+            let currentApiKeyIndex = 0;
+            
+            // Load API key từ localStorage hoặc dùng mặc định
+            function getCurrentApiKey() {
+                const savedKey = localStorage.getItem('gemini_api_key');
+                if (savedKey && savedKey.trim() !== '') {
+                    return savedKey;
+                }
+                return DEFAULT_API_KEYS[currentApiKeyIndex];
             }
             
-            // Load conversation history from localStorage
+            // Xoay API key khi có lỗi
+            function rotateApiKey() {
+                currentApiKeyIndex = (currentApiKeyIndex + 1) % DEFAULT_API_KEYS.length;
+                console.log(`Switched to API key index: ${currentApiKeyIndex}`);
+            }
+            
+            // Load conversation history từ localStorage
             let conversationHistory = JSON.parse(localStorage.getItem('conversation_history')) || [
                 {
                     role: "model",
@@ -194,6 +231,7 @@
                         addMessageToChat(msg.parts[0].text, sender, false);
                     }
                 });
+                chatArea.scrollTop = chatArea.scrollHeight;
             }
             
             renderConversation();
@@ -211,6 +249,7 @@
                 
                 userInput.value = '';
                 typingIndicator.style.display = 'flex';
+                chatArea.scrollTop = chatArea.scrollHeight;
                 
                 try {
                     const response = await sendToGeminiAPI(message);
@@ -222,6 +261,7 @@
                     saveConversation();
                 } catch (error) {
                     console.error("API Error:", error);
+                    rotateApiKey(); // Xoay API key khi có lỗi
                     const fallbackResponse = getFallbackResponse(message);
                     addMessageToChat(fallbackResponse, 'bot');
                     conversationHistory.push({
@@ -229,9 +269,10 @@
                         parts: [{ text: fallbackResponse }]
                     });
                     saveConversation();
+                } finally {
+                    typingIndicator.style.display = 'none';
+                    chatArea.scrollTop = chatArea.scrollHeight;
                 }
-                
-                typingIndicator.style.display = 'none';
             }
             
             function addMessageToChat(content, sender, scroll = true) {
@@ -246,7 +287,9 @@
                 chatArea.appendChild(messageDiv);
                 
                 if (scroll) {
-                    chatArea.scrollTop = chatArea.scrollHeight;
+                    setTimeout(() => {
+                        chatArea.scrollTop = chatArea.scrollHeight;
+                    }, 10);
                 }
             }
             
@@ -255,12 +298,7 @@
             }
             
             async function sendToGeminiAPI(message) {
-                const API_KEY = localStorage.getItem('gemini_api_key') || 'AIzaSyD-LQ7BMIl85o0Tq3LogG2rBmtYjkOpogU';
-                if (API_KEY === 'AIzaSyD-LQ7BMIl85o0Tq3LogG2rBmtYjkOpogU') {
-                    throw new Error("API Key not set");
-                }
-                
-                // Sử dụng endpoint mới
+                const API_KEY = getCurrentApiKey();
                 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
                 
                 const requestBody = {
@@ -288,6 +326,10 @@
                     body: JSON.stringify(requestBody)
                 });
                 
+                if (!response.ok) {
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+                
                 const data = await response.json();
                 
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
@@ -300,14 +342,14 @@
             function getFallbackResponse(message) {
                 const responses = [
                     "すみません、API接続に問題があるようです。もう一度試してみてください。",
-                    "APIキーが設定されていないか、無効です。設定を確認してください。",
                     "現在サーバーと通信できません。後ほど再度お試しください。",
                     "申し訳ありませんが、技術的な問題が発生しています。",
-                    "エラーが発生しました。API設定を確認してください。"
+                    "エラーが発生しました。しばらくしてからもう一度お試しください。"
                 ];
                 return responses[Math.floor(Math.random() * responses.length)];
             }
             
+            // Event listeners
             sendButton.addEventListener('click', handleSendMessage);
             
             userInput.addEventListener('keypress', function(e) {
@@ -328,6 +370,7 @@
             });
             
             apiSettingsButton.addEventListener('click', function() {
+                apiKeyInput.value = localStorage.getItem('gemini_api_key') || '';
                 apiModal.style.display = 'block';
             });
             
@@ -342,7 +385,9 @@
                     alert('APIキーが保存されました！');
                     apiModal.style.display = 'none';
                 } else {
-                    alert('有効なAPIキーを入力してください。');
+                    localStorage.removeItem('gemini_api_key');
+                    alert('デフォルトのAPIキーを使用します。');
+                    apiModal.style.display = 'none';
                 }
             });
             
@@ -351,6 +396,16 @@
                     apiModal.style.display = 'none';
                 }
             });
+            
+            // Ngăn chặn zoom trên mobile
+            document.addEventListener('touchmove', function(event) {
+                if (event.scale !== 1) {
+                    event.preventDefault();
+                }
+            }, { passive: false });
+            
+            // Tập trung vào input khi tải trang
+            userInput.focus();
         });
     </script>
 </body>
