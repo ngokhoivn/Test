@@ -760,19 +760,22 @@
                 // Gửi đến Telegram (mô phỏng)
                 const telegramMessage = `
                     <b>🍕 ĐƠN HÀNG MỚI 🍕</b>
-                    <b>Bàn số:</b> ${selectedTable}
-                    ${orderNote ? '<b>Ghi chú:</b> ' + orderNote : ''}
+                    <b>Bàn số:</b> ${ selectedTable }
+                    ${ orderNote ? '<b>Ghi chú:</b> ' + orderNote : '' }
 
                     <b>📋 CHI TIẾT ĐƠN HÀNG:</b>
                     <pre>
-                    ${orderDetails.split('\n').map(item => {
-                                    const [name, price] = item.split(':');
-                                    return `${name.padEnd(30, ' ')}${price}`; // Thay dấu chấm bằng khoảng trắng, giảm độ dài
-                                }).join('\n')}
+                ${orderDetails.split('\n').map(item => {
+                    const [name, price] = item.split(':');
+                    // Tìm độ dài tối đa của tên món ăn
+                    const maxNameLength = Math.max(...orderDetails.split('\n').map(i => i.split(':')[0].length));
+                    // Căn chỉnh tên món ăn và giá tiền
+                    return `${name.padEnd(maxNameLength + 2, ' ')}${price.trim()}`;
+                }).join('\n')}
                     </pre>
 
                     <b>💰 TỔNG CỘNG:</b> <u>${formatPrice(total)}</u>
-                    <b>⏰ Thời gian:</b> ${orderData.orderTime}
+                    <b>⏰ Thời gian:</b> ${ orderData.orderTime }
                 `;
 
                 await sendTelegramMessage(telegramMessage);
