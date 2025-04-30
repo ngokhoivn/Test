@@ -759,21 +759,21 @@
 
                 // Gửi đến Telegram (mô phỏng)
                 const telegramMessage = `
-                        <b>🍕 ĐƠN HÀNG MỚI 🍕</b>
-                        <b>Bàn số:</b> ${selectedTable}
-                        ${orderNote ? '<b>Ghi chú:</b> ' + orderNote : ''}
+                    <b>🍕 ĐƠN HÀNG MỚI 🍕</b>
+                    <b>Bàn số:</b> ${selectedTable}
+                    ${orderNote ? '<b>Ghi chú:</b> ' + orderNote : ''}
 
-                        <b>📋 CHI TIẾT ĐƠN HÀNG:</b>
-                        <pre>
-                        ${orderDetails.split('\n').map(item => {
-                            const [name, price] = item.split(':');
-                            return `${name.padEnd(40, '.')}${price}`;
-                        }).join('\n')}
-                        </pre>
+                    <b>📋 CHI TIẾT ĐƠN HÀNG:</b>
+                    <pre>
+                    ${orderDetails.split('\n').map(item => {
+                                    const [name, price] = item.split(':');
+                                    return `${name.padEnd(30, ' ')}${price}`; // Thay dấu chấm bằng khoảng trắng, giảm độ dài
+                                }).join('\n')}
+                    </pre>
 
-                        <b>💰 TỔNG CỘNG:</b> <u>${formatPrice(total)}</u>
-                        <b>⏰ Thời gian:</b> ${orderData.orderTime}
-                    `;
+                    <b>💰 TỔNG CỘNG:</b> <u>${formatPrice(total)}</u>
+                    <b>⏰ Thời gian:</b> ${orderData.orderTime}
+                `;
 
                 await sendTelegramMessage(telegramMessage);
 
