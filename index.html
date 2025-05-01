@@ -14,39 +14,36 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100dvh; /* Sử dụng dynamic viewport height thay vì vh */
-            height: 100dvh; /* Chiều cao chính xác của màn hình */
-            overflow: hidden; /* Ngăn scrolling không cần thiết */
-            position: relative; /* Tạo ngữ cảnh định vị cho các phần tử con */
+            min-height: 100dvh;
+            height: 100dvh;
+            overflow: hidden;
+            position: relative;
             touch-action: manipulation;
             -webkit-text-size-adjust: 100%;
         }
 
-        /* Khu vực chat chính - CHÚ Ý THAY ĐỔI Ở ĐÂY */
         .chat-area {
             flex: 1;
             background-color: #232323;
-            border-radius: 12px 12px 0 0; /* Bo tròn chỉ phần trên */
-            margin: env(safe-area-inset-top, 60px) 8px 0 8px; /* Đảm bảo không bị URL bar che */
-            overflow-y: scroll !important; /* ĐẢM BẢO CHO PHÉP CUỘN */
-            -webkit-overflow-scrolling: touch; /* Hỗ trợ cuộn mượt trên iOS */
+            border-radius: 12px 12px 0 0;
+            margin: env(safe-area-inset-top, 60px) 8px 0 8px;
+            overflow-y: scroll !important;
+            -webkit-overflow-scrolling: touch;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.1);
-            overscroll-behavior: contain; /* Thay đổi từ none sang contain */
+            overscroll-behavior: contain;
             padding: 12px;
-            padding-bottom: 100px; /* Không gian cho input container */
-            /* Đơn giản hóa cách tính chiều cao */
+            padding-bottom: 100px;
             height: calc(100% - 150px);
-            touch-action: pan-y; /* Cho phép cuộn dọc */
+            touch-action: pan-y;
         }
 
-        /* Container input */
         .input-container {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            z-index: 1000; /* Đảm bảo hiển thị trên cùng */
+            z-index: 1000;
             display: flex;
             gap: 8px;
             align-items: center;
@@ -54,12 +51,11 @@
             border-radius: 24px;
             padding: 6px 10px;
             max-width: 768px;
-            width: calc(100% - 20px); /* Trừ đi padding ở hai bên */
+            width: calc(100% - 20px);
             margin: 10px auto;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
         }
 
-        /* Các phần CSS còn lại giữ nguyên */
         @media (max-height: 600px) {
             .chat-area {
                 margin-top: env(safe-area-inset-top, 50px);
@@ -73,18 +69,16 @@
             }
         }
 
-        /* Điều chỉnh cho khi bàn phím mở */
         @media (max-height: 450px) {
             .chat-area {
                 height: calc(100% - 70px);
             }
         }
 
-        /* Còn lại các style khác giữ nguyên */
         .message {
-            margin-bottom: 14px;
             display: flex;
-            position: relative;
+            align-items: center;
+            margin-bottom: 14px;
             animation: fadeIn 0.3s ease-in-out;
         }
 
@@ -93,19 +87,18 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .user-message {
-            justify-content: flex-end;
-        }
-
         .bot-message {
             justify-content: flex-start;
+        }
+
+        .user-message {
+            justify-content: flex-end;
         }
 
         .message-bubble {
@@ -113,9 +106,9 @@
             padding: 10px 14px;
             border-radius: 18px;
             word-wrap: break-word;
-            -webkit-user-select: text;
             user-select: text;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative;
         }
 
         .user-bubble {
@@ -130,7 +123,6 @@
             border-bottom-left-radius: 4px;
         }
 
-        /* User input styling */
         #user-input {
             flex: 1;
             padding: 12px 15px;
@@ -144,13 +136,12 @@
             transition: all 0.3s ease;
         }
 
-            #user-input:focus {
-                border-color: #FFB74D;
-                box-shadow: 0 0 0 3px rgba(255,152,0,0.3);
-                outline: none;
-            }
+        #user-input:focus {
+            border-color: #FFB74D;
+            box-shadow: 0 0 0 3px rgba(255,152,0,0.3);
+            outline: none;
+        }
 
-        /* Button styling */
         .action-button {
             background: linear-gradient(135deg, #EC407A, #D81B60);
             color: #ffffff;
@@ -171,15 +162,15 @@
             flex-shrink: 0;
         }
 
-            .action-button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            }
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
 
-            .action-button:active {
-                transform: translateY(0);
-                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            }
+        .action-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
 
         #clear-chat {
             background: linear-gradient(135deg, #FFA000, #FF6F00);
@@ -200,17 +191,16 @@
             flex-shrink: 0;
         }
 
-            #send-button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            }
+        #send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
 
-            #send-button:active {
-                transform: translateY(0);
-                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            }
+        #send-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
 
-        /* Typing indicator */
         .typing-indicator {
             display: none;
             margin-bottom: 10px;
@@ -227,33 +217,24 @@
             animation: typingAnimation 1.5s infinite ease-in-out;
         }
 
-            .typing-dot:nth-child(1) {
-                animation-delay: 0s;
-            }
-
-            .typing-dot:nth-child(2) {
-                animation-delay: 0.3s;
-            }
-
-            .typing-dot:nth-child(3) {
-                animation-delay: 0.6s;
-            }
-
-        @keyframes typingAnimation {
-            0% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-5px);
-            }
-
-            100% {
-                transform: translateY(0);
-            }
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
         }
 
-        /* Select all button */
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes typingAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
         .select-all-btn {
             display: none;
             position: absolute;
@@ -269,15 +250,14 @@
             transition: background-color 0.2s ease;
         }
 
-            .select-all-btn:hover {
-                background: rgba(0,0,0,0.8);
-            }
+        .select-all-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
 
         .message:hover .select-all-btn {
             display: block;
         }
 
-        /* Điều chỉnh cho giao diện di động */
         @media (max-width: 480px) {
             .action-button {
                 width: 38px;
@@ -303,7 +283,6 @@
             }
         }
 
-        /* Floating Translate Button */
         .translate-button {
             position: fixed;
             top: calc(env(safe-area-inset-top, 10px) + 10px);
@@ -323,22 +302,21 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-            .translate-button:hover {
-                transform: scale(1.1);
-                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            }
+        .translate-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
 
-            .translate-button:active {
-                transform: scale(1);
-                box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-            }
+        .translate-button:active {
+            transform: scale(1);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
 
-            .translate-button svg {
-                width: 24px;
-                height: 24px;
-            }
+        .translate-button svg {
+            width: 24px;
+            height: 24px;
+        }
 
-        /* Tùy chỉnh thanh cuộn giống ChatGPT */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -350,62 +328,76 @@
             transition: background-color 0.3s;
         }
 
-            ::-webkit-scrollbar-thumb:hover {
-                background-color: rgba(255, 255, 255, 0.35);
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(255, 255, 255, 0.35);
+        }
 
         ::-webkit-scrollbar-track {
             background: transparent;
         }
 
-        /* Container cho các nút hành động (loa, copy) */
         .message-actions {
             display: flex;
             flex-direction: column;
             gap: 6px;
-            margin-left: 8px; /* Khoảng cách giữa bong bóng và nút */
             align-items: center;
         }
 
-        /* Điều chỉnh vị trí nút cho tin nhắn của user */
+        .bot-message .message-actions {
+            margin-left: 8px;
+            order: 2;
+        }
+
         .user-message .message-actions {
-            margin-left: 0;
-            margin-right: 8px; /* Đặt bên trái bong bóng của user */
-        }
-
-
-        /* Đảm bảo layout của message */
-        .message {
-            align-items: center; /* Căn giữa các phần tử trong message */
-        }
-
-        /* Điều chỉnh bong bóng để không bị ảnh hưởng */
-        .message-bubble {
-            position: relative;
+            margin-right: 8px;
+            order: -1;
         }
 
         .icon-btn {
             background: #2c2c2c;
             border: none;
-            color: #ccc;
-            padding: 6px;
+            color: #ffffff;
+            padding: 8px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
+            transition: background-color 0.2s, transform 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 28px;
+            height: 28px;
         }
 
-            .icon-btn:hover {
-                background: #444;
-                color: #fff;
-            }
+        .icon-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #ffffff;
+        }
 
+        .icon-btn:hover {
+            background: #444444;
+            transform: scale(1.1);
+        }
+
+        .icon-btn:active {
+            background: #333333;
+            transform: scale(1);
+        }
+
+        @media (max-width: 480px) {
+            .icon-btn {
+                width: 24px;
+                height: 24px;
+                padding: 6px;
+            }
+            .icon-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Floating Translate Button -->
     <button class="translate-button" id="translate-button" title="Open Translation Tool">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17z" />
@@ -452,13 +444,11 @@
             const typingIndicator = document.getElementById('typing-indicator');
             const clearChatButton = document.getElementById('clear-chat');
             const clearInputButton = document.getElementById('clear-input');
-            // Translate button event
             const translateButton = document.getElementById('translate-button');
             translateButton.addEventListener('click', function () {
                 window.location.href = 'Translate.html';
             });
 
-            // Danh sách API keys dự phòng
             const DEFAULT_API_KEYS = [
                 'AIzaSyDjgTk4uZQUCpFH5Zt8ZgP2CW-jhmkLv8o',
                 'AIzaSyDaROReiR48rjfavf8Lk6XvphC6QxKPZo4',
@@ -475,7 +465,6 @@
                 console.log(`Switched to API key index: ${currentApiKeyIndex}`);
             }
 
-            // Load conversation history từ localStorage
             let conversationHistory = JSON.parse(localStorage.getItem('conversation_history')) || [
                 {
                     role: "model",
@@ -483,7 +472,6 @@
                 }
             ];
 
-            // Render existing conversation
             function renderConversation() {
                 chatArea.innerHTML = '';
                 conversationHistory.forEach(msg => {
@@ -536,30 +524,21 @@
                 }
             }
 
-            // Đơn giản hóa phần xử lý chiều cao và sự kiện cuộn
             function setViewportHeight() {
-                // Đơn giản hóa cài đặt chiều cao cho chat area
                 adjustChatAreaHeight();
-
-                // Đảm bảo cuộn cuối
                 chatArea.scrollTop = chatArea.scrollHeight;
             }
 
-            // Đơn giản hóa việc điều chỉnh chiều cao khu vực chat
             function adjustChatAreaHeight() {
                 const windowHeight = window.innerHeight;
-                const inputHeight = 70; // Chiều cao ước tính của input container
-                const topMargin = 60; // Khoảng cách từ trên xuống
-
-                // Thiết lập chiều cao đơn giản
+                const inputHeight = 70;
+                const topMargin = 60;
                 chatArea.style.height = `${windowHeight - inputHeight - topMargin}px`;
             }
 
-            // Các sự kiện resize và orientation change
             window.addEventListener('resize', setViewportHeight);
             window.addEventListener('orientationchange', setViewportHeight);
 
-            // Xử lý khi bàn phím xuất hiện trên thiết bị di động
             if ('visualViewport' in window) {
                 window.visualViewport.addEventListener('resize', function () {
                     adjustChatAreaHeight();
@@ -568,9 +547,8 @@
             }
 
             function addMessageToChat(content, sender, scroll = true) {
-                // Kiểm tra message gần nhất giống nhau thì không thêm
                 const lastMsg = chatArea.lastElementChild?.querySelector('.message-bubble')?.textContent;
-                if (lastMsg && lastMsg === content) return; // Trùng thì bỏ qua
+                if (lastMsg && lastMsg === content) return;
 
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${sender}-message`;
@@ -579,17 +557,14 @@
                 bubbleDiv.className = `message-bubble ${sender}-bubble`;
                 bubbleDiv.textContent = content;
 
-                // Container cho các nút hành động (loa và copy)
                 const actionsDiv = document.createElement('div');
                 actionsDiv.className = 'message-actions';
 
-                // Nút loa (đọc nội dung)
                 const readBtn = document.createElement('button');
-                readBtn.className = 'read-btn';
-                readBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
-<path d="M8 3.993V12.007C8 12.558 7.552 13 7 13s-1-.442-1-.993V3.993C6 3.442 6.448 3 7 3s1 .442 1 .993z"/>
-<path d="M11.707 4.293a1 1 0 0 1 1.414 1.414A5 5 0 0 1 13 8a5 5 0 0 1-.879 2.793 1 1 0 1 1-1.664-1.11A3 3 0 0 0 11 8a3 3 0 0 0-.536-1.683 1 1 0 0 1 1.243-1.51z"/>
-</svg>`;
+                readBtn.className = 'icon-btn';
+                readBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"/>
+                </svg>`;
                 readBtn.title = 'Đọc nội dung';
                 readBtn.onclick = () => {
                     const utterance = new SpeechSynthesisUtterance(content);
@@ -597,24 +572,25 @@
                     speechSynthesis.speak(utterance);
                 };
 
-                // Nút copy
                 const copyBtn = document.createElement('button');
-                copyBtn.className = 'copy-btn';
-                copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
-<path d="M10 1.5A1.5 1.5 0 0 1 11.5 3v9A1.5 1.5 0 0 1 10 13.5H5.707l-.853.854A.5.5 0 0 1 4 14V3a1.5 1.5 0 0 1 1.5-1.5h4Z"/>
-<path d="M5 0a2 2 0 0 0-2 2v11.5a.5.5 0 0 0 .854.354L5 13.207V2a1 1 0 0 1 1-1h4a2 2 0 0 0-2-2H5Z"/>
-</svg>`;
+                copyBtn.className = 'icon-btn';
+                copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                </svg>`;
                 copyBtn.title = 'Sao chép';
                 copyBtn.onclick = () => {
                     navigator.clipboard.writeText(content).then(() => {
-                        copyBtn.textContent = '✅'; // Thay đổi icon tạm thời để báo đã copy
+                        copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                        </svg>`;
                         setTimeout(() => {
-                            copyBtn.textContent = '📋'; // Quay lại icon ban đầu sau 1 giây
+                            copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            </svg>`;
                         }, 1000);
                     });
                 };
 
-                // Nút "全選択" (Select All) vẫn nằm trong bong bóng
                 const selectAllBtn = document.createElement('button');
                 selectAllBtn.className = 'select-all-btn';
                 selectAllBtn.textContent = '全選択';
@@ -627,7 +603,6 @@
                     selection.addRange(range);
                 };
 
-                // Thêm các nút vào DOM
                 bubbleDiv.appendChild(selectAllBtn);
                 actionsDiv.appendChild(readBtn);
                 actionsDiv.appendChild(copyBtn);
@@ -650,11 +625,10 @@
                 const API_KEY = getCurrentApiKey();
                 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
 
-                // Hướng dẫn hệ thống được cải tiến để bot hài hước và sống động hơn
                 const systemInstruction = {
                     role: "model",
                     parts: [{
-                        text: `You are a cheerful Japanese chatbot. Reply in casual Japanese, short (1–2 sentences max), and friendly. Use slang or emojis sometimes like (笑), マジ!? to sound natural.`,
+                        text: `You are a cheerful Japanese chatbot. Reply in casual Japanese, short (1–2 sentences max), and friendly. Use slang or emojis sometimes like (笑), マジ!? to sound natural.`
                     }]
                 };
 
@@ -692,13 +666,11 @@
                     const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
                     if (text) {
-                        // Giới hạn kích thước lịch sử cuộc trò chuyện
                         if (conversationHistory.length > 20) {
                             conversationHistory = [
                                 ...conversationHistory.slice(conversationHistory.length - 10)
                             ];
                         }
-
                         return text;
                     } else {
                         throw new Error("Invalid API response structure");
@@ -719,13 +691,10 @@
                 return responses[Math.floor(Math.random() * responses.length)];
             }
 
-            // Thêm một sự kiện để kiểm tra và đảm bảo khả năng cuộn
             chatArea.addEventListener('touchstart', function () {
-                // Chỉ để đảm bảo rằng sự kiện touchstart được xử lý đúng cách
                 chatArea.style.overflowY = 'scroll';
             });
 
-            // Event listeners
             sendButton.addEventListener('click', handleSendMessage);
 
             userInput.addEventListener('keypress', function (e) {
@@ -750,10 +719,7 @@
                 userInput.focus();
             });
 
-            // Tập trung vào input khi tải trang
             userInput.focus();
-
-            // Thiết lập ban đầu
             setViewportHeight();
         });
     </script>
