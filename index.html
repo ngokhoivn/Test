@@ -541,10 +541,16 @@
                 bubbleDiv.setAttribute('aria-label', content);
 
                 // Tạo văn bản đã lọc cho trợ năng
-                const cleanText = content.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '')
-                                        .replace(/[（）\(\)「」『』【】☆★♪♪！？!?]+/g, '')
-                                        .replace(/(\s*\(.*?\)\s*)/g, '')
-                                        .trim();
+				const cleanText = content
+					// Loại bỏ emoji và biểu tượng cảm xúc phức tạp (kể cả kaomoji)
+					.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '')
+					// Loại bỏ các ký tự đặc biệt, dấu ngoặc, ký tự trang trí
+					.replace(/[【】（）\(\)「」『』〘〙〚〛☆★♪♪♫♬！？!?~〜・・・…。、｡<>@#\$%\^&\*_\+\-=`\|{}\[\];:"'<>?,./]/g, '')
+					// Loại bỏ kaomoji phổ biến (ví dụ: (≧∇≦), (╯°□°）╯︵ ┻━┻)
+					.replace(/\([^)]*\)/g, '') // Xóa cả cụm trong ngoặc đơn
+					.replace(/[^\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}a-zA-Z0-9ー～ 　]/gu, '') // Chỉ giữ lại chữ Nhật, Latin, số, khoảng trắng
+					.trim();										
+										
                 const accessibleDiv = document.createElement('div');
                 accessibleDiv.textContent = cleanText;
                 accessibleDiv.style.position = 'absolute';
