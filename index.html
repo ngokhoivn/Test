@@ -77,7 +77,7 @@
 
         .message {
             display: flex;
-            align-items: center;
+            flex-direction: column;
             margin-bottom: 14px;
             animation: fadeIn 0.3s ease-in-out;
         }
@@ -87,6 +87,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -94,15 +95,28 @@
         }
 
         .bot-message {
-            justify-content: flex-start;
+            align-items: flex-start;
         }
 
         .user-message {
-            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+        }
+
+        .bot-content {
+            align-items: flex-start;
+        }
+
+        .user-content {
+            align-items: flex-end;
         }
 
         .message-bubble {
-            max-width: 80%;
             padding: 10px 14px;
             border-radius: 18px;
             word-wrap: break-word;
@@ -123,6 +137,65 @@
             border-bottom-left-radius: 4px;
         }
 
+        .message-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .bot-message .message-actions {
+            justify-content: flex-start;
+        }
+
+        .user-message .message-actions {
+            justify-content: flex-end;
+        }
+
+        .icon-btn {
+            background: #2c2c2c;
+            border: none;
+            color: #ffffff;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+        }
+
+            .icon-btn svg {
+                width: 16px;
+                height: 16px;
+                fill: #ffffff;
+            }
+
+            .icon-btn:hover {
+                background: #444444;
+                transform: scale(1.1);
+            }
+
+            .icon-btn:active {
+                background: #333333;
+                transform: scale(1);
+            }
+
+        @media (max-width: 480px) {
+            .icon-btn {
+                width: 24px;
+                height: 24px;
+                padding: 6px;
+            }
+
+                .icon-btn svg {
+                    width: 14px;
+                    height: 14px;
+                }
+        }
+
         #user-input {
             flex: 1;
             padding: 12px 15px;
@@ -136,11 +209,11 @@
             transition: all 0.3s ease;
         }
 
-        #user-input:focus {
-            border-color: #FFB74D;
-            box-shadow: 0 0 0 3px rgba(255,152,0,0.3);
-            outline: none;
-        }
+            #user-input:focus {
+                border-color: #FFB74D;
+                box-shadow: 0 0 0 3px rgba(255,152,0,0.3);
+                outline: none;
+            }
 
         .action-button {
             background: linear-gradient(135deg, #EC407A, #D81B60);
@@ -162,15 +235,15 @@
             flex-shrink: 0;
         }
 
-        .action-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
+            .action-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            }
 
-        .action-button:active {
-            transform: translateY(0);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
+            .action-button:active {
+                transform: translateY(0);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            }
 
         #clear-chat {
             background: linear-gradient(135deg, #FFA000, #FF6F00);
@@ -191,15 +264,15 @@
             flex-shrink: 0;
         }
 
-        #send-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
+            #send-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            }
 
-        #send-button:active {
-            transform: translateY(0);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
+            #send-button:active {
+                transform: translateY(0);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            }
 
         .typing-indicator {
             display: none;
@@ -217,22 +290,30 @@
             animation: typingAnimation 1.5s infinite ease-in-out;
         }
 
-        .typing-dot:nth-child(1) {
-            animation-delay: 0s;
-        }
+            .typing-dot:nth-child(1) {
+                animation-delay: 0s;
+            }
 
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.3s;
-        }
+            .typing-dot:nth-child(2) {
+                animation-delay: 0.3s;
+            }
 
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.6s;
-        }
+            .typing-dot:nth-child(3) {
+                animation-delay: 0.6s;
+            }
 
         @keyframes typingAnimation {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-            100% { transform: translateY(0); }
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
         }
 
         .select-all-btn {
@@ -250,9 +331,9 @@
             transition: background-color 0.2s ease;
         }
 
-        .select-all-btn:hover {
-            background: rgba(0,0,0,0.8);
-        }
+            .select-all-btn:hover {
+                background: rgba(0,0,0,0.8);
+            }
 
         .message:hover .select-all-btn {
             display: block;
@@ -302,20 +383,20 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .translate-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        }
+            .translate-button:hover {
+                transform: scale(1.1);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            }
 
-        .translate-button:active {
-            transform: scale(1);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-        }
+            .translate-button:active {
+                transform: scale(1);
+                box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            }
 
-        .translate-button svg {
-            width: 24px;
-            height: 24px;
-        }
+            .translate-button svg {
+                width: 24px;
+                height: 24px;
+            }
 
         ::-webkit-scrollbar {
             width: 8px;
@@ -328,72 +409,12 @@
             transition: background-color 0.3s;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(255, 255, 255, 0.35);
-        }
+            ::-webkit-scrollbar-thumb:hover {
+                background-color: rgba(255, 255, 255, 0.35);
+            }
 
         ::-webkit-scrollbar-track {
             background: transparent;
-        }
-
-        .message-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .bot-message .message-actions {
-            margin-left: 8px;
-            order: 2;
-        }
-
-        .user-message .message-actions {
-            margin-right: 8px;
-            order: -1;
-        }
-
-        .icon-btn {
-            background: #2c2c2c;
-            border: none;
-            color: #ffffff;
-            padding: 8px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s, transform 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-        }
-
-        .icon-btn svg {
-            width: 16px;
-            height: 16px;
-            fill: #ffffff;
-        }
-
-        .icon-btn:hover {
-            background: #444444;
-            transform: scale(1.1);
-        }
-
-        .icon-btn:active {
-            background: #333333;
-            transform: scale(1);
-        }
-
-        @media (max-width: 480px) {
-            .icon-btn {
-                width: 24px;
-                height: 24px;
-                padding: 6px;
-            }
-            .icon-btn svg {
-                width: 14px;
-                height: 14px;
-            }
         }
     </style>
 </head>
@@ -405,8 +426,22 @@
     </button>
     <div class="chat-area" id="chat-area">
         <div class="message bot-message">
-            <div class="message-bubble bot-bubble">
-                こんにちは！日本語の練習や会話を楽しみましょう！何か話したいことはありますか？
+            <div class="message-content bot-content">
+                <div class="message-bubble bot-bubble">
+                    こんにちは！日本語の練習や会話を楽しみましょう！何か話したいことはありますか？
+                </div>
+                <div class="message-actions">
+                    <button class="icon-btn" title="Đọc nội dung">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z" />
+                        </svg>
+                    </button>
+                    <button class="icon-btn" title="Sao chép">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -553,6 +588,9 @@
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${sender}-message`;
 
+                const contentDiv = document.createElement('div');
+                contentDiv.className = `message-content ${sender}-content`;
+
                 const bubbleDiv = document.createElement('div');
                 bubbleDiv.className = `message-bubble ${sender}-bubble`;
                 bubbleDiv.textContent = content;
@@ -563,8 +601,8 @@
                 const readBtn = document.createElement('button');
                 readBtn.className = 'icon-btn';
                 readBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"/>
-                </svg>`;
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"/>
+                    </svg>`;
                 readBtn.title = 'Đọc nội dung';
                 readBtn.onclick = () => {
                     const utterance = new SpeechSynthesisUtterance(content);
@@ -575,18 +613,18 @@
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'icon-btn';
                 copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                </svg>`;
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                    </svg>`;
                 copyBtn.title = 'Sao chép';
                 copyBtn.onclick = () => {
                     navigator.clipboard.writeText(content).then(() => {
                         copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                        </svg>`;
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                            </svg>`;
                         setTimeout(() => {
                             copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                            </svg>`;
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                </svg>`;
                         }, 1000);
                     });
                 };
@@ -606,8 +644,9 @@
                 bubbleDiv.appendChild(selectAllBtn);
                 actionsDiv.appendChild(readBtn);
                 actionsDiv.appendChild(copyBtn);
-                messageDiv.appendChild(bubbleDiv);
-                messageDiv.appendChild(actionsDiv);
+                contentDiv.appendChild(bubbleDiv);
+                contentDiv.appendChild(actionsDiv);
+                messageDiv.appendChild(contentDiv);
                 chatArea.appendChild(messageDiv);
 
                 if (scroll) {
