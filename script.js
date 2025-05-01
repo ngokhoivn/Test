@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // DOM elements
-    const elements = {
+    const elements = {		
         improveBtn: document.getElementById('improveBtn'),
         suggestBtn: document.getElementById('suggestBtn'),
         saveBtn: document.getElementById('saveBtn'),
@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'index.html';
         });
     }
-
 
     // Check if any required element is missing and initialize it if needed
     Object.entries(elements).forEach(([key, element]) => {
