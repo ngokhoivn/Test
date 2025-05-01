@@ -358,6 +358,21 @@
             background: transparent;
         }
 
+        .read-btn {
+            margin-left: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ccc;
+            font-size: 16px;
+            padding: 0 4px;
+            transition: color 0.2s ease;
+        }
+
+            .read-btn:hover {
+                color: #fff;
+            }
+
     </style>
 </head>
 <body>
@@ -533,6 +548,17 @@
                 const bubbleDiv = document.createElement('div');
                 bubbleDiv.className = `message-bubble ${sender}-bubble`;
                 bubbleDiv.textContent = content;
+
+                const readBtn = document.createElement('button');
+                readBtn.className = 'read-btn';
+                readBtn.textContent = '📢';
+                readBtn.title = 'Đọc nội dung';
+                readBtn.onclick = () => {
+                    const utterance = new SpeechSynthesisUtterance(content);
+                    utterance.lang = 'ja-JP'; // hoặc 'vi-VN', 'en-US'
+                    speechSynthesis.speak(utterance);
+                };
+                bubbleDiv.appendChild(readBtn);
 
                 const selectAllBtn = document.createElement('button');
                 selectAllBtn.className = 'select-all-btn';
