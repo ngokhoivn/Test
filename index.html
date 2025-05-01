@@ -524,6 +524,9 @@
             }
 
             function addMessageToChat(content, sender, scroll = true) {
+                // Kiểm tra message gần nhất giống nhau thì không thêm
+                const lastMsg = chatArea.lastElementChild?.querySelector('.message-bubble')?.textContent;
+                if (lastMsg && lastMsg === content) return; // Trùng thì bỏ qua
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${sender}-message`;
 
