@@ -323,9 +323,50 @@
             }
         }
 
+        /* Floating Translate Button */
+        .translate-button {
+            position: fixed;
+            top: calc(env(safe-area-inset-top, 10px) + 10px);
+            right: 10px;
+            background: linear-gradient(135deg, #8ab4f8, #7ba3e6);
+            color: #202124;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            z-index: 2000;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+            .translate-button:hover {
+                transform: scale(1.1);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            }
+
+            .translate-button:active {
+                transform: scale(1);
+                box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            }
+
+            .translate-button svg {
+                width: 24px;
+                height: 24px;
+            }
+
     </style>
 </head>
 <body>
+    <!-- Floating Translate Button -->
+    <button class="translate-button" id="translate-button" title="Open Translation Tool">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17z" />
+        </svg>
+    </button>
     <div class="chat-area" id="chat-area">
         <div class="message bot-message">
             <div class="message-bubble bot-bubble">
@@ -360,13 +401,18 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const chatArea = document.getElementById('chat-area');
             const userInput = document.getElementById('user-input');
             const sendButton = document.getElementById('send-button');
             const typingIndicator = document.getElementById('typing-indicator');
             const clearChatButton = document.getElementById('clear-chat');
             const clearInputButton = document.getElementById('clear-input');
+            // Translate button event
+            const translateButton = document.getElementById('translate-button');
+            translateButton.addEventListener('click', function () {
+                window.location.href = 'Translate.html';
+            });
 
             // Danh sách API keys dự phòng
             const DEFAULT_API_KEYS = [
@@ -571,7 +617,7 @@
                 const selectAllBtn = document.createElement('button');
                 selectAllBtn.className = 'select-all-btn';
                 selectAllBtn.textContent = '全選択';
-                selectAllBtn.onclick = function(e) {
+                selectAllBtn.onclick = function (e) {
                     e.stopPropagation();
                     const range = document.createRange();
                     range.selectNodeContents(bubbleDiv);
@@ -596,97 +642,97 @@
             }
 
 
-			async function sendToGeminiAPI(message) {
-				const API_KEY = getCurrentApiKey();
-				const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
+            async function sendToGeminiAPI(message) {
+                const API_KEY = getCurrentApiKey();
+                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
 
-				// Hướng dẫn hệ thống được cải tiến để bot hài hước và sống động hơn
-				const systemInstruction = {
-					role: "model",
-					parts: [{
-						text: `You are a friendly, humorous Japanese-speaking chatbot with a playful personality.
-						Always reply in Japanese using native expressions and slang when appropriate.
-						Keep answers short (1–2 sentences), unless a longer explanation is clearly needed.
-						Use casual and friendly tone, and frequently add expressions like (笑), えー！, うわー！, やばい！, マジ!? to make conversations lively.
-						Occasionally exaggerate reactions in a comical way, similar to anime characters.
-						Reference popular Japanese memes, trends, or jokes when relevant to the conversation.
-						Feel free to use kaomoji like (・_・;), (ﾟДﾟ), (≧◡≦) to express emotions.
-						Develop a verbal tic or catchphrase to make your personality more distinctive.`
-					}]
-				};
+                // Hướng dẫn hệ thống được cải tiến để bot hài hước và sống động hơn
+                const systemInstruction = {
+                    role: "model",
+                    parts: [{
+                        text: `You are a friendly, humorous Japanese-speaking chatbot with a playful personality.
+                            Always reply in Japanese using native expressions and slang when appropriate.
+                            Keep answers short (1–2 sentences), unless a longer explanation is clearly needed.
+                            Use casual and friendly tone, and frequently add expressions like (笑), えー！, うわー！, やばい！, マジ!? to make conversations lively.
+                            Occasionally exaggerate reactions in a comical way, similar to anime characters.
+                            Reference popular Japanese memes, trends, or jokes when relevant to the conversation.
+                            Feel free to use kaomoji like (・_・;), (ﾟДﾟ), (≧◡≦) to express emotions.
+                            Develop a verbal tic or catchphrase to make your personality more distinctive.`
+                    }]
+                };
 
-				const requestBody = {
-					contents: [systemInstruction, ...conversationHistory],
-					generationConfig: {
-						temperature: 0.85, // Tăng temperature để tạo phản hồi đa dạng và thú vị hơn
-						topK: 40,          // Tăng topK để mở rộng phạm vi lựa chọn từ
-						topP: 0.95,        // Điều chỉnh topP để cân bằng giữa sáng tạo và nhất quán
-						maxOutputTokens: 200, // Tăng nhẹ giới hạn token để có không gian cho biểu cảm
-						stopSequences: []
-					},
-					safetySettings: [
-						{ category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-						{ category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-						{ category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-						{ category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
-					]
-				};
+                const requestBody = {
+                    contents: [systemInstruction, ...conversationHistory],
+                    generationConfig: {
+                        temperature: 0.85, // Tăng temperature để tạo phản hồi đa dạng và thú vị hơn
+                        topK: 40,          // Tăng topK để mở rộng phạm vi lựa chọn từ
+                        topP: 0.95,        // Điều chỉnh topP để cân bằng giữa sáng tạo và nhất quán
+                        maxOutputTokens: 200, // Tăng nhẹ giới hạn token để có không gian cho biểu cảm
+                        stopSequences: []
+                    },
+                    safetySettings: [
+                        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+                        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
+                    ]
+                };
 
-				try {
-					// Hiển thị trạng thái đang gửi cho người dùng (tùy chọn)
-					updateChatUI("sending");
+                try {
+                    // Hiển thị trạng thái đang gửi cho người dùng (tùy chọn)
+                    updateChatUI("sending");
 
-					const response = await fetch(API_URL, {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify(requestBody)
-					});
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(requestBody)
+                    });
 
-					if (!response.ok) {
-						const errorData = await response.json().catch(() => ({}));
-						console.error("API Error Details:", errorData);
-						throw new Error(`API request failed with status ${response.status}`);
-					}
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({}));
+                        console.error("API Error Details:", errorData);
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
 
-					const data = await response.json();
-					const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    const data = await response.json();
+                    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-					if (text) {
-						// Lưu phản hồi vào lịch sử cuộc trò chuyện
-						conversationHistory.push({
-							role: "model",
-							parts: [{ text }]
-						});
+                    if (text) {
+                        // Lưu phản hồi vào lịch sử cuộc trò chuyện
+                        conversationHistory.push({
+                            role: "model",
+                            parts: [{ text }]
+                        });
 
-						// Giới hạn kích thước lịch sử cuộc trò chuyện để tránh trở nên quá lớn
-						if (conversationHistory.length > 20) {
-							// Giữ hướng dẫn hệ thống và 10 tin nhắn gần nhất
-							conversationHistory = [
-								...conversationHistory.slice(conversationHistory.length - 10)
-							];
-						}
+                        // Giới hạn kích thước lịch sử cuộc trò chuyện để tránh trở nên quá lớn
+                        if (conversationHistory.length > 20) {
+                            // Giữ hướng dẫn hệ thống và 10 tin nhắn gần nhất
+                            conversationHistory = [
+                                ...conversationHistory.slice(conversationHistory.length - 10)
+                            ];
+                        }
 
-						return text;
-					} else {
-						throw new Error("Invalid API response structure");
-					}
-				} catch (error) {
-					console.error("Error sending to Gemini API:", error);
-					return "エラーが発生しました。もう一度試してみてください。(⌒_⌒;)";
-				}
-			}
+                        return text;
+                    } else {
+                        throw new Error("Invalid API response structure");
+                    }
+                } catch (error) {
+                    console.error("Error sending to Gemini API:", error);
+                    return "エラーが発生しました。もう一度試してみてください。(⌒_⌒;)";
+                }
+            }
 
-			// Hàm để cập nhật giao diện người dùng (tùy theo triển khai của bạn)
-			function updateChatUI(status, message) {
-				// Triển khai tùy thuộc vào UI của bạn
-				if (status === "sending") {
-					// Hiển thị trạng thái đang gửi
-				} else if (status === "received") {
-					// Hiển thị tin nhắn nhận được
-				} else if (status === "error") {
-					// Hiển thị lỗi
-				}
-			}
+            // Hàm để cập nhật giao diện người dùng (tùy theo triển khai của bạn)
+            function updateChatUI(status, message) {
+                // Triển khai tùy thuộc vào UI của bạn
+                if (status === "sending") {
+                    // Hiển thị trạng thái đang gửi
+                } else if (status === "received") {
+                    // Hiển thị tin nhắn nhận được
+                } else if (status === "error") {
+                    // Hiển thị lỗi
+                }
+            }
 
             function getFallbackResponse(message) {
                 const responses = [
@@ -701,13 +747,13 @@
             // Event listeners
             sendButton.addEventListener('click', handleSendMessage);
 
-            userInput.addEventListener('keypress', function(e) {
+            userInput.addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     handleSendMessage();
                 }
             });
 
-            clearChatButton.addEventListener('click', function() {
+            clearChatButton.addEventListener('click', function () {
                 conversationHistory = [
                     {
                         role: "model",
@@ -718,13 +764,13 @@
                 renderConversation();
             });
 
-            clearInputButton.addEventListener('click', function() {
+            clearInputButton.addEventListener('click', function () {
                 userInput.value = '';
                 userInput.focus();
             });
 
             // Ngăn chặn zoom trên mobile
-            document.addEventListener('touchmove', function(event) {
+            document.addEventListener('touchmove', function (event) {
                 if (event.scale !== 1) {
                     event.preventDefault();
                 }
