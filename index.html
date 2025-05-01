@@ -5,39 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>日本語チャット</title>
     <style>
+        /* Reset cơ bản và sử dụng 100dvh */
         body {
             font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
             background-color: #1a1a1a;
             color: #e0e0e0;
             margin: 0;
-            padding: 10px;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100dvh;
+            min-height: 100dvh; /* Sử dụng dynamic viewport height thay vì vh */
+            height: 100dvh; /* Chiều cao chính xác của màn hình */
+            overflow: hidden; /* Ngăn scrolling không cần thiết */
+            position: relative; /* Tạo ngữ cảnh định vị cho các phần tử con */
             touch-action: manipulation;
             -webkit-text-size-adjust: 100%;
-            height: calc(var(--vh, 1vh) * 100);
         }
 
+        /* Khu vực chat chính */
         .chat-area {
             flex: 1;
-            background-color: #232323; /* Màu nền nhẹ hơn */
-            border-radius: 12px; /* Bo tròn hơn */
-            padding: 12px;
-            margin-bottom: 12px;
+            background-color: #232323;
+            border-radius: 12px 12px 0 0; /* Bo tròn chỉ phần trên */
+            margin: env(safe-area-inset-top, 60px) 8px 0 8px; /* Đảm bảo không bị URL bar che */
             overflow-y: auto;
-            max-height: calc(100vh - 70px);
             -webkit-overflow-scrolling: touch;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Thêm đổ bóng */
-            border: 1px solid rgba(255,255,255,0.1); /* Thêm viền nhẹ */
-            padding-bottom: 80px; /* Để không bị input-container che */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            overscroll-behavior: none; /* Ngăn "bounce" effect trên iOS */
+            padding: 12px;
+            padding-bottom: 100px; /* Không gian cho input container */
+            /* Tính toán chiều cao chính xác */
+            height: calc(100dvh - env(safe-area-inset-top, 60px) - env(safe-area-inset-bottom, 80px) - 70px);
         }
 
+        /* Container input */
+        .input-container {
+            position: fixed;
+            bottom: calc(env(safe-area-inset-bottom, 0) + 60px); /* Khoảng cách từ đáy */
+            left: 0;
+            right: 0;
+            z-index: 1000; /* Đảm bảo hiển thị trên cùng */
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            background-color: #1a1a1a;
+            border-radius: 24px;
+            padding: 6px 10px;
+            max-width: 768px;
+            width: calc(100% - 20px); /* Trừ đi padding ở hai bên */
+            margin: 0 auto;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Điều chỉnh cho màn hình nhỏ */
+        @media (max-height: 600px) {
+            .chat-area {
+                margin-top: env(safe-area-inset-top, 50px);
+                height: calc(100dvh - env(safe-area-inset-top, 50px) - env(safe-area-inset-bottom, 60px) - 70px);
+            }
+
+            .input-container {
+                bottom: calc(env(safe-area-inset-bottom, 0) + 50px);
+            }
+        }
+
+        /* Điều chỉnh cho màn hình cao */
+        @media (min-height: 800px) {
+            .chat-area {
+                margin-top: env(safe-area-inset-top, 70px);
+            }
+
+            .input-container {
+                bottom: calc(env(safe-area-inset-bottom, 0) + 70px);
+            }
+        }
+
+        /* Ngăn chặn input bị che khi bàn phím mở */
+        @media (max-height: 450px) {
+            /* Khi bàn phím mở (chiều cao màn hình giảm) */
+            .chat-area {
+                height: calc(100dvh - 110px);
+            }
+
+            .input-container {
+                bottom: 5px;
+            }
+        }
+
+        /* Điều chỉnh cho thiết bị có notch */
+        @supports (padding-top: env(safe-area-inset-top)) {
+            .chat-area {
+                margin-top: max(env(safe-area-inset-top), 60px);
+            }
+        }
+
+        /* Styling cho message */
         .message {
             margin-bottom: 14px;
             display: flex;
             position: relative;
-            animation: fadeIn 0.3s ease-in-out; /* Hiệu ứng hiện tin nhắn */
+            animation: fadeIn 0.3s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -67,78 +135,60 @@
             word-wrap: break-word;
             -webkit-user-select: text;
             user-select: text;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Đổ bóng nhẹ cho bong bóng */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .user-bubble {
-            background: linear-gradient(135deg, #4caf50, #3d8b40); /* Gradient xanh lá */
+            background: linear-gradient(135deg, #4caf50, #3d8b40);
             color: #ffffff;
-            border-bottom-right-radius: 4px; /* Bo góc đặc biệt */
+            border-bottom-right-radius: 4px;
         }
 
         .bot-bubble {
-            background: linear-gradient(135deg, #424242, #303030); /* Gradient xám */
+            background: linear-gradient(135deg, #424242, #303030);
             color: #ffffff;
-            border-bottom-left-radius: 4px; /* Bo góc đặc biệt */
+            border-bottom-left-radius: 4px;
         }
 
-        .input-container {
-            position: fixed;
-            bottom: env(safe-area-inset-bottom, 0);
-            left: 0;
-            right: 0;
-            z-index: 10;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            background-color: #1a1a1a;
-            border-radius: 24px;
-            padding: 6px 10px;
-            max-width: 768px;
-            margin: auto;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            /* Ngăn layout nhảy khi bàn phím mở */
-            transition: bottom 0.2s ease;
-        }
-
-
+        /* User input styling */
         #user-input {
             flex: 1;
             padding: 12px 15px;
             border: 2px solid #FF9800;
             border-radius: 20px;
-            background-color: #2d2d2d; /* Nhẹ hơn để tạo tương phản */
+            background-color: #2d2d2d;
             color: #ffffff;
             font-size: 16px;
             min-height: 20px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); /* Đổ bóng bên trong */
-            transition: all 0.3s ease; /* Hiệu ứng chuyển động */
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
 
             #user-input:focus {
-                border-color: #FFB74D; /* Màu viền khi focus */
-                box-shadow: 0 0 0 3px rgba(255,152,0,0.3); /* Đổ bóng khi focus */
+                border-color: #FFB74D;
+                box-shadow: 0 0 0 3px rgba(255,152,0,0.3);
                 outline: none;
             }
 
+        /* Button styling */
         .action-button {
-            background: linear-gradient(135deg, #EC407A, #D81B60); /* Gradient hồng */
+            background: linear-gradient(135deg, #EC407A, #D81B60);
             color: #ffffff;
             border: none;
             border-radius: 50%;
             width: 42px;
             height: 42px;
-            min-width: 42px; /* Thêm min-width để ngăn co lại */
-            min-height: 42px; /* Thêm min-height để ngăn co lại */
-            aspect-ratio: 1/1; /* Đảm bảo tỷ lệ khung hình luôn là 1:1 */
+            min-width: 42px;
+            min-height: 42px;
+            aspect-ratio: 1/1;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             -webkit-tap-highlight-color: transparent;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Đổ bóng */
-            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng */
-            flex-shrink: 0; /* Ngăn nút bị co lại khi không gian bị hạn chế */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            flex-shrink: 0;
         }
 
             .action-button:hover {
@@ -152,22 +202,22 @@
             }
 
         #clear-chat {
-            background: linear-gradient(135deg, #FFA000, #FF6F00); /* Gradient cam */
+            background: linear-gradient(135deg, #FFA000, #FF6F00);
         }
 
         #send-button {
-            background: linear-gradient(135deg, #4285f4, #3367d6); /* Gradient xanh */
+            background: linear-gradient(135deg, #4285f4, #3367d6);
             color: #ffffff;
             border-radius: 20px;
             padding: 0 18px;
             height: 42px;
             min-width: 60px;
-            min-height: 42px; /* Thêm min-height */
+            min-height: 42px;
             font-weight: bold;
             letter-spacing: 0.5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            flex-shrink: 0; /* Ngăn nút bị co lại */
+            flex-shrink: 0;
         }
 
             #send-button:hover {
@@ -180,6 +230,7 @@
                 box-shadow: 0 1px 3px rgba(0,0,0,0.2);
             }
 
+        /* Typing indicator */
         .typing-indicator {
             display: none;
             margin-bottom: 10px;
@@ -222,6 +273,7 @@
             }
         }
 
+        /* Select all button */
         .select-all-btn {
             display: none;
             position: absolute;
@@ -250,26 +302,24 @@
             .action-button {
                 width: 38px;
                 height: 38px;
-                min-width: 38px; /* Cập nhật min-width cho mobile */
-                min-height: 38px; /* Cập nhật min-height cho mobile */
+                min-width: 38px;
+                min-height: 38px;
             }
 
             #send-button {
                 height: 38px;
-                min-height: 38px; /* Cập nhật min-height cho mobile */
+                min-height: 38px;
                 min-width: 55px;
-                padding: 0 12px; /* Giảm padding để phù hợp với kích thước nhỏ hơn */
+                padding: 0 12px;
             }
 
-            /* Đảm bảo input không bị co lại quá nhiều */
             #user-input {
-                min-width: 0; /* Cho phép thu nhỏ khi cần thiết */
+                min-width: 0;
             }
 
-            /* Giảm gap giữa các phần tử trong container */
             .input-container {
                 gap: 4px;
-                padding: 4px; /* Giảm padding */
+                padding: 4px;
             }
         }
 
@@ -395,6 +445,120 @@
                     chatArea.scrollTop = chatArea.scrollHeight;
                 }
             }
+
+            function setViewportHeight() {
+                // Tính toán chiều cao thực của viewport
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+                // Điều chỉnh chat area căn cứ vào chiều cao thực
+                adjustChatAreaHeight();
+
+                // Cuộn xuống đáy nếu cần
+                scrollToBottom();
+            }
+
+            // Điều chỉnh chiều cao khu vực chat phù hợp với thiết bị
+            function adjustChatAreaHeight() {
+                // Kiểm tra xem bàn phím có mở không (phương pháp ước lượng)
+                const isKeyboardOpen = window.innerHeight < window.outerHeight * 0.75;
+
+                if (isKeyboardOpen) {
+                    // Nếu bàn phím mở, điều chỉnh chiều cao để phù hợp
+                    chatArea.style.height = `${window.innerHeight - 100}px`;
+                } else {
+                    // Chiều cao bình thường
+                    const topInset = parseInt(getComputedStyle(chatArea).marginTop);
+                    const bottomSpace = 80; // Khoảng trống cho input container
+                    chatArea.style.height = `${window.innerHeight - topInset - bottomSpace}px`;
+                }
+            }
+
+            // Cuộn xuống cuối cuộc trò chuyện
+            function scrollToBottom() {
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }
+
+            // Đăng ký các sự kiện liên quan đến kích thước màn hình
+            window.addEventListener('resize', setViewportHeight);
+            window.addEventListener('orientationchange', setViewportHeight);
+
+            // Phát hiện khi bàn phím mở/đóng (iOS và một số thiết bị Android)
+            window.visualViewport.addEventListener('resize', function () {
+                adjustChatAreaHeight();
+                // Đảm bảo input container luôn hiển thị khi bàn phím mở
+                const keyboardHeight = window.innerHeight - window.visualViewport.height;
+                document.querySelector('.input-container').style.bottom = `${keyboardHeight}px`;
+            });
+
+            // Khi vuốt để ẩn bàn phím, đảm bảo chat area được reset
+            document.addEventListener('touchend', function (e) {
+                setTimeout(adjustChatAreaHeight, 300);
+            });
+
+            // Ngăn chặn zoom
+            document.addEventListener('touchmove', function (event) {
+                if (event.scale !== 1) {
+                    event.preventDefault();
+                }
+            }, { passive: false });
+
+            // Giới hạn số lượng tin nhắn hiển thị để tăng hiệu suất
+            function limitDisplayedMessages() {
+                const messages = chatArea.querySelectorAll('.message');
+                const MAX_DISPLAYED_MESSAGES = 50;
+
+                if (messages.length > MAX_DISPLAYED_MESSAGES) {
+                    // Lưu lại vị trí cuộn
+                    const wasScrolledToBottom = chatArea.scrollHeight - chatArea.scrollTop === chatArea.clientHeight;
+
+                    // Xóa các tin nhắn cũ
+                    for (let i = 0; i < messages.length - MAX_DISPLAYED_MESSAGES; i++) {
+                        chatArea.removeChild(messages[i]);
+                    }
+
+                    // Nếu trước đó người dùng đã cuộn xuống cuối, duy trì vị trí đó
+                    if (wasScrolledToBottom) {
+                        scrollToBottom();
+                    }
+                }
+            }
+
+            // Thêm tin nhắn vào chat và quản lý giới hạn
+            function addMessageToChat(content, sender, scroll = true) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}-message`;
+
+                const bubbleDiv = document.createElement('div');
+                bubbleDiv.className = `message-bubble ${sender}-bubble`;
+                bubbleDiv.textContent = content;
+
+                const selectAllBtn = document.createElement('button');
+                selectAllBtn.className = 'select-all-btn';
+                selectAllBtn.textContent = '全選択';
+                selectAllBtn.onclick = function (e) {
+                    e.stopPropagation();
+                    const range = document.createRange();
+                    range.selectNodeContents(bubbleDiv);
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                };
+
+                bubbleDiv.appendChild(selectAllBtn);
+                messageDiv.appendChild(bubbleDiv);
+                chatArea.appendChild(messageDiv);
+
+                // Giới hạn số lượng tin nhắn hiển thị
+                limitDisplayedMessages();
+
+                if (scroll) {
+                    setTimeout(scrollToBottom, 10);
+                }
+            }
+
+            // Khởi tạo các giá trị ban đầu
+            setViewportHeight();
 
             function addMessageToChat(content, sender, scroll = true) {
                 const messageDiv = document.createElement('div');
