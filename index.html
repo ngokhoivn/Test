@@ -358,18 +358,47 @@
             background: transparent;
         }
 
-        .read-btn {
-            margin-left: 6px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #ccc;
-            font-size: 16px;
-            padding: 0 4px;
-            transition: color 0.2s ease;
+        /* Container cho các nút hành động (loa, copy) */
+        .message-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-left: 8px; /* Khoảng cách giữa bong bóng và nút */
+            align-items: center;
         }
 
-            .read-btn:hover {
+        /* Điều chỉnh vị trí nút cho tin nhắn của user */
+        .user-message .message-actions {
+            margin-left: 0;
+            margin-right: 8px; /* Đặt bên trái bong bóng của user */
+        }
+
+
+        /* Đảm bảo layout của message */
+        .message {
+            align-items: center; /* Căn giữa các phần tử trong message */
+        }
+
+        /* Điều chỉnh bong bóng để không bị ảnh hưởng */
+        .message-bubble {
+            position: relative;
+        }
+
+        .icon-btn {
+            background: #2c2c2c;
+            border: none;
+            color: #ccc;
+            padding: 6px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .icon-btn:hover {
+                background: #444;
                 color: #fff;
             }
 
@@ -542,6 +571,7 @@
                 // Kiểm tra message gần nhất giống nhau thì không thêm
                 const lastMsg = chatArea.lastElementChild?.querySelector('.message-bubble')?.textContent;
                 if (lastMsg && lastMsg === content) return; // Trùng thì bỏ qua
+
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${sender}-message`;
 
@@ -549,17 +579,42 @@
                 bubbleDiv.className = `message-bubble ${sender}-bubble`;
                 bubbleDiv.textContent = content;
 
+                // Container cho các nút hành động (loa và copy)
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'message-actions';
+
+                // Nút loa (đọc nội dung)
                 const readBtn = document.createElement('button');
                 readBtn.className = 'read-btn';
-                readBtn.textContent = '📢';
+                readBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+<path d="M8 3.993V12.007C8 12.558 7.552 13 7 13s-1-.442-1-.993V3.993C6 3.442 6.448 3 7 3s1 .442 1 .993z"/>
+<path d="M11.707 4.293a1 1 0 0 1 1.414 1.414A5 5 0 0 1 13 8a5 5 0 0 1-.879 2.793 1 1 0 1 1-1.664-1.11A3 3 0 0 0 11 8a3 3 0 0 0-.536-1.683 1 1 0 0 1 1.243-1.51z"/>
+</svg>`;
                 readBtn.title = 'Đọc nội dung';
                 readBtn.onclick = () => {
                     const utterance = new SpeechSynthesisUtterance(content);
-                    utterance.lang = 'ja-JP'; // hoặc 'vi-VN', 'en-US'
+                    utterance.lang = 'ja-JP';
                     speechSynthesis.speak(utterance);
                 };
-                bubbleDiv.appendChild(readBtn);
 
+                // Nút copy
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'copy-btn';
+                copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+<path d="M10 1.5A1.5 1.5 0 0 1 11.5 3v9A1.5 1.5 0 0 1 10 13.5H5.707l-.853.854A.5.5 0 0 1 4 14V3a1.5 1.5 0 0 1 1.5-1.5h4Z"/>
+<path d="M5 0a2 2 0 0 0-2 2v11.5a.5.5 0 0 0 .854.354L5 13.207V2a1 1 0 0 1 1-1h4a2 2 0 0 0-2-2H5Z"/>
+</svg>`;
+                copyBtn.title = 'Sao chép';
+                copyBtn.onclick = () => {
+                    navigator.clipboard.writeText(content).then(() => {
+                        copyBtn.textContent = '✅'; // Thay đổi icon tạm thời để báo đã copy
+                        setTimeout(() => {
+                            copyBtn.textContent = '📋'; // Quay lại icon ban đầu sau 1 giây
+                        }, 1000);
+                    });
+                };
+
+                // Nút "全選択" (Select All) vẫn nằm trong bong bóng
                 const selectAllBtn = document.createElement('button');
                 selectAllBtn.className = 'select-all-btn';
                 selectAllBtn.textContent = '全選択';
@@ -572,8 +627,12 @@
                     selection.addRange(range);
                 };
 
+                // Thêm các nút vào DOM
                 bubbleDiv.appendChild(selectAllBtn);
+                actionsDiv.appendChild(readBtn);
+                actionsDiv.appendChild(copyBtn);
                 messageDiv.appendChild(bubbleDiv);
+                messageDiv.appendChild(actionsDiv);
                 chatArea.appendChild(messageDiv);
 
                 if (scroll) {
