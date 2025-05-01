@@ -18,214 +18,241 @@
             -webkit-text-size-adjust: 100%;
         }
 
-		.chat-area {
-			flex: 1;
-			background-color: #232323; /* Màu nền nhẹ hơn */
-			border-radius: 12px; /* Bo tròn hơn */
-			padding: 12px;
-			margin-bottom: 12px;
-			overflow-y: auto;
-			max-height: calc(100vh - 70px);
-			-webkit-overflow-scrolling: touch;
-			box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Thêm đổ bóng */
-			border: 1px solid rgba(255,255,255,0.1); /* Thêm viền nhẹ */
-		}
+        .chat-area {
+            flex: 1;
+            background-color: #232323; /* Màu nền nhẹ hơn */
+            border-radius: 12px; /* Bo tròn hơn */
+            padding: 12px;
+            margin-bottom: 12px;
+            overflow-y: auto;
+            max-height: calc(100vh - 70px);
+            -webkit-overflow-scrolling: touch;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Thêm đổ bóng */
+            border: 1px solid rgba(255,255,255,0.1); /* Thêm viền nhẹ */
+        }
 
-		.message {
-			margin-bottom: 14px;
-			display: flex;
-			position: relative;
-			animation: fadeIn 0.3s ease-in-out; /* Hiệu ứng hiện tin nhắn */
-		}
+        .message {
+            margin-bottom: 14px;
+            display: flex;
+            position: relative;
+            animation: fadeIn 0.3s ease-in-out; /* Hiệu ứng hiện tin nhắn */
+        }
 
-		@keyframes fadeIn {
-			from { opacity: 0; transform: translateY(10px); }
-			to { opacity: 1; transform: translateY(0); }
-		}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
 
-		.user-message {
-			justify-content: flex-end;
-		}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-		.bot-message {
-			justify-content: flex-start;
-		}
+        .user-message {
+            justify-content: flex-end;
+        }
 
-		.message-bubble {
-			max-width: 80%;
-			padding: 10px 14px;
-			border-radius: 18px;
-			word-wrap: break-word;
-			-webkit-user-select: text;
-			user-select: text;
-			box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Đổ bóng nhẹ cho bong bóng */
-		}
+        .bot-message {
+            justify-content: flex-start;
+        }
 
-		.user-bubble {
-			background: linear-gradient(135deg, #4caf50, #3d8b40); /* Gradient xanh lá */
-			color: #ffffff;
-			border-bottom-right-radius: 4px; /* Bo góc đặc biệt */
-		}
+        .message-bubble {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            -webkit-user-select: text;
+            user-select: text;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Đổ bóng nhẹ cho bong bóng */
+        }
 
-		.bot-bubble {
-			background: linear-gradient(135deg, #424242, #303030); /* Gradient xám */
-			color: #ffffff;
-			border-bottom-left-radius: 4px; /* Bo góc đặc biệt */
-		}
+        .user-bubble {
+            background: linear-gradient(135deg, #4caf50, #3d8b40); /* Gradient xanh lá */
+            color: #ffffff;
+            border-bottom-right-radius: 4px; /* Bo góc đặc biệt */
+        }
 
-		.input-container {
-			display: flex;
-			gap: 8px;
-			padding-bottom: env(safe-area-inset-bottom);
-			align-items: center;
-			background-color: #1a1a1a; /* Nhẹ hơn background */
-			border-radius: 24px;
-			padding: 5px;
-			box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Đổ bóng nhẹ */
-		}
+        .bot-bubble {
+            background: linear-gradient(135deg, #424242, #303030); /* Gradient xám */
+            color: #ffffff;
+            border-bottom-left-radius: 4px; /* Bo góc đặc biệt */
+        }
 
-		#user-input {
-			flex: 1;
-			padding: 12px 15px;
-			border: 2px solid #FF9800;
-			border-radius: 20px;
-			background-color: #2d2d2d; /* Nhẹ hơn để tạo tương phản */
-			color: #ffffff;
-			font-size: 16px;
-			min-height: 20px;
-			box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); /* Đổ bóng bên trong */
-			transition: all 0.3s ease; /* Hiệu ứng chuyển động */
-		}
+        .input-container {
+            display: flex;
+            gap: 8px;
+            padding-bottom: env(safe-area-inset-bottom);
+            align-items: center;
+            background-color: #1a1a1a; /* Nhẹ hơn background */
+            border-radius: 24px;
+            padding: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Đổ bóng nhẹ */
+        }
 
-		#user-input:focus {
-			border-color: #FFB74D; /* Màu viền khi focus */
-			box-shadow: 0 0 0 3px rgba(255,152,0,0.3); /* Đổ bóng khi focus */
-			outline: none;
-		}
+        #user-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #FF9800;
+            border-radius: 20px;
+            background-color: #2d2d2d; /* Nhẹ hơn để tạo tương phản */
+            color: #ffffff;
+            font-size: 16px;
+            min-height: 20px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); /* Đổ bóng bên trong */
+            transition: all 0.3s ease; /* Hiệu ứng chuyển động */
+        }
 
-		.action-button {
-			background: linear-gradient(135deg, #EC407A, #D81B60); /* Gradient hồng */
-			color: #ffffff;
-			border: none;
-			border-radius: 50%;
-			width: 42px;
-			height: 42px;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			-webkit-tap-highlight-color: transparent;
-			box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Đổ bóng */
-			transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng */
-		}
+            #user-input:focus {
+                border-color: #FFB74D; /* Màu viền khi focus */
+                box-shadow: 0 0 0 3px rgba(255,152,0,0.3); /* Đổ bóng khi focus */
+                outline: none;
+            }
 
-		.action-button:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-		}
+        .action-button {
+            background: linear-gradient(135deg, #EC407A, #D81B60); /* Gradient hồng */
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Đổ bóng */
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng */
+        }
 
-		.action-button:active {
-			transform: translateY(0);
-			box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-		}
+            .action-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            }
 
-		#clear-chat {
-			background: linear-gradient(135deg, #FFA000, #FF6F00); /* Gradient cam */
-		}
+            .action-button:active {
+                transform: translateY(0);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            }
 
-		#send-button {
-			background: linear-gradient(135deg, #4285f4, #3367d6); /* Gradient xanh */
-			color: #ffffff;
-			border-radius: 20px;
-			padding: 0 18px;
-			height: 42px;
-			min-width: 60px;
-			font-weight: bold;
-			letter-spacing: 0.5px;
-			box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-			transition: transform 0.2s ease, box-shadow 0.2s ease;
-		}
+        #clear-chat {
+            background: linear-gradient(135deg, #FFA000, #FF6F00); /* Gradient cam */
+        }
 
-		#send-button:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-		}
+        #send-button {
+            background: linear-gradient(135deg, #4285f4, #3367d6); /* Gradient xanh */
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 0 18px;
+            height: 42px;
+            min-width: 60px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-		#send-button:active {
-			transform: translateY(0);
-			box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-		}
+            #send-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            }
 
-		.typing-indicator {
-			display: none;
-			margin-bottom: 10px;
-			justify-content: flex-start;
-		}
+            #send-button:active {
+                transform: translateY(0);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            }
 
-		.typing-dot {
-			display: inline-block;
-			width: 8px;
-			height: 8px;
-			border-radius: 50%;
-			background-color: #aaa;
-			margin-right: 3px;
-			animation: typingAnimation 1.5s infinite ease-in-out;
-		}
+        .typing-indicator {
+            display: none;
+            margin-bottom: 10px;
+            justify-content: flex-start;
+        }
 
-		.typing-dot:nth-child(1) { animation-delay: 0s; }
-		.typing-dot:nth-child(2) { animation-delay: 0.3s; }
-		.typing-dot:nth-child(3) { animation-delay: 0.6s; }
+        .typing-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #aaa;
+            margin-right: 3px;
+            animation: typingAnimation 1.5s infinite ease-in-out;
+        }
 
-		@keyframes typingAnimation {
-			0% { transform: translateY(0); }
-			50% { transform: translateY(-5px); }
-			100% { transform: translateY(0); }
-		}
+            .typing-dot:nth-child(1) {
+                animation-delay: 0s;
+            }
 
-		.select-all-btn {
-			display: none;
-			position: absolute;
-			right: 5px;
-			top: 5px;
-			background: rgba(0,0,0,0.6);
-			color: white;
-			border: none;
-			border-radius: 10px;
-			padding: 3px 8px;
-			font-size: 10px;
-			cursor: pointer;
-			transition: background-color 0.2s ease;
-		}
+            .typing-dot:nth-child(2) {
+                animation-delay: 0.3s;
+            }
 
-		.select-all-btn:hover {
-			background: rgba(0,0,0,0.8);
-		}
+            .typing-dot:nth-child(3) {
+                animation-delay: 0.6s;
+            }
 
-		.message:hover .select-all-btn {
-			display: block;
-		}
+        @keyframes typingAnimation {
+            0% {
+                transform: translateY(0);
+            }
 
-		@media (max-width: 480px) {
-			body {
-				padding: 8px;
-				height: 100vh;
-				overflow: hidden;
-			}
-			.chat-area {
-				max-height: calc(100vh - 80px);
-			}
-			.input-container {
-				gap: 4px;
-			}
-			.action-button {
-				width: 38px;
-				height: 38px;
-			}
-			#send-button {
-				height: 38px;
-				min-width: 55px;
-			}
-		}
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .select-all-btn {
+            display: none;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 3px 8px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+            .select-all-btn:hover {
+                background: rgba(0,0,0,0.8);
+            }
+
+        .message:hover .select-all-btn {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+                height: 100vh;
+                overflow: hidden;
+            }
+
+            .chat-area {
+                max-height: calc(100vh - 80px);
+            }
+
+            .input-container {
+                gap: 4px;
+            }
+
+            .action-button {
+                width: 38px;
+                height: 38px;
+            }
+
+            #send-button {
+                height: 38px;
+                min-width: 55px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -236,7 +263,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="typing-indicator" id="typing-indicator">
         <div class="message-bubble bot-bubble">
             <span class="typing-dot"></span>
@@ -244,24 +271,24 @@
             <span class="typing-dot"></span>
         </div>
     </div>
-    
+
     <div class="input-container">
         <button id="clear-chat" class="action-button" title="会話をリセット">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
             </svg>
         </button>
         <input type="text" id="user-input" placeholder="メッセージを入力..." autofocus>
         <button id="clear-input" class="action-button" title="入力内容を消去">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
             </svg>
         </button>
         <button id="send-button">送信</button>
     </div>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const chatArea = document.getElementById('chat-area');
@@ -270,7 +297,7 @@
             const typingIndicator = document.getElementById('typing-indicator');
             const clearChatButton = document.getElementById('clear-chat');
             const clearInputButton = document.getElementById('clear-input');
-            
+
             // Danh sách API keys dự phòng
             const DEFAULT_API_KEYS = [
                 'AIzaSyDjgTk4uZQUCpFH5Zt8ZgP2CW-jhmkLv8o',
@@ -278,16 +305,16 @@
                 'AIzaSyD-LQ7BMIl85o0Tq3LogG2rBmtYjkOpogU'
             ];
             let currentApiKeyIndex = 0;
-            
+
             function getCurrentApiKey() {
                 return DEFAULT_API_KEYS[currentApiKeyIndex];
             }
-            
+
             function rotateApiKey() {
                 currentApiKeyIndex = (currentApiKeyIndex + 1) % DEFAULT_API_KEYS.length;
                 console.log(`Switched to API key index: ${currentApiKeyIndex}`);
             }
-            
+
             // Load conversation history từ localStorage
             let conversationHistory = JSON.parse(localStorage.getItem('conversation_history')) || [
                 {
@@ -295,7 +322,7 @@
                     parts: [{ text: "こんにちは！日本語の練習や会話を楽しみましょう！何か話したいことはありますか？" }]
                 }
             ];
-            
+
             // Render existing conversation
             function renderConversation() {
                 chatArea.innerHTML = '';
@@ -307,24 +334,24 @@
                 });
                 chatArea.scrollTop = chatArea.scrollHeight;
             }
-            
+
             renderConversation();
-            
+
             async function handleSendMessage() {
                 const message = userInput.value.trim();
                 if (message === '') return;
-                
+
                 addMessageToChat(message, 'user');
                 conversationHistory.push({
                     role: "user",
                     parts: [{ text: message }]
                 });
                 saveConversation();
-                
+
                 userInput.value = '';
                 typingIndicator.style.display = 'flex';
                 chatArea.scrollTop = chatArea.scrollHeight;
-                
+
                 try {
                     const response = await sendToGeminiAPI(message);
                     addMessageToChat(response, 'bot');
@@ -348,15 +375,15 @@
                     chatArea.scrollTop = chatArea.scrollHeight;
                 }
             }
-            
+
             function addMessageToChat(content, sender, scroll = true) {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${sender}-message`;
-                
+
                 const bubbleDiv = document.createElement('div');
                 bubbleDiv.className = `message-bubble ${sender}-bubble`;
                 bubbleDiv.textContent = content;
-                
+
                 const selectAllBtn = document.createElement('button');
                 selectAllBtn.className = 'select-all-btn';
                 selectAllBtn.textContent = '全選択';
@@ -368,86 +395,115 @@
                     selection.removeAllRanges();
                     selection.addRange(range);
                 };
-                
+
                 bubbleDiv.appendChild(selectAllBtn);
                 messageDiv.appendChild(bubbleDiv);
                 chatArea.appendChild(messageDiv);
-                
+
                 if (scroll) {
                     setTimeout(() => {
                         chatArea.scrollTop = chatArea.scrollHeight;
                     }, 10);
                 }
             }
-            
+
             function saveConversation() {
                 localStorage.setItem('conversation_history', JSON.stringify(conversationHistory));
             }
-            
-            async function sendToGeminiAPI(message) {
-                const API_KEY = getCurrentApiKey();
-                const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
 
-                const systemInstruction = {
-                    role: "model",
-                    parts: [{
-                        text: `You are a friendly and natural-sounding Japanese-speaking chatbot. 
-                        Always reply in Japanese using native expressions. Keep answers short (1–2 sentences), unless a longer explanation is clearly needed. 
-                        Use casual and friendly tone, and occasionally add expressions like (笑), えー！or うわー！to make it more lively.`
-                    }]
-                };
 
-                conversationHistory.push({
-                    role: "user",
-                    parts: [{ text: message }]
-                });
+			async function sendToGeminiAPI(message) {
+				const API_KEY = getCurrentApiKey();
+				const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`;
 
-                const requestBody = {
-                    contents: [systemInstruction, ...conversationHistory],
-                    generationConfig: {
-                        temperature: 0.7,
-                        topK: 1,
-                        topP: 1,
-                        maxOutputTokens: 150,
-                        stopSequences: []
-                    },
-                    safetySettings: [
-                        { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                        { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                        { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
-                        { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
-                    ]
-                };
+				// Hướng dẫn hệ thống được cải tiến để bot hài hước và sống động hơn
+				const systemInstruction = {
+					role: "model",
+					parts: [{
+						text: `You are a friendly, humorous Japanese-speaking chatbot with a playful personality.
+						Always reply in Japanese using native expressions and slang when appropriate.
+						Keep answers short (1–2 sentences), unless a longer explanation is clearly needed.
+						Use casual and friendly tone, and frequently add expressions like (笑), えー！, うわー！, やばい！, マジ!? to make conversations lively.
+						Occasionally exaggerate reactions in a comical way, similar to anime characters.
+						Reference popular Japanese memes, trends, or jokes when relevant to the conversation.
+						Feel free to use kaomoji like (・_・;), (ﾟДﾟ), (≧◡≦) to express emotions.
+						Develop a verbal tic or catchphrase to make your personality more distinctive.`
+					}]
+				};
 
-                try {
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(requestBody)
-                    });
+				const requestBody = {
+					contents: [systemInstruction, ...conversationHistory],
+					generationConfig: {
+						temperature: 0.85, // Tăng temperature để tạo phản hồi đa dạng và thú vị hơn
+						topK: 40,          // Tăng topK để mở rộng phạm vi lựa chọn từ
+						topP: 0.95,        // Điều chỉnh topP để cân bằng giữa sáng tạo và nhất quán
+						maxOutputTokens: 200, // Tăng nhẹ giới hạn token để có không gian cho biểu cảm
+						stopSequences: []
+					},
+					safetySettings: [
+						{ category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+						{ category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+						{ category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_MEDIUM_AND_ABOVE" },
+						{ category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_MEDIUM_AND_ABOVE" }
+					]
+				};
 
-                    if (!response.ok) {
-                        throw new Error(`API request failed with status ${response.status}`);
-                    }
+				try {
+					// Hiển thị trạng thái đang gửi cho người dùng (tùy chọn)
+					updateChatUI("sending");
 
-                    const data = await response.json();
+					const response = await fetch(API_URL, {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(requestBody)
+					});
 
-                    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-                    if (text) {
-                        conversationHistory.push({
-                            role: "model",
-                            parts: [{ text }]
-                        });
-                        return text;
-                    } else {
-                        throw new Error("Invalid API response structure");
-                    }
-                } catch (error) {
-                    console.error("Error sending to Gemini API:", error);
-                    return "エラーが発生しました。もう一度試してみてください。";
-                }
-            }
-            
+					if (!response.ok) {
+						const errorData = await response.json().catch(() => ({}));
+						console.error("API Error Details:", errorData);
+						throw new Error(`API request failed with status ${response.status}`);
+					}
+
+					const data = await response.json();
+					const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+					if (text) {
+						// Lưu phản hồi vào lịch sử cuộc trò chuyện
+						conversationHistory.push({
+							role: "model",
+							parts: [{ text }]
+						});
+
+						// Giới hạn kích thước lịch sử cuộc trò chuyện để tránh trở nên quá lớn
+						if (conversationHistory.length > 20) {
+							// Giữ hướng dẫn hệ thống và 10 tin nhắn gần nhất
+							conversationHistory = [
+								...conversationHistory.slice(conversationHistory.length - 10)
+							];
+						}
+
+						return text;
+					} else {
+						throw new Error("Invalid API response structure");
+					}
+				} catch (error) {
+					console.error("Error sending to Gemini API:", error);
+					return "エラーが発生しました。もう一度試してみてください。(⌒_⌒;)";
+				}
+			}
+
+			// Hàm để cập nhật giao diện người dùng (tùy theo triển khai của bạn)
+			function updateChatUI(status, message) {
+				// Triển khai tùy thuộc vào UI của bạn
+				if (status === "sending") {
+					// Hiển thị trạng thái đang gửi
+				} else if (status === "received") {
+					// Hiển thị tin nhắn nhận được
+				} else if (status === "error") {
+					// Hiển thị lỗi
+				}
+			}
+
             function getFallbackResponse(message) {
                 const responses = [
                     "すみません、API接続に問題があるようです。もう一度試してみてください。",
@@ -457,16 +513,16 @@
                 ];
                 return responses[Math.floor(Math.random() * responses.length)];
             }
-            
+
             // Event listeners
             sendButton.addEventListener('click', handleSendMessage);
-            
+
             userInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     handleSendMessage();
                 }
             });
-            
+
             clearChatButton.addEventListener('click', function() {
                 conversationHistory = [
                     {
@@ -477,19 +533,19 @@
                 saveConversation();
                 renderConversation();
             });
-            
+
             clearInputButton.addEventListener('click', function() {
                 userInput.value = '';
                 userInput.focus();
             });
-            
+
             // Ngăn chặn zoom trên mobile
             document.addEventListener('touchmove', function(event) {
                 if (event.scale !== 1) {
                     event.preventDefault();
                 }
             }, { passive: false });
-            
+
             // Tập trung vào input khi tải trang
             userInput.focus();
         });
