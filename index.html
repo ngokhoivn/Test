@@ -542,14 +542,14 @@
 
                 // Tạo văn bản đã lọc cho trợ năng
 				const cleanText = content
-					// Loại bỏ emoji và biểu tượng cảm xúc phức tạp (kể cả kaomoji)
+					// Bước 1: Loại bỏ emoji/kaomoji (giữ nguyên dấu câu tiếng Nhật)
 					.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '')
-					// Loại bỏ các ký tự đặc biệt, dấu ngoặc, ký tự trang trí
-					.replace(/[【】（）\(\)「」『』〘〙〚〛☆★♪♪♫♬！？!?~〜・・・…。、｡<>@#\$%\^&\*_\+\-=`\|{}\[\];:"'<>?,./]/g, '')
-					// Loại bỏ kaomoji phổ biến (ví dụ: (≧∇≦), (╯°□°）╯︵ ┻━┻)
-					.replace(/\([^)]*\)/g, '') // Xóa cả cụm trong ngoặc đơn
-					.replace(/[^\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}a-zA-Z0-9ー～ 　]/gu, '') // Chỉ giữ lại chữ Nhật, Latin, số, khoảng trắng
-					.trim();										
+					.replace(/\([^)]*\)/g, '') // Xóa kaomoji dạng (≧∇≦)
+					// Bước 2: Giữ lại dấu câu quan trọng cho ngữ điệu
+					.replace(/[【】（）「」『』☆★♪♫♬~〜@#\$%\^&\*_+=`|{}\[\];:"'<>?,./]/g, '') 
+					// Bước 3: Chuẩn hóa khoảng trắng (thay nhiều space thành 1)
+					.replace(/\s+/g, ' ')
+					.trim();					
 										
                 const accessibleDiv = document.createElement('div');
                 accessibleDiv.textContent = cleanText;
@@ -580,6 +580,8 @@
 	
                     const utterance = new SpeechSynthesisUtterance(cleanText);
                     utterance.lang = 'ja-JP';
+					utterance.rate = 0.9; // Tốc độ chậm hơn 10% so với mặc định
+					utterance.pitch = 1.1; // Cao độ cao hơn để rõ ràng
                     utterance.onerror = (event) => {
                         console.error("SpeechSynthesis Error:", event.error);
                         alert("Lỗi khi đọc văn bản: " + event.error);
