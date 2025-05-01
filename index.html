@@ -13,9 +13,10 @@
             padding: 10px;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            min-height: 100dvh;
             touch-action: manipulation;
             -webkit-text-size-adjust: 100%;
+            height: calc(var(--vh, 1vh) * 100);
         }
 
         .chat-area {
@@ -29,6 +30,7 @@
             -webkit-overflow-scrolling: touch;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Thêm đổ bóng */
             border: 1px solid rgba(255,255,255,0.1); /* Thêm viền nhẹ */
+            padding-bottom: 80px; /* Để không bị input-container che */
         }
 
         .message {
@@ -81,15 +83,24 @@
         }
 
         .input-container {
+            position: fixed;
+            bottom: env(safe-area-inset-bottom, 0);
+            left: 0;
+            right: 0;
+            z-index: 10;
             display: flex;
             gap: 8px;
-            padding-bottom: env(safe-area-inset-bottom);
             align-items: center;
-            background-color: #1a1a1a; /* Nhẹ hơn background */
+            background-color: #1a1a1a;
             border-radius: 24px;
-            padding: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Đổ bóng nhẹ */
+            padding: 6px 10px;
+            max-width: 768px;
+            margin: auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            /* Ngăn layout nhảy khi bàn phím mở */
+            transition: bottom 0.2s ease;
         }
+
 
         #user-input {
             flex: 1;
@@ -558,6 +569,12 @@
             // Tập trung vào input khi tải trang
             userInput.focus();
         });
+
+        window.addEventListener('resize', () => {
+            document.body.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+        });
+        document.body.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+
     </script>
 </body>
 </html>
