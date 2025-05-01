@@ -643,6 +643,7 @@
                 const selectAllBtn = document.createElement('button');
                 selectAllBtn.className = 'select-all-btn';
                 selectAllBtn.textContent = '全選択';
+				selectAllBtn.setAttribute('aria-hidden', 'true');
 
 				selectAllBtn.onclick = function (e) {
 					e.stopPropagation();
