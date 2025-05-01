@@ -16,6 +16,7 @@
             flex-direction: column;
             min-height: 100dvh;
             height: 100dvh;
+			
             overflow: hidden;
             position: relative;
             touch-action: manipulation;
@@ -40,7 +41,7 @@
 
 		.input-container {
 			position: fixed;
-			bottom: env(safe-area-inset-bottom, 10px); /* Thêm safe-area cho Android */
+			bottom: 0; /* Hoặc 10px nếu muốn có khoảng cách */
 			left: 0;
 			right: 0;
 			z-index: 1000;
@@ -49,12 +50,11 @@
 			align-items: center;
 			background-color: #1a1a1a;
 			border-radius: 24px;
-			padding: 8px 12px; /* Tăng padding để nút rõ ràng hơn */
+			padding: 8px 12px;
 			max-width: 768px;
-			width: calc(100% - 24px); /* Điều chỉnh lại để phù hợp với padding */
+			width: calc(100% - 24px);
 			margin: 10px auto;
 			box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-			border: 1px solid rgba(255, 255, 255, 0.1); /* Thêm border để phân biệt rõ */
 		}
 
         @media (max-height: 600px) {
@@ -184,6 +184,10 @@
         }
 
         @media (max-width: 480px) {
+			.input-container {
+				gap: 4px;
+				padding: 4px;
+			}
             .icon-btn {
                 width: 24px;
                 height: 24px;
