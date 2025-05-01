@@ -566,10 +566,12 @@
                 readBtn.title = 'Đọc nội dung';
                 readBtn.setAttribute('aria-label', 'Đọc nội dung tin nhắn');
                 readBtn.onclick = () => {
-                    if (!cleanText) {
-                        alert("Không có văn bản hợp lệ để đọc.");
-                        return;
-                    }
+					
+					// Kiểm tra cleanText tồn tại và không chỉ chứa khoảng trắng
+					if (!cleanText || !cleanText.trim()) {
+						return; // Thoát nếu không có nội dung hợp lệ
+					}
+	
                     const utterance = new SpeechSynthesisUtterance(cleanText);
                     utterance.lang = 'ja-JP';
                     utterance.onerror = (event) => {
