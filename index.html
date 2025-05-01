@@ -643,14 +643,43 @@
                 const selectAllBtn = document.createElement('button');
                 selectAllBtn.className = 'select-all-btn';
                 selectAllBtn.textContent = '全選択';
-                selectAllBtn.onclick = function (e) {
-                    e.stopPropagation();
-                    const range = document.createRange();
-                    range.selectNodeContents(bubbleDiv);
-                    const selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                };
+
+				selectAllBtn.onclick = function (e) {
+					e.stopPropagation();
+
+					// Lấy nội dung gốc
+					const content = bubbleDiv.textContent;
+
+					// Lọc emoji và ký tự đặc biệt
+					const cleanText = content.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '') // Xóa emoji
+											.replace(/[（）\(\)「」『』【】☆★♪♪！？!?]+/g, '')             // Xóa ký hiệu
+											.replace(/(\s*\(.*?\)\s*)/g, '')                              // Xóa nội dung trong ngoặc
+											.trim();
+
+					if (!cleanText) {
+						alert("Không có văn bản hợp lệ để chọn.");
+						return;
+					}
+
+					// Tạo phần tử tạm thời để chứa văn bản đã lọc
+					const tempDiv = document.createElement('div');
+					tempDiv.style.position = 'absolute';
+					tempDiv.style.left = '-9999px'; // Ẩn khỏi màn hình
+					tempDiv.textContent = cleanText;
+					document.body.appendChild(tempDiv);
+
+					// Chọn văn bản trong phần tử tạm thời
+					const range = document.createRange();
+					range.selectNodeContents(tempDiv);
+					const selection = window.getSelection();
+					selection.removeAllRanges();
+					selection.addRange(range);
+
+					// Xóa phần tử tạm thời sau khi chọn
+					setTimeout(() => {
+						document.body.removeChild(tempDiv);
+					}, 100);
+				};			
 
                 bubbleDiv.appendChild(selectAllBtn);
                 actionsDiv.appendChild(readBtn);
