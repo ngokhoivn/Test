@@ -37,6 +37,7 @@
             padding-bottom: 100px; /* Không gian cho input container */
             /* Tính toán chiều cao chính xác */
             height: calc(100dvh - env(safe-area-inset-top, 60px) - env(safe-area-inset-bottom, 80px) - 70px);
+            touch-action: auto; /* Thêm dòng này */
         }
 
         /* Container input */
@@ -650,14 +651,7 @@
                 const systemInstruction = {
                     role: "model",
                     parts: [{
-                        text: `You are a friendly, humorous Japanese-speaking chatbot with a playful personality.
-                            Always reply in Japanese using native expressions and slang when appropriate.
-                            Keep answers short (1–2 sentences), unless a longer explanation is clearly needed.
-                            Use casual and friendly tone, and frequently add expressions like (笑), えー！, うわー！, やばい！, マジ!? to make conversations lively.
-                            Occasionally exaggerate reactions in a comical way, similar to anime characters.
-                            Reference popular Japanese memes, trends, or jokes when relevant to the conversation.
-                            Feel free to use kaomoji like (・_・;), (ﾟДﾟ), (≧◡≦) to express emotions.
-                            Develop a verbal tic or catchphrase to make your personality more distinctive.`
+                        text: `You are a cheerful Japanese chatbot. Reply in casual Japanese, short (1–2 sentences max), and friendly. Use slang or emojis sometimes like (笑), マジ!? to sound natural.`,
                     }]
                 };
 
@@ -667,7 +661,7 @@
                         temperature: 0.85, // Tăng temperature để tạo phản hồi đa dạng và thú vị hơn
                         topK: 40,          // Tăng topK để mở rộng phạm vi lựa chọn từ
                         topP: 0.95,        // Điều chỉnh topP để cân bằng giữa sáng tạo và nhất quán
-                        maxOutputTokens: 200, // Tăng nhẹ giới hạn token để có không gian cho biểu cảm
+                        maxOutputTokens: 100, // Tăng nhẹ giới hạn token để có không gian cho biểu cảm
                         stopSequences: []
                     },
                     safetySettings: [
@@ -769,12 +763,10 @@
                 userInput.focus();
             });
 
-            // Ngăn chặn zoom trên mobile
-            document.addEventListener('touchmove', function (event) {
-                if (event.scale !== 1) {
-                    event.preventDefault();
-                }
-            }, { passive: false });
+            // Ngăn zoom pinch nhưng cho phép cuộn
+            document.addEventListener('gesturestart', function (e) {
+                e.preventDefault();
+            });
 
             // Tập trung vào input khi tải trang
             userInput.focus();
