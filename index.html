@@ -117,6 +117,9 @@
             border-radius: 50%;
             width: 42px;
             height: 42px;
+            min-width: 42px; /* Thêm min-width để ngăn co lại */
+            min-height: 42px; /* Thêm min-height để ngăn co lại */
+            aspect-ratio: 1/1; /* Đảm bảo tỷ lệ khung hình luôn là 1:1 */
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -124,6 +127,7 @@
             -webkit-tap-highlight-color: transparent;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Đổ bóng */
             transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng */
+            flex-shrink: 0; /* Ngăn nút bị co lại khi không gian bị hạn chế */
         }
 
             .action-button:hover {
@@ -147,10 +151,12 @@
             padding: 0 18px;
             height: 42px;
             min-width: 60px;
+            min-height: 42px; /* Thêm min-height */
             font-weight: bold;
             letter-spacing: 0.5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            flex-shrink: 0; /* Ngăn nút bị co lại */
         }
 
             #send-button:hover {
@@ -228,31 +234,34 @@
             display: block;
         }
 
+        /* Điều chỉnh cho giao diện di động */
         @media (max-width: 480px) {
-            body {
-                padding: 8px;
-                height: 100vh;
-                overflow: hidden;
-            }
-
-            .chat-area {
-                max-height: calc(100vh - 80px);
-            }
-
-            .input-container {
-                gap: 4px;
-            }
-
             .action-button {
                 width: 38px;
                 height: 38px;
+                min-width: 38px; /* Cập nhật min-width cho mobile */
+                min-height: 38px; /* Cập nhật min-height cho mobile */
             }
 
             #send-button {
                 height: 38px;
+                min-height: 38px; /* Cập nhật min-height cho mobile */
                 min-width: 55px;
+                padding: 0 12px; /* Giảm padding để phù hợp với kích thước nhỏ hơn */
+            }
+
+            /* Đảm bảo input không bị co lại quá nhiều */
+            #user-input {
+                min-width: 0; /* Cho phép thu nhỏ khi cần thiết */
+            }
+
+            /* Giảm gap giữa các phần tử trong container */
+            .input-container {
+                gap: 4px;
+                padding: 4px; /* Giảm padding */
             }
         }
+
     </style>
 </head>
 <body>
