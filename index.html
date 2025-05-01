@@ -38,23 +38,24 @@
             touch-action: pan-y;
         }
 
-        .input-container {
-            position: fixed;
-            bottom: env(safe-area-inset-bottom, 10px);
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            background-color: #1a1a1a;
-            border-radius: 24px;
-            padding: 6px 10px;
-            max-width: 768px;
-            width: calc(100% - 20px);
-            margin: 10px auto;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-        }
+		.input-container {
+			position: fixed;
+			bottom: env(safe-area-inset-bottom, 10px); /* Thêm safe-area cho Android */
+			left: 0;
+			right: 0;
+			z-index: 1000;
+			display: flex;
+			gap: 8px;
+			align-items: center;
+			background-color: #1a1a1a;
+			border-radius: 24px;
+			padding: 8px 12px; /* Tăng padding để nút rõ ràng hơn */
+			max-width: 768px;
+			width: calc(100% - 24px); /* Điều chỉnh lại để phù hợp với padding */
+			margin: 10px auto;
+			box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+			border: 1px solid rgba(255, 255, 255, 0.1); /* Thêm border để phân biệt rõ */
+		}
 
         @media (max-height: 600px) {
             .chat-area {
