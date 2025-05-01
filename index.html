@@ -612,6 +612,13 @@
 					const utterance = new SpeechSynthesisUtterance(cleanText);
                     utterance.lang = 'ja-JP';
                     speechSynthesis.speak(utterance);
+					
+					// iOS cần đợi voices load xong
+					if (speechSynthesis.getVoices().length === 0) {
+						speechSynthesis.onvoiceschanged = speakWithVoice;
+					} else {
+						speakWithVoice();
+					}
                 };
 
                 const copyBtn = document.createElement('button');
