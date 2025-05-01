@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     // DOM elements
     const elements = {
@@ -22,8 +23,17 @@ document.addEventListener('DOMContentLoaded', () => {
         vocabBtn: document.getElementById('vocabBtn'),
         vocabListContainer: document.getElementById('vocabList'),
         vocabularyDiv: document.getElementById('vocabulary'),
-        detectedLanguage: document.getElementById('detectedLanguage')
+        detectedLanguage: document.getElementById('detectedLanguage'),
     };
+
+    // Chat button event
+    const chatButton = document.getElementById('chat-button');
+    if (chatButton) {
+        chatButton.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+    }
+});
 
     // Check if any required element is missing and initialize it if needed
     Object.entries(elements).forEach(([key, element]) => {
