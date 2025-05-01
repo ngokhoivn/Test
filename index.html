@@ -383,11 +383,6 @@
                             <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
                         </svg>
                     </button>
-                    <button class="icon-btn" title="Chọn tất cả" aria-label="Chọn toàn bộ nội dung tin nhắn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M3 3h18v18H3V3zm2 2v14h14V5H5z"/>
-                        </svg>
-                    </button>
                 </div>
             </div>
         </div>
@@ -627,37 +622,8 @@
                     });
                 };
 
-                // Nút chọn tất cả
-                const selectAllBtn = document.createElement('button');
-                selectAllBtn.className = 'icon-btn';
-                selectAllBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M3 3h18v18H3V3zm2 2v14h14V5H5z"/>
-                </svg>`;
-                selectAllBtn.title = 'Chọn tất cả';
-                selectAllBtn.setAttribute('aria-label', 'Chọn toàn bộ nội dung tin nhắn');
-                selectAllBtn.onclick = function (e) {
-                    e.stopPropagation();
-                    if (!cleanText) {
-                        alert("Không có văn bản hợp lệ để chọn.");
-                        return;
-                    }
-                    const tempDiv = document.createElement('div');
-                    tempDiv.style.position = 'absolute';
-                    tempDiv.style.left = '-9999px';
-                    tempDiv.textContent = cleanText;
-                    document.body.appendChild(tempDiv);
-                    const range = document.createRange();
-                    range.selectNodeContents(tempDiv);
-                    const selection = window.getSelection();
-                    selection.removeAllRanges();
-                    selection.addRange(range);
-                    document.body.removeChild(tempDiv);
-                };
-
                 actionsDiv.appendChild(readBtn);
                 actionsDiv.appendChild(copyBtn);
-                actionsDiv.appendChild(selectAllBtn);
-
                 contentDiv.appendChild(bubbleDiv);
                 contentDiv.appendChild(actionsDiv);
                 messageDiv.appendChild(contentDiv);
