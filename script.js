@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'index.html';
         });
     }
-});
+
 
     // Check if any required element is missing and initialize it if needed
     Object.entries(elements).forEach(([key, element]) => {
