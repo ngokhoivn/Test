@@ -87,7 +87,6 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -167,21 +166,21 @@
             height: 28px;
         }
 
-            .icon-btn svg {
-                width: 16px;
-                height: 16px;
-                fill: #ffffff;
-            }
+        .icon-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #ffffff;
+        }
 
-            .icon-btn:hover {
-                background: #444444;
-                transform: scale(1.1);
-            }
+        .icon-btn:hover {
+            background: #444444;
+            transform: scale(1.1);
+        }
 
-            .icon-btn:active {
-                background: #333333;
-                transform: scale(1);
-            }
+        .icon-btn:active {
+            background: #333333;
+            transform: scale(1);
+        }
 
         @media (max-width: 480px) {
             .icon-btn {
@@ -189,11 +188,10 @@
                 height: 24px;
                 padding: 6px;
             }
-
-                .icon-btn svg {
-                    width: 14px;
-                    height: 14px;
-                }
+            .icon-btn svg {
+                width: 14px;
+                height: 14px;
+            }
         }
 
         #user-input {
@@ -209,11 +207,11 @@
             transition: all 0.3s ease;
         }
 
-            #user-input:focus {
-                border-color: #FFB74D;
-                box-shadow: 0 0 0 3px rgba(255,152,0,0.3);
-                outline: none;
-            }
+        #user-input:focus {
+            border-color: döndür #FFB74D;
+            box-shadow: 0 0 0 3px rgba(255,152,0,0.3);
+            outline: none;
+        }
 
         .action-button {
             background: linear-gradient(135deg, #EC407A, #D81B60);
@@ -235,15 +233,15 @@
             flex-shrink: 0;
         }
 
-            .action-button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            }
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
 
-            .action-button:active {
-                transform: translateY(0);
-                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            }
+        .action-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
 
         #clear-chat {
             background: linear-gradient(135deg, #FFA000, #FF6F00);
@@ -264,15 +262,15 @@
             flex-shrink: 0;
         }
 
-            #send-button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            }
+        #send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
 
-            #send-button:active {
-                transform: translateY(0);
-                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-            }
+        #send-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
 
         .typing-indicator {
             display: none;
@@ -290,78 +288,22 @@
             animation: typingAnimation 1.5s infinite ease-in-out;
         }
 
-            .typing-dot:nth-child(1) {
-                animation-delay: 0s;
-            }
+        .typing-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
 
-            .typing-dot:nth-child(2) {
-                animation-delay: 0.3s;
-            }
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
 
-            .typing-dot:nth-child(3) {
-                animation-delay: 0.6s;
-            }
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
 
         @keyframes typingAnimation {
-            0% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-5px);
-            }
-
-            100% {
-                transform: translateY(0);
-            }
-        }
-
-        .select-all-btn {
-            display: none;
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            background: rgba(0,0,0,0.6);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 3px 8px;
-            font-size: 10px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-            .select-all-btn:hover {
-                background: rgba(0,0,0,0.8);
-            }
-
-        .message:hover .select-all-btn {
-            display: block;
-        }
-
-        @media (max-width: 480px) {
-            .action-button {
-                width: 38px;
-                height: 38px;
-                min-width: 38px;
-                min-height: 38px;
-            }
-
-            #send-button {
-                height: 38px;
-                min-height: 38px;
-                min-width: 55px;
-                padding: 0 12px;
-            }
-
-            #user-input {
-                min-width: 0;
-            }
-
-            .input-container {
-                gap: 4px;
-                padding: 4px;
-            }
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
         }
 
         .translate-button {
@@ -383,20 +325,20 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-            .translate-button:hover {
-                transform: scale(1.1);
-                box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            }
+        .translate-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
 
-            .translate-button:active {
-                transform: scale(1);
-                box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-            }
+        .translate-button:active {
+            transform: scale(1);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
 
-            .translate-button svg {
-                width: 24px;
-                height: 24px;
-            }
+        .translate-button svg {
+            width: 24px;
+            height: 24px;
+        }
 
         ::-webkit-scrollbar {
             width: 8px;
@@ -409,9 +351,9 @@
             transition: background-color 0.3s;
         }
 
-            ::-webkit-scrollbar-thumb:hover {
-                background-color: rgba(255, 255, 255, 0.35);
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(255, 255, 255, 0.35);
+        }
 
         ::-webkit-scrollbar-track {
             background: transparent;
@@ -427,18 +369,23 @@
     <div class="chat-area" id="chat-area">
         <div class="message bot-message">
             <div class="message-content bot-content">
-                <div class="message-bubble bot-bubble">
+                <div class="message-bubble bot-bubble" role="text" aria-label="こんにちは！日本語の練習や会話を楽しみましょう！何か話したいことはありますか？">
                     こんにちは！日本語の練習や会話を楽しみましょう！何か話したいことはありますか？
                 </div>
-                <div class="message-actions">
-                    <button class="icon-btn" title="Đọc nội dung">
+                <div class="message-actions" role="toolbar" aria-label="Hành động cho tin nhắn">
+                    <button class="icon-btn" title="Đọc nội dung" aria-label="Đọc nội dung tin nhắn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z" />
                         </svg>
                     </button>
-                    <button class="icon-btn" title="Sao chép">
+                    <button class="icon-btn" title="Sao chép" aria-label="Sao chép nội dung tin nhắn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                        </svg>
+                    </button>
+                    <button class="icon-btn" title="Chọn tất cả" aria-label="Chọn toàn bộ nội dung tin nhắn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 3h18v18H3V3zm2 2v14h14V5H5z"/>
                         </svg>
                     </button>
                 </div>
@@ -587,6 +534,7 @@
 
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${sender}-message`;
+                messageDiv.setAttribute('aria-label', sender === 'bot' ? 'Tin nhắn từ bot' : 'Tin nhắn từ người dùng');
 
                 const contentDiv = document.createElement('div');
                 contentDiv.className = `message-content ${sender}-content`;
@@ -594,97 +542,122 @@
                 const bubbleDiv = document.createElement('div');
                 bubbleDiv.className = `message-bubble ${sender}-bubble`;
                 bubbleDiv.textContent = content;
+                bubbleDiv.setAttribute('role', 'text');
+                bubbleDiv.setAttribute('aria-label', content);
+
+                // Tạo văn bản đã lọc cho trợ năng
+                const cleanText = content.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '')
+                                        .replace(/[（）\(\)「」『』【】☆★♪♪！？!?]+/g, '')
+                                        .replace(/(\s*\(.*?\)\s*)/g, '')
+                                        .trim();
+                const accessibleDiv = document.createElement('div');
+                accessibleDiv.textContent = cleanText;
+                accessibleDiv.style.position = 'absolute';
+                accessibleDiv.style.left = '-9999px';
+                accessibleDiv.setAttribute('aria-hidden', 'false');
+                contentDiv.appendChild(accessibleDiv);
 
                 const actionsDiv = document.createElement('div');
                 actionsDiv.className = 'message-actions';
+                actionsDiv.setAttribute('role', 'toolbar');
+                actionsDiv.setAttribute('aria-label', 'Hành động cho tin nhắn');
 
+                // Nút đọc
                 const readBtn = document.createElement('button');
                 readBtn.className = 'icon-btn';
                 readBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"/>
-                    </svg>`;
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z"/>
+                </svg>`;
                 readBtn.title = 'Đọc nội dung';
-                readBtn.onclick = () => {				
-					const cleanText = content.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '') // xóa emoji Unicode
-											 .replace(/[（）\(\)「」『』【】☆★♪♪！？!?]+/g, '')             // xóa ký hiệu trang trí
-											 .replace(/(\s*\(.*?\)\s*)/g, '');                             // xóa nội dung trong ngoặc
-
-					const utterance = new SpeechSynthesisUtterance(cleanText);
+                readBtn.setAttribute('aria-label', 'Đọc nội dung tin nhắn');
+                readBtn.onclick = () => {
+                    if (!cleanText) {
+                        alert("Không có văn bản hợp lệ để đọc.");
+                        return;
+                    }
+                    const utterance = new SpeechSynthesisUtterance(cleanText);
                     utterance.lang = 'ja-JP';
-                    speechSynthesis.speak(utterance);
-					
-					// iOS cần đợi voices load xong
-					if (speechSynthesis.getVoices().length === 0) {
-						speechSynthesis.onvoiceschanged = speakWithVoice;
-					} else {
-						speakWithVoice();
-					}
+                    utterance.onerror = (event) => {
+                        console.error("SpeechSynthesis Error:", event.error);
+                        alert("Lỗi khi đọc văn bản: " + event.error);
+                    };
+                    const speak = () => {
+                        const voices = speechSynthesis.getVoices();
+                        const jpVoice = voices.find(voice => voice.lang === 'ja-JP');
+                        if (jpVoice) {
+                            utterance.voice = jpVoice;
+                        } else {
+                            console.warn("No Japanese voice found.");
+                        }
+                        speechSynthesis.speak(utterance);
+                    };
+                    if (speechSynthesis.getVoices().length > 0) {
+                        speak();
+                    } else {
+                        speechSynthesis.onvoiceschanged = () => {
+                            speak();
+                            speechSynthesis.onvoiceschanged = null;
+                        };
+                        setTimeout(() => {
+                            if (speechSynthesis.getVoices().length === 0) {
+                                alert("Không thể tải voices. Vui lòng kiểm tra cài đặt âm thanh hoặc thử lại.");
+                            }
+                        }, 5000);
+                    }
                 };
 
+                // Nút sao chép
                 const copyBtn = document.createElement('button');
                 copyBtn.className = 'icon-btn';
                 copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                    </svg>`;
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                </svg>`;
                 copyBtn.title = 'Sao chép';
+                copyBtn.setAttribute('aria-label', 'Sao chép nội dung tin nhắn');
                 copyBtn.onclick = () => {
                     navigator.clipboard.writeText(content).then(() => {
                         copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                            </svg>`;
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                        </svg>`;
                         setTimeout(() => {
                             copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                                </svg>`;
+                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            </svg>`;
                         }, 1000);
                     });
                 };
 
+                // Nút chọn tất cả
                 const selectAllBtn = document.createElement('button');
-                selectAllBtn.className = 'select-all-btn';
-                selectAllBtn.textContent = '全選択';
-				selectAllBtn.setAttribute('aria-hidden', 'true');
+                selectAllBtn.className = 'icon-btn';
+                selectAllBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 3h18v18H3V3zm2 2v14h14V5H5z"/>
+                </svg>`;
+                selectAllBtn.title = 'Chọn tất cả';
+                selectAllBtn.setAttribute('aria-label', 'Chọn toàn bộ nội dung tin nhắn');
+                selectAllBtn.onclick = function (e) {
+                    e.stopPropagation();
+                    if (!cleanText) {
+                        alert("Không có văn bản hợp lệ để chọn.");
+                        return;
+                    }
+                    const tempDiv = document.createElement('div');
+                    tempDiv.style.position = 'absolute';
+                    tempDiv.style.left = '-9999px';
+                    tempDiv.textContent = cleanText;
+                    document.body.appendChild(tempDiv);
+                    const range = document.createRange();
+                    range.selectNodeContents(tempDiv);
+                    const selection = window.getSelection();
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                    document.body.removeChild(tempDiv);
+                };
 
-				selectAllBtn.onclick = function (e) {
-					e.stopPropagation();
-
-					// Lấy nội dung gốc
-					const content = bubbleDiv.textContent;
-
-					// Lọc emoji và ký tự đặc biệt
-					const cleanText = content.replace(/[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu, '') // Xóa emoji
-											.replace(/[（）\(\)「」『』【】☆★♪♪！？!?]+/g, '')             // Xóa ký hiệu
-											.replace(/(\s*\(.*?\)\s*)/g, '')                              // Xóa nội dung trong ngoặc
-											.trim();
-
-					if (!cleanText) {
-						alert("Không có văn bản hợp lệ để chọn.");
-						return;
-					}
-
-					// Tạo phần tử tạm thời để chứa văn bản đã lọc
-					const tempDiv = document.createElement('div');
-					tempDiv.style.position = 'absolute';
-					tempDiv.style.left = '-9999px'; // Ẩn khỏi màn hình
-					tempDiv.textContent = cleanText;
-					document.body.appendChild(tempDiv);
-
-					// Chọn văn bản trong phần tử tạm thời
-					const range = document.createRange();
-					range.selectNodeContents(tempDiv);
-					const selection = window.getSelection();
-					selection.removeAllRanges();
-					selection.addRange(range);
-
-					// Xóa phần tử tạm thời sau khi chọn
-					setTimeout(() => {
-						document.body.removeChild(tempDiv);
-					}, 100);
-				};			
-
-                bubbleDiv.appendChild(selectAllBtn);
                 actionsDiv.appendChild(readBtn);
                 actionsDiv.appendChild(copyBtn);
+                actionsDiv.appendChild(selectAllBtn);
+
                 contentDiv.appendChild(bubbleDiv);
                 contentDiv.appendChild(actionsDiv);
                 messageDiv.appendChild(contentDiv);
